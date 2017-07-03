@@ -1,0 +1,25 @@
+<div class="container">
+  <div class="row">
+    <div class="col-lg-8">
+      <div class="input-group">
+        <span class="input-group-addon" id="sizing-addon1">username</span>
+        <input type="text" class="form-control" placeholder="example@gmail.com" aria-describedby="sizing-addon1" [(ngModel)]="username" (input)="usernameInput($event)">
+      </div>
+    </div>
+    <div class="col-lg-8">
+      <div class="input-group">
+        <span class="input-group-addon" id="sizing-addon1">password</span>
+        <input type="password" class="form-control" placeholder="•••••••••" aria-describedby="sizing-addon1" [(ngModel)]="password" (input)="passwordInput($event)">
+      </div>
+    </div>
+    <div class="col-lg-8">
+      <hr>
+      <button
+        type="button"
+        class="btn btn-primary"
+        [disabled]="!loginFields"
+        (click)="onLogin()">Login</button>
+      <p *ngIf="loginPress">{{loginStatus}}</p>
+    </div>
+  </div>
+</div>
