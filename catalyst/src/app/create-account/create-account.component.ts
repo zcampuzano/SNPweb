@@ -5,27 +5,28 @@ import {
   ElementRef,
   Output,
   EventEmitter
- } from '@angular/core';
+} from '@angular/core';
 
 @Component({
-  selector: 'app-login',
-  templateUrl: './login.component.html',
-  styleUrls: ['./login.component.css']
+  selector: 'app-create-account',
+  templateUrl: './create-account.component.html',
+  styleUrls: ['./create-account.component.css']
 })
-export class LoginComponent implements OnInit {
+export class CreateAccountComponent implements OnInit {
   @ViewChild('usernameInput') userRef: ElementRef;
   @ViewChild('passwordInput') passRef: ElementRef;
+  @ViewChild('name') nameRef: ElementRef;
+  @ViewChild('email') emailRef: ElementRef;
   @Output() userAccount = new EventEmitter<{username: string, password: string}>();
 
-  loginFields = false;
-  loginPress = false;
-  loginStatus: string;
-  username: string;
-  password: string;
+  fields = false;
+  createPress = false;
+  createStatus: string;
   usernameCheck = '';
   passwordCheck = '';
-  name1 = 'zcamp';
-  pass1 = 'zcamp';
+  username: string;
+  password: string
+
 
   constructor() {
 
@@ -34,37 +35,33 @@ export class LoginComponent implements OnInit {
   ngOnInit() {
   }
 
-  onLogin() {
-    this.loginPress = true;
+  onCreate() {
+    this.createPress = true;
     this.username = this.userRef.nativeElement.value;
     this.password = this.userRef.nativeElement.value;
-    this.userAccount.emit({
-      username: this.username,
-      password: this.password
-    });
+    // this.userAccount.emit({
+    //   username: this.username,
+    //   password: this.password
+    // });
 
-    if( this.username == this.name1 && this.password == this.pass1 )
-      this.loginStatus = "You are logged in!";
-    else
-      this.loginStatus = "Login failed, please try again.";
   }
 
   usernameStyle(event: Event) {
     this.usernameCheck = (<HTMLInputElement>event.target).value;
     if( this.usernameCheck.length > 0 && this.passwordCheck.length > 0 )
-      this.loginFields = true;
+      this.fields = true;
     else
-      this.loginFields = false;
-      this.loginPress = false;
+      this.fields = false;
+      this.createPress = false;
   }
 
   passwordStyle(event: Event) {
     this.passwordCheck = (<HTMLInputElement>event.target).value;
     if( this.usernameCheck.length > 0 && this.passwordCheck.length > 0 )
-      this.loginFields = true;
+      this.fields = true;
     else
-      this.loginFields = false;
-      this.loginPress = false;
+      this.fields = false;
+      this.createPress = false;
   }
 
 }

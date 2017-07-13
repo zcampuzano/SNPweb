@@ -2,28 +2,39 @@
   <div class="row">
     <div class="col-md-11">
       <div class="input-group">
-        <span class="input-group-addon" id="sizing-addon1">username</span>
+        <h3>Username</h3>
+        <input
+          type="text"
+          class="form-control"
+          aria-describedby="sizing-addon1"
+          (input)="usernameStyle($event)"
+          #usernameInput>
+      </div>
+      <div class="input-group">
+        <h3>Password</h3>
+        <input
+          type="text"
+          class="form-control"
+          aria-describedby="sizing-addon1"
+          (input)="passwordStyle($event)"
+          #passwordInput>
+      </div>
+      <div class="input-group">
+        <h3>Name</h3>
+        <input
+          type="text"
+          class="form-control"
+          aria-describedby="sizing-addon1"
+          #name>
+      </div>
+      <div class="input-group">
+        <h3>Email</h3>
         <input
           type="text"
           class="form-control"
           placeholder="example@gmail.com"
           aria-describedby="sizing-addon1"
-          [(ngModel)]="username"
-          (input)="usernameStyle($event)"
-          #usernameInput>
-      </div>
-    </div>
-    <div class="col-md-11">
-      <div class="input-group">
-        <span class="input-group-addon" id="sizing-addon1">password</span>
-        <input
-          type="password"
-          class="form-control"
-          placeholder="••••••••"
-          aria-describedby="sizing-addon1"
-          [(ngModel)]="password"
-          (input)="passwordStyle($event)"
-          #passwordInput>
+          #email>
       </div>
     </div>
     <div class="col-md-11">
@@ -31,9 +42,9 @@
       <button
         type="button"
         class="btn btn-primary"
-        [disabled]="!loginFields"
-        (click)="onLogin()">Login</button>
-      <p *ngIf="loginPress">{{loginStatus}}</p>
+        [disabled]="!fields"
+        (click)="onCreate()">Create</button>
+      <p *ngIf="createPress">{{createStatus}}</p>
     </div>
   </div>
 </div>

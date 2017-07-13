@@ -1,4 +1,9 @@
-<div style="text-align:center">
-  <app-header></app-header>
-  <app-login></app-login>
+<app-header (rootSelected)="onNavigate($event)"></app-header>
+<div class="container">
+  <div class="row">
+    <div class="col-md-12">
+      <app-login *ngIf="loadedRoot === 'login'"></app-login>
+      <app-create-account *ngIf="loadedRoot === 'create'"></app-create-account>
+    </div>
+  </div>
 </div>
