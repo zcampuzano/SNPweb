@@ -2,7 +2,7 @@
   <div class="row">
     <div class="col-md-11">
       <div class="input-group">
-        <h3>Username</h3>
+        <p>Username</p>
         <input
           type="text"
           class="form-control"
@@ -11,7 +11,7 @@
           #usernameInput>
       </div>
       <div class="input-group">
-        <h3>Password</h3>
+        <p>Password</p>
         <input
           type="text"
           class="form-control"
@@ -20,15 +20,23 @@
           #passwordInput>
       </div>
       <div class="input-group">
-        <h3>Name</h3>
+        <p>First Name</p>
         <input
           type="text"
           class="form-control"
           aria-describedby="sizing-addon1"
-          #name>
+          #first>
       </div>
       <div class="input-group">
-        <h3>Email</h3>
+        <p>Last Name</p>
+        <input
+          type="text"
+          class="form-control"
+          aria-describedby="sizing-addon1"
+          #last>
+      </div>
+      <div class="input-group">
+        <p>Email</p>
         <input
           type="text"
           class="form-control"
@@ -42,9 +50,8 @@
       <button
         type="button"
         class="btn btn-primary"
-        [disabled]="!fields"
         (click)="onCreate()">Create</button>
-      <p *ngIf="createPress">{{createStatus}}</p>
+      <p>{{createStatus}}</p>
     </div>
   </div>
 </div>

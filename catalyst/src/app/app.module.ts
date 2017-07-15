@@ -6,13 +6,17 @@ import { AppComponent } from './app.component';
 import { LoginComponent } from './login/login.component';
 import { HeaderComponent } from './header/header.component';
 import { CreateAccountComponent } from './create-account/create-account.component';
+import { DropdownDirective } from './shared/dropdown.directive';
+import { AccountComponent } from './account/account.component';
 
 @NgModule({
   declarations: [
     AppComponent,
     LoginComponent,
     HeaderComponent,
-    CreateAccountComponent
+    CreateAccountComponent,
+    DropdownDirective,
+    AccountComponent,
   ],
   imports: [
     BrowserModule,

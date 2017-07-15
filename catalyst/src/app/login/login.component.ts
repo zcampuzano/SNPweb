@@ -4,49 +4,61 @@ import {
   ViewChild,
   ElementRef,
   Output,
-  EventEmitter
+  EventEmitter,
+  Input
  } from '@angular/core';
+ import { AccountsService } from '../accounts.service';
 
 @Component({
   selector: 'app-login',
   templateUrl: './login.component.html',
-  styleUrls: ['./login.component.css']
+  styleUrls: ['./login.component.css'],
+  providers: []
 })
 export class LoginComponent implements OnInit {
   @ViewChild('usernameInput') userRef: ElementRef;
   @ViewChild('passwordInput') passRef: ElementRef;
-  @Output() userAccount = new EventEmitter<{username: string, password: string}>();
 
   loginFields = false;
   loginPress = false;
   loginStatus: string;
-  username: string;
-  password: string;
+  usernameInput: string;
+  passwordInput: string;
   usernameCheck = '';
   passwordCheck = '';
-  name1 = 'zcamp';
-  pass1 = 'zcamp';
 
-  constructor() {
+  accounts: {
+    username: string;
+    password: string;
+    firstName: string;
+    lastName: string;
+    email: string;
+  }[] = [];
 
-  }
+  constructor(private accountsService: AccountsService) {}
 
   ngOnInit() {
+    this.accounts = this.accountsService.accounts;
   }
 
   onLogin() {
     this.loginPress = true;
-    this.username = this.userRef.nativeElement.value;
-    this.password = this.userRef.nativeElement.value;
-    this.userAccount.emit({
-      username: this.username,
-      password: this.password
-    });
-
-    if( this.username == this.name1 && this.password == this.pass1 )
-      this.loginStatus = "You are logged in!";
-    else
-      this.loginStatus = "Login failed, please try again.";
+    this.usernameInput = this.userRef.nativeElement.value;
+    this.passwordInput = this.passRef.nativeElement.value;
+    for(let account of this.accounts){
+      if( this.usernameInput == account.username && this.passwordInput == account.password ) {
+        console.log('success!');
+        this.loginStatus = 'Success!';
+        break;
+      } else {
+        console.log('loading...');
+        this.loginStatus = 'Loading...';
+      }
+    }
+    if(this.loginStatus !== 'Success!') {
+      console.log('login failed.');
+      this.loginStatus = 'Login Failed';
+    }
   }
 
   usernameStyle(event: Event) {
