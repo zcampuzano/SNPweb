@@ -19,4 +19,8 @@ export class AccountsService {
     });
   }
 
+  updateAccount(username: string, password: string, firstName: string, lastName: string, email: string) {
+    //this.accounts.[update.id].(id, username, etc...) = update.(id, username, etc...)
+  }
+
 }

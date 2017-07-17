@@ -12,17 +12,6 @@ export class AppComponent {
 
   constructor(private accountsService: AccountsService) {}
   
-  onAccountUpdate(
-    update: {
-      id: number,
-      username: string,
-      password: string,
-      firstName: string,
-      lastName: string,
-      email: string
-    }) {
-    //this.accounts.[update.id].(id, username, etc...) = update.(id, username, etc...)
-  }
   onNavigate(rootPage: string) {
     this.loadedRoot = rootPage;
   }
