@@ -1,4 +1,4 @@
-<div class="container">
+<div class="container-fluid">
   <div class="row">
     <div class="col-md-11">
       <div class="input-group">
@@ -6,7 +6,7 @@
         <input
           type="text"
           class="form-control"
-          placeholder="example@gmail.com"
+          placeholder="Username"
           aria-describedby="sizing-addon1"
           [(ngModel)]="username"
           (input)="usernameStyle($event)"
@@ -15,7 +15,7 @@
     </div>
     <div class="col-md-11">
       <div class="input-group">
-        <span class="input-group-addon" id="sizing-addon1">password</span>
+        <span class="input-group-addon" id="sizing-addon2">password</span>
         <input
           type="password"
           class="form-control"

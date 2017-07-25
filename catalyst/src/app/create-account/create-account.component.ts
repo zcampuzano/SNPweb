@@ -2,9 +2,7 @@ import {
   Component,
   OnInit,
   ViewChild,
-  ElementRef,
-  Output,
-  EventEmitter
+  ElementRef
 } from '@angular/core';
 import { AccountsService } from '../accounts.service';
 
@@ -50,7 +48,7 @@ export class CreateAccountComponent implements OnInit {
     this.lastName = this.lastRef.nativeElement.value;
     this.email = this.emailRef.nativeElement.value;
     if(this.username && this.password && this.firstName && this.lastName && this.email){
-      this.accountsService.addAcount(this.username, this.password, this.firstName, this.lastName, this.email);
+      this.accountsService.addAccount(this.username, this.password, this.firstName, this.lastName, this.email);
       this.createStatus = 'Success!';
     } else {
       this.createStatus = 'Please complete all fields...';

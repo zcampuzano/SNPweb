@@ -38,14 +38,15 @@ export class LoginComponent implements OnInit {
   constructor(private accountsService: AccountsService) {}
 
   ngOnInit() {
-    this.accounts = this.accountsService.accounts;
   }
 
   onLogin() {
     this.loginPress = true;
     this.usernameInput = this.userRef.nativeElement.value;
     this.passwordInput = this.passRef.nativeElement.value;
+    this.accounts = this.accountsService.accounts;
     for(let account of this.accounts){
+      console.log(account.username);
       if( this.usernameInput == account.username && this.passwordInput == account.password ) {
         console.log('success!');
         this.loginStatus = 'Success!';

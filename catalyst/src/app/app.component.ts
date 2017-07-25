@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import {Component, OnInit} from '@angular/core';
 import { AccountsService } from './accounts.service';
 
 @Component({
@@ -7,11 +7,15 @@ import { AccountsService } from './accounts.service';
   styleUrls: ['./app.component.css'],
   providers: [AccountsService]
 })
-export class AppComponent {
+export class AppComponent implements OnInit{
   loadedRoot = 'login';
+  accounts : {username: string, password: string, firstName: string, lastName: string, email: string}[] = [];
 
   constructor(private accountsService: AccountsService) {}
-  
+
+  ngOnInit() {
+  this.accounts = this.accountsService.accounts;
+}
   onNavigate(rootPage: string) {
     this.loadedRoot = rootPage;
   }

@@ -9,7 +9,7 @@ export class AccountsService {
     },
   ];
 
-  addAcount(username: string, password: string, firstName: string, lastName: string, email: string) {
+  addAccount(username: string, password: string, firstName: string, lastName: string, email: string) {
     this.accounts.push({
       username: username,
       password: password,
@@ -17,6 +17,7 @@ export class AccountsService {
       lastName: lastName,
       email: email
     });
+    console.log("added new account" + username);
   }
 
   updateAccount(username: string, password: string, firstName: string, lastName: string, email: string) {
