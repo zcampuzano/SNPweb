@@ -8,6 +8,7 @@ import {
   Input
  } from '@angular/core';
  import { AccountsService } from '../accounts.service';
+import {Router} from "@angular/router";
 
 @Component({
   selector: 'app-login',
@@ -35,7 +36,8 @@ export class LoginComponent implements OnInit {
     email: string;
   }[] = [];
 
-  constructor(private accountsService: AccountsService) {}
+  constructor(private accountsService: AccountsService,
+              private router : Router) {}
 
   ngOnInit() {
   }
@@ -50,7 +52,13 @@ export class LoginComponent implements OnInit {
       if( this.usernameInput == account.username && this.passwordInput == account.password ) {
         console.log('success!');
         this.loginStatus = 'Success!';
-        break;
+        this.router.navigate(['/account-home',
+          account.username,
+          account.firstName,
+         account.lastName,
+        account.email
+          ]);
+        //break;
       } else {
         console.log('loading...');
         this.loginStatus = 'Loading...';
