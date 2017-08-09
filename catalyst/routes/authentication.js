@@ -7,30 +7,30 @@ module.exports = (router) => {
   router.post('/register', (req, res) => {
     // Check if email was provided
 
-    if (!req.body.email) {
-      res.json({ success: false, message: 'You must provide an e-mail' }); // Return error
+    if (!req.body.firstname) {
+      res.json({ success: false, message: 'You must provide an first name' }); // Return error
     } else {
       // Check if username was provided
-      if (!req.body.username) {
-        res.json({ success: false, message: 'You must provide a username' }); // Return error
+      if (!req.body.lastname) {
+        res.json({ success: false, message: 'You must provide a last name' }); // Return error
       } else {
         // Check if password was provided
-        if (!req.body.password) {
-          res.json({ success: false, message: 'You must provide a password' }); // Return error
+        if (!req.body.email) {
+          res.json({ success: false, message: 'You must provide a e-mail' }); // Return error
         } else {
-          if (!req.body.firstName) {
-            res.json({ success: false, message: 'You must provide a first name' }); // Return error
+          if (!req.body.username) {
+            res.json({ success: false, message: 'You must provide a username' }); // Return error
           } else {
-            if (!req.body.lastName) {
-              res.json({ success: false, message: 'You must provide a last name' }); // Return error
+            if (!req.body.password) {
+              res.json({ password: false, message: 'You must provide a password' }); // Return error
             }
           }
           // Create new user object and apply user input
           let user = new User({
-            firstName: req.body.firstName,
-            lastName: req.body.lastName,
+            firstname: req.body.firstname,
+            lastname: req.body.lastname,
             email: req.body.email.toLowerCase(),
-            username: req.body.username.toLowerCase(),
+            username: req.body.username,
             password: req.body.password
           });
           // Save user to database
@@ -72,13 +72,63 @@ module.exports = (router) => {
                 }
               }
             } else {
-              res.json({ success: true, message: 'Acount registered!' }); // Return success
+              res.json({ success: true, message: 'Account registered!' }); // Return success
             }
           });
         }
       }
     }
   });
+
+  /* ===============================================================
+     Route to check if user's username is available for registration
+  =============================================================== */
+  router.get('/checkUsername/:username', (req, res) => {
+    // Check if username was provided in paramaters
+    if (!req.params.username) {
+      res.json({ success: false, message: 'Username was not provided' }); // Return error
+    } else {
+      // Look for username in database
+      User.findOne({ username: req.params.username }, (err, user) => {
+        // Check if connection error was found
+        if (err) {
+          res.json({ success: false, message: err }); // Return connection error
+        } else {
+          // Check if user's username was found
+          if (user) {
+            res.json({ success: false, message: 'Username is already taken' }); // Return as taken username
+          } else {
+            res.json({ success: true, message: 'Username is available' }); // Return as vailable username
+          }
+        }
+      });
+    }
+  });
+
+  /* ============================================================
+    Route to check if user's email is available for registration
+ ============================================================ */
+  router.get('/checkEmail/:email', (req, res) => {
+    // Check if email was provided in paramaters
+    if (!req.params.email) {
+      res.json({ success: false, message: 'E-mail was not provided' }); // Return error
+    } else {
+      // Search for user's e-mail in database;
+      User.findOne({ email: req.params.email }, (err, user) => {
+        if (err) {
+          res.json({ success: false, message: err }); // Return connection error
+        } else {
+          // Check if user's e-mail is taken
+          if (user) {
+            res.json({ success: false, message: 'E-mail is already taken' }); // Return as taken e-mail
+          } else {
+            res.json({ success: true, message: 'E-mail is available' }); // Return as available e-mail
+          }
+        }
+      });
+    }
+  });
+
 
   return router; // Return router object to main index.js
 }
