@@ -9,14 +9,14 @@ import { CreateAccountComponent } from './create-account/create-account.componen
 import { DropdownDirective } from './shared/dropdown.directive';
 import { AccountComponent } from './account/account.component';
 import {RouterModule, Routes} from '@angular/router';
-import { AccountHomeComponent } from './account-home/account-home.component';
 
 import { HttpModule } from '@angular/http';
-import { RegisterAuthService } from "./services/register-auth.service"
+import { RegisterAuthService } from './services/register-auth.service';
+import { DashboardComponent } from './dashboard/dashboard.component'
 const appRoutes : Routes = [
   {path : '', component: LoginComponent},
   {path : 'register', component: CreateAccountComponent},
-  {path : 'account-home', component: AccountHomeComponent}
+  {path : 'dashboard', component: DashboardComponent}
 ];
 
 @NgModule({
@@ -27,7 +27,7 @@ const appRoutes : Routes = [
     CreateAccountComponent,
     DropdownDirective,
     AccountComponent,
-    AccountHomeComponent,
+    DashboardComponent,
   ],
   imports: [
     BrowserModule,

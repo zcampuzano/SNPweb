@@ -67,7 +67,7 @@ export class LoginComponent implements OnInit {
         this.authService.storeUserData(data.token, data.user);
         // After 2 seconds, redirect to dashboard page
         setTimeout(() => {
-          this.router.navigate(['/account-home']); // Navigate to dashboard view
+          this.router.navigate(['/dashboard']); // Navigate to dashboard view
         }, 2000);
       }
     });
