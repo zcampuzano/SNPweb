@@ -1,6 +1,7 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
-import { FormsModule } from '@angular/forms';
+import {FormsModule, ReactiveFormsModule} from '@angular/forms';
+import { FlashMessagesModule} from 'angular2-flash-messages';
 
 import { AppComponent } from './app.component';
 import { LoginComponent } from './login/login.component';
@@ -8,13 +9,20 @@ import { HeaderComponent } from './header/header.component';
 import { CreateAccountComponent } from './create-account/create-account.component';
 import { DropdownDirective } from './shared/dropdown.directive';
 import { AccountComponent } from './account/account.component';
-import {RouterModule, Routes} from "@angular/router";
-import { AccountHomeComponent } from './account-home/account-home.component';
+import {RouterModule, Routes} from '@angular/router';
+
+import { HttpModule } from '@angular/http';
+import { RegisterAuthService } from './services/register-auth.service';
+import { DashboardComponent } from './dashboard/dashboard.component';
+import { ProfileComponent } from './profile/profile.component';
+import { AuthGuard} from './guards/auth.guard';
+import { NotAuthGuard} from './guards/notAuth.guard';
 
 const appRoutes : Routes = [
-  {path : '', component: LoginComponent},
-  {path : 'register', component: CreateAccountComponent},
-  {path : 'account-home/:usernm/:firstnm/:lastnm/:email', component: AccountHomeComponent}
+  {path : '', component: LoginComponent, canActivate : [NotAuthGuard]},
+  {path : 'register', component: CreateAccountComponent, canActivate : [NotAuthGuard]},
+  {path : 'dashboard', component: DashboardComponent, canActivate : [AuthGuard]},
+  {path : 'profile', component: ProfileComponent, canActivate : [AuthGuard]}
 ];
 
 @NgModule({
@@ -25,14 +33,18 @@ const appRoutes : Routes = [
     CreateAccountComponent,
     DropdownDirective,
     AccountComponent,
-    AccountHomeComponent,
+    DashboardComponent,
+    ProfileComponent,
   ],
   imports: [
     BrowserModule,
     FormsModule,
+    ReactiveFormsModule,
     RouterModule.forRoot(appRoutes),
+    HttpModule,
+    FlashMessagesModule
   ],
-  providers: [],
+  providers: [RegisterAuthService, AuthGuard, NotAuthGuard],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

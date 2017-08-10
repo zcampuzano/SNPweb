@@ -1,91 +1,92 @@
-import {
-  Component,
-  OnInit,
-  ViewChild,
-  ElementRef,
-  Output,
-  EventEmitter,
-  Input
- } from '@angular/core';
- import { AccountsService } from '../accounts.service';
-import {Router} from "@angular/router";
+import { Component, OnInit } from '@angular/core';
+import { FormGroup, FormBuilder, Validators, FormControl } from '@angular/forms';
+import { RegisterAuthService } from '../services/register-auth.service';
+import { Router } from '@angular/router';
+import { AuthGuard} from '../guards/auth.guard';
 
 @Component({
   selector: 'app-login',
   templateUrl: './login.component.html',
-  styleUrls: ['./login.component.css'],
-  providers: []
+  styleUrls: ['./login.component.css']
 })
 export class LoginComponent implements OnInit {
-  @ViewChild('usernameInput') userRef: ElementRef;
-  @ViewChild('passwordInput') passRef: ElementRef;
+  previousUrl;
+  messageClass;
+  message;
+  processing = false;
+  form: FormGroup;
 
-  loginFields = false;
-  loginPress = false;
-  loginStatus: string;
-  usernameInput: string;
-  passwordInput: string;
-  usernameCheck = '';
-  passwordCheck = '';
+  constructor(
+    private formBuilder: FormBuilder,
+    private authService: RegisterAuthService,
+    private router: Router,
+    private authGuard: AuthGuard
+  ) {
+    this.createForm(); // Create Login Form when component is constructed
+  }
 
-  accounts: {
-    username: string;
-    password: string;
-    firstName: string;
-    lastName: string;
-    email: string;
-  }[] = [];
+  // Function to create login form
+  createForm() {
+    this.form = this.formBuilder.group({
+      username: ['', Validators.required], // Username field
+      password: ['', Validators.required] // Password field
+    });
+  }
 
-  constructor(private accountsService: AccountsService,
-              private router : Router) {}
+  // Function to disable form
+  disableForm() {
+    this.form.controls['username'].disable(); // Disable username field
+    this.form.controls['password'].disable(); // Disable password field
+  }
+
+  // Function to enable form
+  enableForm() {
+    this.form.controls['username'].enable(); // Enable username field
+    this.form.controls['password'].enable(); // Enable password field
+  }
+
+  // Functiont to submit form and login user
+  onLoginSubmit() {
+    this.processing = true; // Used to submit button while is being processed
+    this.disableForm(); // Disable form while being process
+    // Create user object from user's input
+    const user = {
+      username: this.form.get('username').value, // Username input field
+      password: this.form.get('password').value // Password input field
+    }
+
+    // Function to send login data to API
+    this.authService.login(user).subscribe(data => {
+      // Check if response was a success or error
+      if (!data.success) {
+        this.messageClass = 'alert alert-danger'; // Set bootstrap error class
+        this.message = data.message; // Set error message
+        this.processing = false; // Enable submit button
+        this.enableForm(); // Enable form for editting
+      } else {
+        this.messageClass = 'alert alert-success'; // Set bootstrap success class
+        this.message = data.message; // Set success message
+        // Function to store user's token in client local storage
+        this.authService.storeUserData(data.token, data.user);
+        // After 2 seconds, redirect to dashboard page
+        setTimeout(() => {
+          if (this.previousUrl) {
+            this.router.navigate([this.previousUrl]);
+          } else {
+            this.router.navigate(['/dashboard']); // Navigate to dashboard view
+          }
+        }, 2000);
+      }
+    });
+  }
 
   ngOnInit() {
-  }
-
-  onLogin() {
-    this.loginPress = true;
-    this.usernameInput = this.userRef.nativeElement.value;
-    this.passwordInput = this.passRef.nativeElement.value;
-    this.accounts = this.accountsService.accounts;
-    for(let account of this.accounts){
-      console.log(account.username);
-      if( this.usernameInput == account.username && this.passwordInput == account.password ) {
-        console.log('success!');
-        this.loginStatus = 'Success!';
-        this.router.navigate(['/account-home',
-          account.username,
-          account.firstName,
-         account.lastName,
-        account.email
-          ]);
-        //break;
-      } else {
-        console.log('loading...');
-        this.loginStatus = 'Loading...';
-      }
+    if (this.authGuard.redirectUrl) {
+      this.messageClass = 'alert alert-danger';
+      this.message = 'You must be logged in to view that page';
+      this.previousUrl = this.authGuard.redirectUrl;
+      this.authGuard.redirectUrl = undefined;
     }
-    if(this.loginStatus !== 'Success!') {
-      console.log('login failed.');
-      this.loginStatus = 'Login Failed';
-    }
-  }
-
-  usernameStyle(event: Event) {
-    this.usernameCheck = (<HTMLInputElement>event.target).value;
-    if( this.usernameCheck.length > 0 && this.passwordCheck.length > 0 )
-      this.loginFields = true;
-    else
-      this.loginFields = false;
-      this.loginPress = false;
-  }
-
-  passwordStyle(event: Event) {
-    this.passwordCheck = (<HTMLInputElement>event.target).value;
-    if( this.usernameCheck.length > 0 && this.passwordCheck.length > 0 )
-      this.loginFields = true;
-    else
-      this.loginFields = false;
-      this.loginPress = false;
   }
 
 }

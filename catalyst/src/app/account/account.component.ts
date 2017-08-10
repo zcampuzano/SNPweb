@@ -1,5 +1,4 @@
-import {Component, Input, OnInit} from '@angular/core';
-import {AccountsService} from "../accounts.service";
+import {Component, OnInit} from '@angular/core';
 
 @Component({
   selector: 'app-account',
@@ -8,13 +7,10 @@ import {AccountsService} from "../accounts.service";
   providers: []
 })
 export class AccountComponent implements OnInit {
-  @Input() account : {username: string, password: string, firstName: string, lastName: string, email: string}
 
-  constructor(private accountsService : AccountsService) { }
+  constructor() { }
 
   ngOnInit() {
   }
-
-  //onSetTo()
 
 }
