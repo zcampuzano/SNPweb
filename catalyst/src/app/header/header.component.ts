@@ -1,4 +1,8 @@
-import { Component, OnInit, EventEmitter, Output } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
+import { RegisterAuthService} from '../services/register-auth.service';
+import { Router } from '@angular/router';
+//import { FlashMessagesService } from 'angular2-flash-messages';
+
 
 @Component({
   selector: 'app-header',
@@ -6,14 +10,20 @@ import { Component, OnInit, EventEmitter, Output } from '@angular/core';
   styleUrls: ['./header.component.css']
 })
 export class HeaderComponent implements OnInit {
-  @Output() rootSelected = new EventEmitter<string>();
+  constructor(
+    private authService: RegisterAuthService,
+    private router: Router,
+    //private flashMessagesService: FlashMessagesService
+  ) { }
 
-  constructor() { }
+  // Function to logout user
+  onLogoutClick() {
+    this.authService.logout(); // Logout user
+    //this.flashMessagesService.show('You are logged out', { cssClass: 'alert-info' }); // Set custom flash message
+    this.router.navigate(['/']); // Navigate back to home page
+  }
 
   ngOnInit() {
   }
 
-  onSelect(rootPage: string) {
-    this.rootSelected.emit(rootPage);
-  }
 }

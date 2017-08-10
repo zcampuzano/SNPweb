@@ -1,4 +1,6 @@
 const User = require('../serverSide/models/user'); // Import User Model Schema
+const jwt = require('jsonwebtoken');
+const config = require('../serverSide/config/database');
 
 module.exports = (router) => {
   /* ==============
@@ -89,7 +91,7 @@ module.exports = (router) => {
       res.json({ success: false, message: 'Username was not provided' }); // Return error
     } else {
       // Look for username in database
-      User.findOne({ username: req.params.username }, (err, user) => {
+      User.findOne({ username: req.params.username.toLowerCase() }, (err, user) => {
         // Check if connection error was found
         if (err) {
           res.json({ success: false, message: err }); // Return connection error
@@ -129,6 +131,34 @@ module.exports = (router) => {
     }
   });
 
+
+  router.post('/login', (req, res) => {
+    if (!req.body.username) {
+      res.json({ success : false, message : "Username not provided"});
+    } else {
+      if (!req.body.password) {
+        res.json({ success : false, message : "Password not provided"});
+      } else {
+        User.findOne({ username : req.body.username.toLowerCase()}, (err, user) => {
+           if (err) {
+             res.json({ success : false, message : err});
+           } else {
+             if (!user) {
+               res.json({ success : false, message : "Username Not Found"});
+             } else {
+               const validPass = user.comparePassword(req.body.password);
+               if(!validPass) {
+                 res.json({ success : false, message : "Password invalid"});
+               } else {
+                 const token = jwt.sign({ userId: user._id }, config.secret, { expiresIn: '24h' }); // Create a token for client
+                 res.json({ success: true, message: 'Success!', token: token, user: { username: user.username } }); // Return success and token to frontend
+               }
+             }
+           }
+        });
+      }
+    }
+  });
 
   return router; // Return router object to main index.js
 }

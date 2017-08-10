@@ -16,7 +16,7 @@ import { RegisterAuthService } from "./services/register-auth.service"
 const appRoutes : Routes = [
   {path : '', component: LoginComponent},
   {path : 'register', component: CreateAccountComponent},
-  {path : 'account-home/:usernm/:firstnm/:lastnm/:email', component: AccountHomeComponent}
+  {path : 'account-home', component: AccountHomeComponent}
 ];
 
 @NgModule({
