@@ -14,12 +14,15 @@ import {RouterModule, Routes} from '@angular/router';
 import { HttpModule } from '@angular/http';
 import { RegisterAuthService } from './services/register-auth.service';
 import { DashboardComponent } from './dashboard/dashboard.component';
-import { ProfileComponent } from './profile/profile.component'
+import { ProfileComponent } from './profile/profile.component';
+import { AuthGuard} from './guards/auth.guard';
+import { NotAuthGuard} from './guards/notAuth.guard';
+
 const appRoutes : Routes = [
-  {path : '', component: LoginComponent},
-  {path : 'register', component: CreateAccountComponent},
-  {path : 'dashboard', component: DashboardComponent},
-  {path : 'profile', component: ProfileComponent}
+  {path : '', component: LoginComponent, canActivate : [NotAuthGuard]},
+  {path : 'register', component: CreateAccountComponent, canActivate : [NotAuthGuard]},
+  {path : 'dashboard', component: DashboardComponent, canActivate : [AuthGuard]},
+  {path : 'profile', component: ProfileComponent, canActivate : [AuthGuard]}
 ];
 
 @NgModule({
@@ -41,7 +44,7 @@ const appRoutes : Routes = [
     HttpModule,
     FlashMessagesModule
   ],
-  providers: [RegisterAuthService],
+  providers: [RegisterAuthService, AuthGuard, NotAuthGuard],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
