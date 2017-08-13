@@ -1,6 +1,7 @@
 const User = require('../serverSide/models/user'); // Import User Model Schema
 const jwt = require('jsonwebtoken');
 const config = require('../serverSide/config/database');
+const passport = require('passport');
 
 module.exports = (router) => {
   /* ==============
@@ -8,7 +9,6 @@ module.exports = (router) => {
   ============== */
   router.post('/register', (req, res) => {
     // Check if email was provided
-
     if (!req.body.firstname) {
       res.json({ success: false, message: 'You must provide an first name' }); // Return error
     } else {
@@ -24,7 +24,11 @@ module.exports = (router) => {
             res.json({ success: false, message: 'You must provide a username' }); // Return error
           } else {
             if (!req.body.password) {
-              res.json({ password: false, message: 'You must provide a password' }); // Return error
+              res.json({ success: false, message: 'You must provide a password' }); // Return error
+            } else {
+              if (!req.body.role) {
+                res.json({ success: false, message : 'You must provide a role'});
+              }
             }
           }
           // Create new user object and apply user input
@@ -33,7 +37,8 @@ module.exports = (router) => {
             lastname: req.body.lastname,
             email: req.body.email.toLowerCase(),
             username: req.body.username,
-            password: req.body.password
+            password: req.body.password,
+            role : req.body.role
           });
           // Save user to database
           user.save((err) => {
@@ -131,6 +136,18 @@ module.exports = (router) => {
     }
   });
 
+  // used to serialize the user for the session
+  passport.serializeUser(function(user, done) {
+    done(null, user.id);
+    // where is this user.id going? Are we supposed to access this anywhere?
+  });
+
+// used to deserialize the user
+  passport.deserializeUser(function(id, done) {
+    User.findById(id, function(err, user) {
+      done(err, user);
+    });
+  });
 
   router.post('/login', (req, res) => {
     if (!req.body.username) {
@@ -151,7 +168,7 @@ module.exports = (router) => {
                  res.json({ success : false, message : "Password invalid"});
                } else {
                  const token = jwt.sign({ userId: user._id }, config.secret, { expiresIn: '24h' }); // Create a token for client
-                 res.json({ success: true, message: 'Success!', token: token, user: { username: user.username } }); // Return success and token to frontend
+                 res.json({ success: true, message: 'Success!', token: token, user: { username: user.role } }); // Return success and token to frontend
                }
              }
            }

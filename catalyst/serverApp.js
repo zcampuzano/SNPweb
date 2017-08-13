@@ -7,7 +7,7 @@ const router = express.Router(); // Creates a new router object.
 const mongoose = require('mongoose'); // Node Tool for MongoDB
 const config = require('./serverSide/config/database'); // Mongoose Config
 const path = require('path'); // NodeJS Package for file paths
-const authentication = require('./routes/authentication')(router); // Import Authentication Routes
+const authentication = require('./routes/authenticationUser')(router); // Import Authentication Routes
 const bodyParser = require('body-parser'); // Parse incoming request bodies in a middleware before your handlers, available under the req.body property.
 const cors = require('cors');
 

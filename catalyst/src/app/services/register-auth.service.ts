@@ -78,6 +78,12 @@ export class RegisterAuthService {
     return tokenNotExpired();
   }
 
+  isAdmin() {
+    if (this.user.role) {
+      return this.user.role === 'Admin';
+    }
+  }
+
 
 
 }

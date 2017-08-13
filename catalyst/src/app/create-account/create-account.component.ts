@@ -20,6 +20,7 @@ export class CreateAccountComponent implements OnInit {
   usernameValid;
   usernameMessage;
 
+
   constructor(
     private formBuilder: FormBuilder,
     private authService: RegisterAuthService,
@@ -63,8 +64,10 @@ export class CreateAccountComponent implements OnInit {
         this.validatePassword // Custom validation
       ])],
       // Confirm Password Input
-      confirm: ['', Validators.required] // Field is required
+      confirm: ['', Validators.required], // Field is required
+      role : ['', Validators.required]
     }, { validator: this.matchingPasswords('password', 'confirm') }); // Add custom validator to form for matching passwords
+
   }
 
   // Function to disable the registration form
@@ -145,7 +148,8 @@ export class CreateAccountComponent implements OnInit {
       lastname: this.form.get('lastname').value, // E-mail input field
       email: this.form.get('email').value, // E-mail input field
       username: this.form.get('username').value, // Username input field
-      password: this.form.get('password').value // Password input field
+      password: this.form.get('password').value, // Password input field
+      role: this.form.get('role').value //user/admin?
     }
 
     // Function from authentication service to register user
