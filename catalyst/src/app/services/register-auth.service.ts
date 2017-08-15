@@ -32,6 +32,11 @@ export class RegisterAuthService {
     this.authToken = localStorage.getItem('token'); // Get token and asssign to variable to be used elsewhere
   }
 
+  getOrganizations() {
+    this.createAuthenticationHeaders(); // Create headers before sending to API
+    return this.http.get(this.domain + '/authentication/getOrganizations').map(res => res.json());
+  }
+
   // Function to register user accounts
   registerUser(user) {
     return this.http.post(this.domain + '/authentication/register', user).map(res => res.json());
@@ -79,9 +84,7 @@ export class RegisterAuthService {
   }
 
   isAdmin() {
-    if (this.user.role) {
-      return this.user.role === 'Admin';
-    }
+    return this.user.role;
   }
 
 

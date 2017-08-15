@@ -4,6 +4,10 @@
 const mongoose = require('mongoose'); // Node Tool for MongoDB
 mongoose.Promise = global.Promise; // Configure Mongoose Promises
 const Schema = mongoose.Schema; // Import Schema from Mongoose
+
+const Organization= require('./organization.js');
+const organizationSchema = mongoose.model('Organization').schema;
+
 const bcrypt = require('bcrypt-nodejs'); // A native JS bcrypt library for NodeJS
 
 // Validate Function to check e-mail length
@@ -135,7 +139,9 @@ const userSchema = new Schema({
   lastname: { type: String, required: true, validate: usernameValidators },
   email: { type: String, required: true, unique: true, lowercase: true, validate: emailValidators },
   username: { type: String, required: true, unique: true, lowercase : true, validate: usernameValidators },
-  password: { type: String, required: true, validate: passwordValidators }
+  password: { type: String, required: true, validate: passwordValidators },
+  role: { type: Boolean, required: true },
+  organization : { type: Schema.Types.ObjectId, ref: 'Organization' },
 });
 
 // Schema Middleware to Encrypt Password

@@ -6,7 +6,7 @@ import { FlashMessagesModule} from 'angular2-flash-messages';
 import { AppComponent } from './app.component';
 import { LoginComponent } from './login/login.component';
 import { HeaderComponent } from './header/header.component';
-import { CreateAccountComponent } from './create-account/create-account.component';
+import { CreateAccountComponent } from './register/create-account/create-account.component';
 import { DropdownDirective } from './shared/dropdown.directive';
 import { AccountComponent } from './account/account.component';
 import {RouterModule, Routes} from '@angular/router';
@@ -17,6 +17,7 @@ import { DashboardComponent } from './dashboard/dashboard.component';
 import { ProfileComponent } from './profile/profile.component';
 import { AuthGuard} from './guards/auth.guard';
 import { NotAuthGuard} from './guards/notAuth.guard';
+import { CreateOrganizationComponent } from './register/create-organization/create-organization.component';
 
 const appRoutes : Routes = [
   {path : '', component: LoginComponent, canActivate : [NotAuthGuard]},
@@ -35,6 +36,7 @@ const appRoutes : Routes = [
     AccountComponent,
     DashboardComponent,
     ProfileComponent,
+    CreateOrganizationComponent,
   ],
   imports: [
     BrowserModule,

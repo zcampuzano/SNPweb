@@ -1,0 +1,34 @@
+
+<!-- Custom Success/Error Message -->
+<div class="row show-hide-message">
+  <div [ngClass]="messageClass">
+    {{ message }}
+  </div>
+</div>
+
+
+<!-- Registration Form -->
+<form [formGroup]="form">
+
+  <!-- First Name Input -->
+  <div class="form-group">
+    <label for="organizationname">Organization Name</label>
+    <div [ngClass]="{'has-error': (form.controls.organizationname.errors && form.controls.organizationname.dirty), 'has-success': !form.controls.organizationname.errors}">
+      <input type="text" name="organizationname" class="form-control" autocomplete="off" placeholder="*organizationName" formControlName="organizationname" />
+    </div>
+  </div>
+
+  <!-- First Name Input -->
+  <div class="form-group">
+    <label for="location">Location</label>
+    <div [ngClass]="{'has-error': (form.controls.location.errors && form.controls.location.dirty), 'has-success': !form.controls.location.errors}">
+      <input type="text" name="location" class="form-control" autocomplete="off" placeholder="*location" formControlName="location" />
+    </div>
+  </div>
+
+
+  <!-- Submit Input -->
+  <input [disabled]="!form.valid || processing || !emailValid || !usernameValid" type="submit" class="btn btn-primary" value="Submit" />
+
+</form>
+<!-- Registration Form /-->

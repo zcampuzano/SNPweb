@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { RegisterAuthService} from '../services/register-auth.service';
+import { RegisterAuthService} from '../../services/register-auth.service';
 import { Router } from '@angular/router';
 
 @Component({
@@ -19,6 +19,9 @@ export class CreateAccountComponent implements OnInit {
   emailMessage;
   usernameValid;
   usernameMessage;
+  organizations;
+  newOrg;
+  isAdmin;
 
 
   constructor(
@@ -65,7 +68,7 @@ export class CreateAccountComponent implements OnInit {
       ])],
       // Confirm Password Input
       confirm: ['', Validators.required], // Field is required
-      role : ['', Validators.required]
+      organization : ['', Validators.required]
     }, { validator: this.matchingPasswords('password', 'confirm') }); // Add custom validator to form for matching passwords
 
   }
@@ -78,6 +81,7 @@ export class CreateAccountComponent implements OnInit {
     this.form.controls['username'].disable();
     this.form.controls['password'].disable();
     this.form.controls['confirm'].disable();
+    this.form.controls['organization'].disable();
   }
 
   // Function to enable the registration form
@@ -88,6 +92,7 @@ export class CreateAccountComponent implements OnInit {
     this.form.controls['username'].enable();
     this.form.controls['password'].enable();
     this.form.controls['confirm'].enable();
+    this.form.controls['organization'].enable();
   }
 
   // Function to validate e-mail is proper format
@@ -143,13 +148,18 @@ export class CreateAccountComponent implements OnInit {
     this.processing = true; // Used to notify HTML that form is in processing, so that it can be disabled
     this.disableForm(); // Disable the form
     // Create user object form user's inputs
+    if (this.newOrg) {
+      this.isAdmin = true;
+    } else {
+      this.isAdmin = false;
+    }
     const user = {
       firstname: this.form.get('firstname').value, // E-mail input field
       lastname: this.form.get('lastname').value, // E-mail input field
       email: this.form.get('email').value, // E-mail input field
       username: this.form.get('username').value, // Username input field
       password: this.form.get('password').value, // Password input field
-      role: this.form.get('role').value //user/admin?
+      role: this.isAdmin //user/admin?
     }
 
     // Function from authentication service to register user
@@ -203,6 +213,25 @@ export class CreateAccountComponent implements OnInit {
   }
 
   ngOnInit() {
+    this.authService.getOrganizations().subscribe(data => {
+      // Check if success true or success false was returned from API
+      if (!data.success) {
+        this.messageClass = 'alert alert-danger'; // Set an error class
+        this.message = data.message; // Set an error message
+        // this.processing = false; // Re-enable submit button
+      } else {
+        this.organizations = data.organList;
+      }
+    });
+  }
+
+
+  toggleNewOrganization() {
+    if (this.form.controls['organization'].value === 'New') {
+      this.newOrg = true;
+    } else {
+      this.newOrg =false;
+    }
   }
 
 }

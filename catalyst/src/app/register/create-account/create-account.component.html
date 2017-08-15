@@ -101,11 +101,22 @@
 
         <!-- Confirm Admin Input -->
         <div class="form-group">
-          <label for="role">Role</label>
-          <select name="role" class="form-control" formControlName="role">
-            <option value="Use">User</option>
-            <option value="Admin">Admin</option>
+          <label for="organization">Organization</label>
+          <select name="organization"
+                  class="form-control"
+                  formControlName="organization"
+                  (change)="toggleNewOrganization()">
+            <option value="">Select...</option >
+            <option value="New">New Organization</option >
+            <option value="newAsdfjkj;">New asd</option >
+            <option *ngFor="let organization of organizations" value="{{ organization.name }}">
+              {{ organization.name }}
+            </option>
           </select>
+        </div>
+
+        <div *ngIf="newOrg">
+          <app-create-organization></app-create-organization>
         </div>
 
         <!-- Submit Input -->

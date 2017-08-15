@@ -1,4 +1,5 @@
 const User = require('../serverSide/models/user'); // Import User Model Schema
+const Organization = require('../serverSide/models/organization'); // Import User Model Schema
 const jwt = require('jsonwebtoken');
 const config = require('../serverSide/config/database');
 const passport = require('passport');
@@ -218,6 +219,23 @@ module.exports = (router, session) => {
         }
       }
     });
+  });
+
+  /* ===============================================================
+     Route to get all organization
+  =============================================================== */
+  router.get('/getOrganizations', (req, res) => {
+    Organization.find({}).select('name').exec((err, allOrgans) => {
+      if (err) {
+        res.json({ success: false, message: err }); // Return error
+      } else {
+        if (!allOrgans) {
+          res.json({ success: false, message: 'We do not have any organizations' }); // Return error, organs was not found in db
+        } else {
+          res.json({ success : true, organList : allOrgans})
+        }
+      }
+    })
   });
 
 
