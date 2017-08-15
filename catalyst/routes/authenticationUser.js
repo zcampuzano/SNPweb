@@ -3,7 +3,7 @@ const jwt = require('jsonwebtoken');
 const config = require('../serverSide/config/database');
 const passport = require('passport');
 
-module.exports = (router) => {
+module.exports = (router, session) => {
   /* ==============
      Register Route
   ============== */
@@ -168,7 +168,7 @@ module.exports = (router) => {
                  res.json({ success : false, message : "Password invalid"});
                } else {
                  const token = jwt.sign({ userId: user._id }, config.secret, { expiresIn: '24h' }); // Create a token for client
-                 res.json({ success: true, message: 'Success!', token: token, user: { username: user.role } }); // Return success and token to frontend
+                 res.json({ success: true, message: 'Success!', token: token, user: { username: user.username } }); // Return success and token to frontend
                }
              }
            }

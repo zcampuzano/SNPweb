@@ -29,7 +29,7 @@ export class RegisterAuthService {
 
   // Function to get token from client local storage
   loadToken() {
-    this.authToken = localStorage.getItem('token');; // Get token and asssign to variable to be used elsewhere
+    this.authToken = localStorage.getItem('token'); // Get token and asssign to variable to be used elsewhere
   }
 
   // Function to register user accounts
