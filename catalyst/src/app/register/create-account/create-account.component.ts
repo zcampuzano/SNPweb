@@ -160,12 +160,15 @@ export class CreateAccountComponent implements OnInit{
 
     const organName = (this.createOrganizationComponent.form.controls['organizationname'].value);
     const organLoc = (this.createOrganizationComponent.form.controls['location'].value);
-    const organization = {
-      organizationname : organName,
-      location : organLoc
-    }
+    console.log(organName);
+    console.log(organLoc);
+    if (organName != null && organLoc != null) {
+      const organization = {
+        organizationname : organName,
+        location : organLoc
+      }
 
-    this.authService.createOrganization(organization).subscribe(data => {
+      this.authService.createOrganization(organization).subscribe(data => {
         if (data.success) {
           this.messageClass = 'alert alert-success'; // Set a success class
           this.message = data.message; // Set a success messagers
@@ -179,7 +182,8 @@ export class CreateAccountComponent implements OnInit{
             password: this.form.get('password').value, // Password input field
             role: this.isAdmin, //user/admin?
             organization : this.organizationToBeCreated //new organization
-          }
+          };
+          console.log(user);
 
           // Function from authentication service to register user
           this.authService.registerUser(user).subscribe(data => {
@@ -195,7 +199,7 @@ export class CreateAccountComponent implements OnInit{
               // After 2 second timeout, navigate to the login page
               setTimeout(() => {
                 this.router.navigate(['']); // Redirect to login view
-              }, 0);
+              }, 2000);
             }
           });
 
@@ -207,7 +211,39 @@ export class CreateAccountComponent implements OnInit{
             this.enableForm(); // Re-enable form
           }
         }
-    });
+      });
+    } else {
+      const user = {
+        firstname: this.form.get('firstname').value, // E-mail input field
+        lastname: this.form.get('lastname').value, // E-mail input field
+        email: this.form.get('email').value, // E-mail input field
+        username: this.form.get('username').value, // Username input field
+        password: this.form.get('password').value, // Password input field
+        role: this.isAdmin, //user/admin?
+        organization : this.form.get('organization').value //new organization
+      };
+
+      console.log(user);
+
+      // Function from authentication service to register user
+      this.authService.registerUser(user).subscribe(data => {
+        // Resposne from registration attempt
+        if (!data.success) {
+          this.messageClass = 'alert alert-danger'; // Set an error class
+          this.message = data.message; // Set an error message
+          this.processing = false; // Re-enable submit button
+          this.enableForm(); // Re-enable form
+        } else {
+          this.messageClass = 'alert alert-success'; // Set a success class
+          this.message = data.message; // Set a success message
+          // After 2 second timeout, navigate to the login page
+          setTimeout(() => {
+            this.router.navigate(['']); // Redirect to login view
+          }, 20000);
+        }
+      });
+    }
+
   }
 
   // Function to check if e-mail is taken
