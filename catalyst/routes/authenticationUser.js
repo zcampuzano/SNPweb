@@ -67,7 +67,7 @@ module.exports = (router, session) => {
             if (!req.body.password) {
               res.json({success: false, message: 'You must provide a password'}); // Return error
             } else {
-                if (!req.body.organization) {
+                if (!req.body.organization_id) {
                   res.json({ success: false, message : 'You must provide an organization'});
                 }
               }
@@ -80,7 +80,7 @@ module.exports = (router, session) => {
             username: req.body.username,
             password: req.body.password,
             role : req.body.role,
-            organization_id : req.body.organization
+            organization_id : req.body.organization_id
           });
           // Save user to database
           user.save((err) => {
@@ -111,7 +111,7 @@ module.exports = (router, session) => {
                             res.json({ success: false, message: err.errors.lastName.message }); // Return error
                           } else {
                             if (err.errors.organization_id) {
-                              res.json({success : false, messsage: err.errors.organization.message});
+                              res.json({success : false, messsage: err.errors.organization_id.message});
                             } else {
                               if (err.errors.role) {
                                 res.json({ success : false, message : err.errors.role.message});
