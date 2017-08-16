@@ -29,14 +29,16 @@ module.exports = (router, session) => {
       location : req.body.location
     })
     Organization.createOrganization(organization, function(err, organ){
-      if (err.errors) {
-        // Check if validation error is in the email field
-        if (err.errors.organizationname) {
-          res.json({ success: false, message: err.errors.organizationname.message }); // Return error
-        } else {
-          // Check if validation error is in the username field
-          if (err.errors.location) {
-            res.json({ success: false, message: err.errors.location.message }); // Return error
+      if (err) {
+        if (err.errors) {
+          // Check if validation error is in the email field
+          if (err.errors.organizationname) {
+            res.json({ success: false, message: err.errors.organizationname.message }); // Return error
+          } else {
+            // Check if validation error is in the username field
+            if (err.errors.location) {
+              res.json({ success: false, message: err.errors.location.message }); // Return error
+            }
           }
         }
       }

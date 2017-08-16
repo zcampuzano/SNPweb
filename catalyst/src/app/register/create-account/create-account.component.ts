@@ -167,6 +167,8 @@ export class CreateAccountComponent implements OnInit{
 
     this.authService.createOrganization(organization).subscribe(data => {
         if (data.success) {
+          this.messageClass = 'alert alert-success'; // Set a success class
+          this.message = data.message; // Set a success messagers
           this.organizationToBeCreated = data.organization.organizationname;
         } else {
           if (!data.success) {
