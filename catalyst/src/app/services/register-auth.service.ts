@@ -38,8 +38,8 @@ export class RegisterAuthService {
     this.loginAuthToken = localStorage.getItem('token'); // Get token and asssign to variable to be used elsewhere
   }
 
-  createOrganization(organizationname, location) {
-    return this.http.post(this.domain + '/authentication/createOrganization', organizationname, location).map(res => res.json());
+  createOrganization(organization) {
+    return this.http.post(this.domain + '/authentication/createOrganization', organization).map(res => res.json());
   }
 
   getOrganizations() {

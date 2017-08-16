@@ -28,7 +28,7 @@ module.exports = (router, session) => {
       organizationname : req.body.organizationname,
       location : req.body.location
     })
-    Organization.createOrganization(organization, function(err, user){
+    Organization.createOrganization(organization, function(err, organ){
       if (err.errors) {
         // Check if validation error is in the email field
         if (err.errors.organizationname) {
@@ -40,7 +40,7 @@ module.exports = (router, session) => {
           }
         }
       }
-      res.json({ success: true, message: 'Organization registered!' }); // Return success
+      res.json({ success: true, message: 'Organization registered!', organization: {organizationname : req.body.organizationname}}); // Return success
     });
   });
   /* ==============
@@ -82,7 +82,7 @@ module.exports = (router, session) => {
             username: req.body.username,
             password: req.body.password,
             role : req.body.role,
-            organization : req.body.organization._id
+            organization : req.body.organization.organizationname
           });
           // Save user to database
           user.save((err) => {

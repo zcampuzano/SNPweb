@@ -158,10 +158,24 @@ export class CreateAccountComponent implements OnInit{
       this.isAdmin = false;
     }
 
+    const organName = (this.createOrganizationComponent.form.controls['organizationname'].value);
+    const organLoc = (this.createOrganizationComponent.form.controls['location'].value);
+    const organization = {
+      organizationname : organName,
+      location : organLoc
+    }
 
-    this.authService.createOrganization( this.createOrganizationComponent.form.controls['location'].value,
-      this.createOrganizationComponent.form.controls['location'].value).subscribe(data => {
-        this.organizationToBeCreated = data;
+    this.authService.createOrganization(organization).subscribe(data => {
+        if (data.success) {
+          this.organizationToBeCreated = data.organization.organizationname;
+        } else {
+          if (!data.success) {
+            this.messageClass = 'alert alert-danger'; // Set an error class
+            this.message = data.message; // Set an error message
+            this.processing = false; // Re-enable submit button
+            this.enableForm(); // Re-enable form
+          }
+        }
     });
 
 

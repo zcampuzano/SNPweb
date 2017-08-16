@@ -141,7 +141,7 @@ const userSchema = new Schema({
   username: { type: String, required: false, unique: true, lowercase : true, validate: usernameValidators },
   password: { type: String, required: false, validate: passwordValidators },
   role: { type: Boolean, required: true},
-  organization : { type: Schema.Types.ObjectId, ref: 'Organization' },
+  organization : { type: String, required: false, unique: true, lowercase : true },
 });
 
 // Schema Middleware to Encrypt Password
