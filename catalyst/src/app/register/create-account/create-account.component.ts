@@ -33,9 +33,6 @@ export class CreateAccountComponent implements OnInit{
     private authService: RegisterAuthService,
     private router: Router
   ) {
-    this.authService.createRegisterToken().subscribe(data => {
-      this.authService.storeUserData(data.token);
-    });
     this.createForm(); // Create Angular 2 Form when component loads
   }
 
@@ -251,7 +248,10 @@ export class CreateAccountComponent implements OnInit{
   }
 
   ngOnInit() {
-    this.generateOrgans();
+    this.authService.createRegisterToken().subscribe(data => {
+      this.authService.storeUserData(data.token);
+      this.generateOrgans();
+    });
   }
 
 }
