@@ -170,6 +170,35 @@ export class CreateAccountComponent implements OnInit{
           this.messageClass = 'alert alert-success'; // Set a success class
           this.message = data.message; // Set a success messagers
           this.organizationToBeCreated = data.organization.organizationname;
+
+          const user = {
+            firstname: this.form.get('firstname').value, // E-mail input field
+            lastname: this.form.get('lastname').value, // E-mail input field
+            email: this.form.get('email').value, // E-mail input field
+            username: this.form.get('username').value, // Username input field
+            password: this.form.get('password').value, // Password input field
+            role: this.isAdmin, //user/admin?
+            organization : this.organizationToBeCreated //new organization
+          }
+
+          // Function from authentication service to register user
+          this.authService.registerUser(user).subscribe(data => {
+            // Resposne from registration attempt
+            if (!data.success) {
+              this.messageClass = 'alert alert-danger'; // Set an error class
+              this.message = data.message; // Set an error message
+              this.processing = false; // Re-enable submit button
+              this.enableForm(); // Re-enable form
+            } else {
+              this.messageClass = 'alert alert-success'; // Set a success class
+              this.message = data.message; // Set a success message
+              // After 2 second timeout, navigate to the login page
+              setTimeout(() => {
+                this.router.navigate(['']); // Redirect to login view
+              }, 0);
+            }
+          });
+
         } else {
           if (!data.success) {
             this.messageClass = 'alert alert-danger'; // Set an error class
@@ -179,36 +208,6 @@ export class CreateAccountComponent implements OnInit{
           }
         }
     });
-
-
-    const user = {
-      firstname: this.form.get('firstname').value, // E-mail input field
-      lastname: this.form.get('lastname').value, // E-mail input field
-      email: this.form.get('email').value, // E-mail input field
-      username: this.form.get('username').value, // Username input field
-      password: this.form.get('password').value, // Password input field
-      role: this.isAdmin, //user/admin?
-      organization : this.organizationToBeCreated //new organization
-    }
-
-    // Function from authentication service to register user
-    this.authService.registerUser(user).subscribe(data => {
-      // Resposne from registration attempt
-      if (!data.success) {
-        this.messageClass = 'alert alert-danger'; // Set an error class
-        this.message = data.message; // Set an error message
-        this.processing = false; // Re-enable submit button
-        this.enableForm(); // Re-enable form
-      } else {
-        this.messageClass = 'alert alert-success'; // Set a success class
-        this.message = data.message; // Set a success message
-        // After 2 second timeout, navigate to the login page
-        setTimeout(() => {
-          this.router.navigate(['']); // Redirect to login view
-        }, 2000);
-      }
-    });
-
   }
 
   // Function to check if e-mail is taken

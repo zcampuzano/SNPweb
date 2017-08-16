@@ -84,7 +84,7 @@ module.exports = (router, session) => {
             username: req.body.username,
             password: req.body.password,
             role : req.body.role,
-            organization : req.body.organization.organizationname
+            organization : req.body.organization
           });
           // Save user to database
           user.save((err) => {
