@@ -10,6 +10,8 @@ import { Router } from '@angular/router';
   providers: []
 })
 export class CreateOrganizationComponent implements OnInit {
+  organMessage: any;
+  organValid: boolean;
 
   form: FormGroup;
   message;
@@ -31,11 +33,11 @@ export class CreateOrganizationComponent implements OnInit {
       // First Name Input
       organizationname: ['', Validators.compose([
         Validators.required, // Field is required
-        this.validateUsername // Custom validation
+        this.validateOrganization // Custom validation
       ])],
       location: ['', Validators.compose([
         Validators.required, // Field is required
-        this.validateUsername // Custom validation
+        this.validateOrganization // Custom validation
       ])]
     }, { validator: null}); // Add custom validator to form for matching passwords
 
@@ -55,15 +57,29 @@ export class CreateOrganizationComponent implements OnInit {
 
 
   // Function to validate username is proper format
-  validateUsername(controls) {
+  validateOrganization(controls) {
     // Create a regular expression
-    const regExp = new RegExp(/^[a-zA-Z0-9]+$/);
+    const regExp = new RegExp(/^[\w\-\s]+$/);
     // Test username against regular expression
     if (regExp.test(controls.value)) {
       return null; // Return as valid username
     } else {
-      return { 'validateUsername': true } // Return as invalid username
+      return { 'validateOrganization': true } // Return as invalid username
     }
+  }
+
+  checkOrganization() {
+    // Function from authentication file to check if username is taken
+    this.authService.checkOrganization(this.form.get('organizationname').value).subscribe(data => {
+      // Check if success true or success false was returned from API
+      if (!data.success) {
+        this.organValid = false; // Return username as invalid
+        this.organMessage = data.message; // Return error message
+      } else {
+        this.organValid = true; // Return username as valid
+        this.organMessage = data.message; // Return success message
+      }
+    });
   }
 
 

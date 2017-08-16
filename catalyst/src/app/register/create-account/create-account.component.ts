@@ -1,7 +1,8 @@
-import { Component, OnInit } from '@angular/core';
+import {Component, OnInit, ViewChild} from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { RegisterAuthService} from '../../services/register-auth.service';
 import { Router } from '@angular/router';
+import {CreateOrganizationComponent} from '../create-organization/create-organization.component';
 
 @Component({
   selector: 'app-create-account',
@@ -9,7 +10,7 @@ import { Router } from '@angular/router';
   styleUrls: ['./create-account.component.css'],
   providers: []
 })
-export class CreateAccountComponent implements OnInit {
+export class CreateAccountComponent implements OnInit{
 
   form: FormGroup;
   message;
@@ -20,15 +21,22 @@ export class CreateAccountComponent implements OnInit {
   usernameValid;
   usernameMessage;
   organizations;
-  newOrg;
+  isNewOrg;
   isAdmin;
+  organizationToBeCreated;
 
+  @ViewChild(CreateOrganizationComponent)
+  private createOrganizationComponent: CreateOrganizationComponent;
 
   constructor(
     private formBuilder: FormBuilder,
     private authService: RegisterAuthService,
     private router: Router
   ) {
+    this.authService.createRegisterToken().subscribe(data => {
+      this.authService.storeUserData(data.token);
+    });
+    alert("did 1st token");
     this.createForm(); // Create Angular 2 Form when component loads
   }
 
@@ -148,18 +156,27 @@ export class CreateAccountComponent implements OnInit {
     this.processing = true; // Used to notify HTML that form is in processing, so that it can be disabled
     this.disableForm(); // Disable the form
     // Create user object form user's inputs
-    if (this.newOrg) {
+    if (this.isNewOrg) {
       this.isAdmin = true;
     } else {
       this.isAdmin = false;
     }
+
+
+    this.authService.createOrganization( this.createOrganizationComponent.form.controls['location'].value,
+      this.createOrganizationComponent.form.controls['location'].value).subscribe(data => {
+        this.organizationToBeCreated = data;
+    });
+
+
     const user = {
       firstname: this.form.get('firstname').value, // E-mail input field
       lastname: this.form.get('lastname').value, // E-mail input field
       email: this.form.get('email').value, // E-mail input field
       username: this.form.get('username').value, // Username input field
       password: this.form.get('password').value, // Password input field
-      role: this.isAdmin //user/admin?
+      role: this.isAdmin, //user/admin?
+      organization : this.organizationToBeCreated //new organization
     }
 
     // Function from authentication service to register user
@@ -212,7 +229,7 @@ export class CreateAccountComponent implements OnInit {
     });
   }
 
-  ngOnInit() {
+  generateOrgans() {
     this.authService.getOrganizations().subscribe(data => {
       // Check if success true or success false was returned from API
       if (!data.success) {
@@ -228,10 +245,14 @@ export class CreateAccountComponent implements OnInit {
 
   toggleNewOrganization() {
     if (this.form.controls['organization'].value === 'New') {
-      this.newOrg = true;
+      this.isNewOrg = true;
     } else {
-      this.newOrg =false;
+      this.isNewOrg =false;
     }
+  }
+
+  ngOnInit() {
+    this.generateOrgans();
   }
 
 }

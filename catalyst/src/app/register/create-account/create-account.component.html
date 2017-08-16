@@ -22,7 +22,7 @@
             <!-- Validation -->
             <ul class="help-block">
               <li *ngIf="form.controls.firstname.errors?.required && form.controls.firstname.dirty">This field is required</li>
-              <li *ngIf="form.controls.firstname.errors?.validateUsername && form.controls.firstname.dirty">First Name must not have any special characters</li>
+              <li *ngIf="form.controls.firstname.errors?.validateOrganization && form.controls.firstname.dirty">First Name must not have any special characters</li>
             </ul>
           </div>
         </div>
@@ -35,7 +35,7 @@
             <!-- Validation -->
             <ul class="help-block">
               <li *ngIf="form.controls.lastname.errors?.required && form.controls.lastname.dirty">This field is required</li>
-              <li *ngIf="form.controls.lastname.errors?.validateUsername && form.controls.lastname.dirty">First Name must not have any special characters</li>
+              <li *ngIf="form.controls.lastname.errors?.validateOrganization && form.controls.lastname.dirty">First Name must not have any special characters</li>
             </ul>
           </div>
         </div>
@@ -50,7 +50,7 @@
             <ul class="help-block">
               <li *ngIf="form.controls.username.errors?.required && form.controls.username.dirty">This field is required</li>
               <li *ngIf="form.controls.username.errors?.minlength && form.controls.username.dirty || form.controls.username.errors?.maxlength && form.controls.username.dirty ">Minimum characters: 3, Maximum characters: 15</li>
-              <li *ngIf="form.controls.username.errors?.validateUsername && form.controls.username.dirty">Username must not have any special characters</li>
+              <li *ngIf="form.controls.username.errors?.validateOrganization && form.controls.username.dirty">Username must not have any special characters</li>
               <li *ngIf="usernameMessage"> {{ usernameMessage }} </li>
             </ul>
           </div>
@@ -107,7 +107,7 @@
                   formControlName="organization"
                   (change)="toggleNewOrganization()">
             <option value="">Select...</option >
-            <option value="New">New Organization</option >
+            <option value="New">New Organization</option>
             <option value="newAsdfjkj;">New asd</option >
             <option *ngFor="let organization of organizations" value="{{ organization.name }}">
               {{ organization.name }}
@@ -115,7 +115,7 @@
           </select>
         </div>
 
-        <div *ngIf="newOrg">
+        <div *ngIf="isNewOrg">
           <app-create-organization></app-create-organization>
         </div>
 

@@ -6,6 +6,44 @@ const passport = require('passport');
 
 module.exports = (router, session) => {
   /* ==============
+    Create Organization Route
+ ============== */
+  router.get('/createRegisterToken', (req, res) => {
+    const token = jwt.sign({}, config.secret, { expiresIn: '24h' }); // Create a token for client
+    res.json({ success: true, message: 'Success!', token: token});
+  });
+
+  /* ==============
+    Create Organization Route
+ ============== */
+  router.post('/createOrganization', (req, res) => {
+    if (!req.body.organizationname) {
+      res.json({ success: false, message: 'Please provide organization name'});
+    } else {
+      if (!req.body.location) {
+        res.json({success: false, message: 'Please provide organization location'});
+      }
+    }
+    let organization = new Organization({
+      organizationname : req.body.organizationname,
+      location : req.body.location
+    })
+    Organization.createOrganization(organization, function(err, user){
+      if (err.errors) {
+        // Check if validation error is in the email field
+        if (err.errors.organizationname) {
+          res.json({ success: false, message: err.errors.organizationname.message }); // Return error
+        } else {
+          // Check if validation error is in the username field
+          if (err.errors.location) {
+            res.json({ success: false, message: err.errors.location.message }); // Return error
+          }
+        }
+      }
+      res.json({ success: true, message: 'Organization registered!' }); // Return success
+    });
+  });
+  /* ==============
      Register Route
   ============== */
   router.post('/register', (req, res) => {
@@ -29,6 +67,10 @@ module.exports = (router, session) => {
             } else {
               if (!req.body.role) {
                 res.json({ success: false, message : 'You must provide a role'});
+              } else {
+                if (!req.body.organization) {
+                  res.json({ success: false, message : 'You must provide an organization'});
+                }
               }
             }
           }
@@ -39,7 +81,8 @@ module.exports = (router, session) => {
             email: req.body.email.toLowerCase(),
             username: req.body.username,
             password: req.body.password,
-            role : req.body.role
+            role : req.body.role,
+            organization : req.body.organization._id
           });
           // Save user to database
           user.save((err) => {
@@ -69,7 +112,14 @@ module.exports = (router, session) => {
                           if (err.errors.lastName) {
                             res.json({ success: false, message: err.errors.lastName.message }); // Return error
                           } else {
-                            res.json({ success: false, message: err }); // Return any other error not already covered
+                            if (err.errors.organization) {
+                              res.json({success : false, messsage: err.errors.organization.message});
+                            } else {
+                              if (err.errors.role) {
+                                res.json({ success : false, message : err.errors.role.message});
+                              }
+                              res.json({ success: false, message: err }); // Return any other error not already covered
+                            }
                           }
                         }
                       }
@@ -131,6 +181,31 @@ module.exports = (router, session) => {
             res.json({ success: false, message: 'E-mail is already taken' }); // Return as taken e-mail
           } else {
             res.json({ success: true, message: 'E-mail is available' }); // Return as available e-mail
+          }
+        }
+      });
+    }
+  });
+
+
+  /* ============================================================
+    Route to check if user's organization is available for registration
+ ============================================================ */
+  router.get('/checkorganization/:organizationname', (req, res) => {
+    // Check if email was provided in paramaters
+    if (!req.params.organizationname) {
+      res.json({ success: false, message: 'Organization was not provided' }); // Return error
+    } else {
+      // Search for user's e-mail in database;
+        Organization.findOne({ organizationname: req.params.organizationname }, (err, user) => {
+        if (err) {
+          res.json({ success: false, message: err }); // Return connection error
+        } else {
+          // Check if user's e-mail is taken
+          if (user) {
+            res.json({ success: false, message: 'Organization is already taken' }); // Return as taken e-mail
+          } else {
+            res.json({ success: true, message: 'Organization is available' }); // Return as available e-mail
           }
         }
       });
