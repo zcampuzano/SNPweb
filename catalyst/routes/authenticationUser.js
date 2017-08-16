@@ -42,7 +42,7 @@ module.exports = (router, session) => {
           }
         }
       }
-      res.json({ success: true, message: 'Organization registered!', organizationID: organ._id}); // Return success
+      res.json({ success: true, message: 'Organization registered!'}); // Return success
     });
   });
   /* ==============
