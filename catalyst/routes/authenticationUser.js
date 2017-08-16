@@ -42,7 +42,7 @@ module.exports = (router, session) => {
           }
         }
       }
-      res.json({ success: true, message: 'Organization registered!', organization: {organizationname : req.body.organizationname}}); // Return success
+      res.json({ success: true, message: 'Organization registered!', organizationID: organ._id}); // Return success
     });
   });
   /* ==============
@@ -65,16 +65,12 @@ module.exports = (router, session) => {
             res.json({ success: false, message: 'You must provide a username' }); // Return error
           } else {
             if (!req.body.password) {
-              res.json({ success: false, message: 'You must provide a password' }); // Return error
+              res.json({success: false, message: 'You must provide a password'}); // Return error
             } else {
-              if (!req.body.role) {
-                res.json({ success: false, message : 'You must provide a role'});
-              } else {
                 if (!req.body.organization) {
                   res.json({ success: false, message : 'You must provide an organization'});
                 }
               }
-            }
           }
           // Create new user object and apply user input
           let user = new User({
@@ -92,7 +88,7 @@ module.exports = (router, session) => {
             if (err) {
               // Check if error is an error indicating duplicate account
               if (err.code === 11000) {
-                res.json({ success: false, message: 'Username or e-mail already exists' }); // Return error
+                res.json({ success: false, message: err.message }); // Return error
               } else {
                 // Check if error is a validation rror
                 if (err.errors) {

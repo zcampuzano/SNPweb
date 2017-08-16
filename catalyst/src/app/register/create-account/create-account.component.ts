@@ -21,9 +21,7 @@ export class CreateAccountComponent implements OnInit{
   usernameValid;
   usernameMessage;
   organizations;
-  isNewOrg;
   isAdmin;
-  organizationToBeCreated;
 
   @ViewChild(CreateOrganizationComponent)
   private createOrganizationComponent: CreateOrganizationComponent;
@@ -152,27 +150,21 @@ export class CreateAccountComponent implements OnInit{
     this.processing = true; // Used to notify HTML that form is in processing, so that it can be disabled
     this.disableForm(); // Disable the form
     // Create user object form user's inputs
-    if (this.isNewOrg) {
-      this.isAdmin = true;
-    } else {
-      this.isAdmin = false;
-    }
-
-    const organName = (this.createOrganizationComponent.form.controls['organizationname'].value);
-    const organLoc = (this.createOrganizationComponent.form.controls['location'].value);
-    console.log(organName);
-    console.log(organLoc);
-    if (organName != null && organLoc != null) {
+    if (this.form.get('organization').value === 'New') {
+      const organName = (this.createOrganizationComponent.form.controls['organizationname'].value);
+      const organLoc = (this.createOrganizationComponent.form.controls['location'].value);
+      console.log(organName);
+      console.log(organLoc);
       const organization = {
         organizationname : organName,
         location : organLoc
-      }
+      };
 
       this.authService.createOrganization(organization).subscribe(data => {
         if (data.success) {
           this.messageClass = 'alert alert-success'; // Set a success class
           this.message = data.message; // Set a success messagers
-          this.organizationToBeCreated = data.organization.organizationname;
+          this.isAdmin = true;
 
           const user = {
             firstname: this.form.get('firstname').value, // E-mail input field
@@ -181,9 +173,10 @@ export class CreateAccountComponent implements OnInit{
             username: this.form.get('username').value, // Username input field
             password: this.form.get('password').value, // Password input field
             role: this.isAdmin, //user/admin?
-            organization : this.organizationToBeCreated //new organization
+            organization : data.organizationID //new organization
           };
           console.log(user);
+          console.log(data.organizationID);
 
           // Function from authentication service to register user
           this.authService.registerUser(user).subscribe(data => {
@@ -199,7 +192,7 @@ export class CreateAccountComponent implements OnInit{
               // After 2 second timeout, navigate to the login page
               setTimeout(() => {
                 this.router.navigate(['']); // Redirect to login view
-              }, 2000);
+              }, 10000);
             }
           });
 
@@ -213,6 +206,7 @@ export class CreateAccountComponent implements OnInit{
         }
       });
     } else {
+      this.isAdmin = false;
       const user = {
         firstname: this.form.get('firstname').value, // E-mail input field
         lastname: this.form.get('lastname').value, // E-mail input field
@@ -287,15 +281,6 @@ export class CreateAccountComponent implements OnInit{
         this.organizations = data.organList;
       }
     });
-  }
-
-
-  toggleNewOrganization() {
-    if (this.form.controls['organization'].value === 'New') {
-      this.isNewOrg = true;
-    } else {
-      this.isNewOrg =false;
-    }
   }
 
   ngOnInit() {

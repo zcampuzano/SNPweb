@@ -104,17 +104,16 @@
           <label for="organization">Organization</label>
           <select name="organization"
                   class="form-control"
-                  formControlName="organization"
-                  (change)="toggleNewOrganization()">
+                  formControlName="organization">
             <option value="">Select...</option >
             <option value="New">New Organization</option>
-            <option *ngFor="let organization of organizations" value="{{ organization.organizationname }}">
+            <option *ngFor="let organization of organizations" value="{{ organization._id }}">
               {{ organization.organizationname }}
             </option>
           </select>
         </div>
 
-        <div *ngIf="isNewOrg">
+        <div *ngIf="this.form.get('organization').value === 'New'">
           <app-create-organization></app-create-organization>
         </div>
 

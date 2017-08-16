@@ -26,7 +26,6 @@ export class RegisterAuthService {
         'authorization': this.loginAuthToken // Attach token
       })
     });
-    console.log(this.options);
   }
 
   createRegisterToken() {
