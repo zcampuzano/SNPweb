@@ -108,9 +108,8 @@
                   (change)="toggleNewOrganization()">
             <option value="">Select...</option >
             <option value="New">New Organization</option>
-            <option value="newAsdfjkj;">New asd</option >
-            <option *ngFor="let organization of organizations" value="{{ organization.name }}">
-              {{ organization.name }}
+            <option *ngFor="let organization of organizations" value="{{ organization.organizationname }}">
+              {{ organization.organizationname }}
             </option>
           </select>
         </div>

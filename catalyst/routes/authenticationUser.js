@@ -300,7 +300,7 @@ module.exports = (router, session) => {
      Route to get all organization
   =============================================================== */
   router.get('/getOrganizations', (req, res) => {
-    Organization.find({}).select('name').exec((err, allOrgans) => {
+    Organization.find({}).select('organizationname').exec((err, allOrgans) => {
       if (err) {
         res.json({ success: false, message: err }); // Return error
       } else {

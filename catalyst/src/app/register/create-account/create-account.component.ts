@@ -36,7 +36,6 @@ export class CreateAccountComponent implements OnInit{
     this.authService.createRegisterToken().subscribe(data => {
       this.authService.storeUserData(data.token);
     });
-    alert("did 1st token");
     this.createForm(); // Create Angular 2 Form when component loads
   }
 
