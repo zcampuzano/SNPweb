@@ -80,7 +80,7 @@ module.exports = (router, session) => {
             username: req.body.username,
             password: req.body.password,
             role : req.body.role,
-            organization : req.body.organization
+            organization_id : req.body.organization
           });
           // Save user to database
           user.save((err) => {
@@ -110,7 +110,7 @@ module.exports = (router, session) => {
                           if (err.errors.lastName) {
                             res.json({ success: false, message: err.errors.lastName.message }); // Return error
                           } else {
-                            if (err.errors.organization) {
+                            if (err.errors.organization_id) {
                               res.json({success : false, messsage: err.errors.organization.message});
                             } else {
                               if (err.errors.role) {

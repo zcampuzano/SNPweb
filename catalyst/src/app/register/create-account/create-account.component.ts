@@ -173,7 +173,7 @@ export class CreateAccountComponent implements OnInit{
             username: this.form.get('username').value, // Username input field
             password: this.form.get('password').value, // Password input field
             role: this.isAdmin, //user/admin?
-            organization : this.form.get('organization').value //new organization
+            organization_id : this.form.get('organization').value //new organization
           };
           console.log(user);
           console.log(data.organizationID);
