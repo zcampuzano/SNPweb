@@ -37,12 +37,12 @@ module.exports = (router, session) => {
           } else {
             // Check if validation error is in the username field
             if (err.errors.location) {
-              res.json({ success: false, message: err.errors.location.message }); // Return error
+              res.json({ success: false, message: err.errors.location.message, organizationID: organ._id }); // Return error
             }
           }
         }
       }
-      res.json({ success: true, message: 'Organization registered!', organizationID : organ._id}); // Return success
+      res.json({ success: true, message: 'Organization registered!'}); // Return success
     });
   });
   /* ==============
@@ -242,7 +242,7 @@ module.exports = (router, session) => {
                  res.json({ success : false, message : "Password invalid"});
                } else {
                  const token = jwt.sign({ userId: user._id }, config.secret, { expiresIn: '24h' }); // Create a token for client
-                 res.json({ success: true, message: 'Log in Success!', token: token, user: { username: user.username } }); // Return success and token to frontend
+                 res.json({ success: true, message: 'Log in Success!', token: token, role:  user.role }); // Return success and token to frontend
                }
              }
            }

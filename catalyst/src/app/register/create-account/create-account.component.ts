@@ -165,7 +165,7 @@ export class CreateAccountComponent implements OnInit{
           this.messageClass = 'alert alert-success'; // Set a success class
           this.message = data.message; // Set a success messagers
           this.isAdmin = true;
-
+          const orgonIDToCreate = this.form.get('username').value;
           const user = {
             firstname: this.form.get('firstname').value, // E-mail input field
             lastname: this.form.get('lastname').value, // E-mail input field
@@ -173,7 +173,7 @@ export class CreateAccountComponent implements OnInit{
             username: this.form.get('username').value, // Username input field
             password: this.form.get('password').value, // Password input field
             role: this.isAdmin, //user/admin?
-            organization : data.organizationID //new organization
+            organization : orgonIDToCreate + data.organizationID //new organization
           };
           console.log(user);
 
@@ -206,6 +206,7 @@ export class CreateAccountComponent implements OnInit{
       });
     } else {
       this.isAdmin = false;
+      const orgonIDToCreate = this.form.get('username').value;
       const user = {
         firstname: this.form.get('firstname').value, // E-mail input field
         lastname: this.form.get('lastname').value, // E-mail input field
@@ -213,7 +214,7 @@ export class CreateAccountComponent implements OnInit{
         username: this.form.get('username').value, // Username input field
         password: this.form.get('password').value, // Password input field
         role: this.isAdmin, //user/admin?
-        organization : this.form.get('organization').value //new organization
+        organization : orgonIDToCreate + this.form.get('organization').value.toString() //new organization
       };
 
       console.log(user);
@@ -232,7 +233,7 @@ export class CreateAccountComponent implements OnInit{
           // After 2 second timeout, navigate to the login page
           setTimeout(() => {
             this.router.navigate(['']); // Redirect to login view
-          }, 20000);
+          }, 2000);
         }
       });
     }
