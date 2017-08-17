@@ -1,7 +1,8 @@
-import { Component, OnInit } from '@angular/core';
+import {Component, OnInit, ViewChild} from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { RegisterAuthService} from '../services/register-auth.service';
+import { RegisterAuthService} from '../../services/register-auth.service';
 import { Router } from '@angular/router';
+import {CreateOrganizationComponent} from '../create-organization/create-organization.component';
 
 @Component({
   selector: 'app-create-account',
@@ -9,7 +10,7 @@ import { Router } from '@angular/router';
   styleUrls: ['./create-account.component.css'],
   providers: []
 })
-export class CreateAccountComponent implements OnInit {
+export class CreateAccountComponent implements OnInit{
 
   form: FormGroup;
   message;
@@ -19,7 +20,11 @@ export class CreateAccountComponent implements OnInit {
   emailMessage;
   usernameValid;
   usernameMessage;
+  organizations;
+  isAdmin;
 
+  @ViewChild(CreateOrganizationComponent)
+  private createOrganizationComponent: CreateOrganizationComponent;
 
   constructor(
     private formBuilder: FormBuilder,
@@ -65,7 +70,7 @@ export class CreateAccountComponent implements OnInit {
       ])],
       // Confirm Password Input
       confirm: ['', Validators.required], // Field is required
-      role : ['', Validators.required]
+      organization : ['', Validators.required]
     }, { validator: this.matchingPasswords('password', 'confirm') }); // Add custom validator to form for matching passwords
 
   }
@@ -78,6 +83,7 @@ export class CreateAccountComponent implements OnInit {
     this.form.controls['username'].disable();
     this.form.controls['password'].disable();
     this.form.controls['confirm'].disable();
+    this.form.controls['organization'].disable();
   }
 
   // Function to enable the registration form
@@ -88,6 +94,7 @@ export class CreateAccountComponent implements OnInit {
     this.form.controls['username'].enable();
     this.form.controls['password'].enable();
     this.form.controls['confirm'].enable();
+    this.form.controls['organization'].enable();
   }
 
   // Function to validate e-mail is proper format
@@ -143,32 +150,93 @@ export class CreateAccountComponent implements OnInit {
     this.processing = true; // Used to notify HTML that form is in processing, so that it can be disabled
     this.disableForm(); // Disable the form
     // Create user object form user's inputs
-    const user = {
-      firstname: this.form.get('firstname').value, // E-mail input field
-      lastname: this.form.get('lastname').value, // E-mail input field
-      email: this.form.get('email').value, // E-mail input field
-      username: this.form.get('username').value, // Username input field
-      password: this.form.get('password').value, // Password input field
-      role: this.form.get('role').value //user/admin?
-    }
+    if (this.form.get('organization').value === 'New') {
+      const organName = (this.createOrganizationComponent.form.controls['organizationname'].value);
+      const organLoc = (this.createOrganizationComponent.form.controls['location'].value);
+      console.log(organName);
+      console.log(organLoc);
+      const organization = {
+        organizationname : organName,
+        location : organLoc
+      };
 
-    // Function from authentication service to register user
-    this.authService.registerUser(user).subscribe(data => {
-      // Resposne from registration attempt
-      if (!data.success) {
-        this.messageClass = 'alert alert-danger'; // Set an error class
-        this.message = data.message; // Set an error message
-        this.processing = false; // Re-enable submit button
-        this.enableForm(); // Re-enable form
-      } else {
-        this.messageClass = 'alert alert-success'; // Set a success class
-        this.message = data.message; // Set a success message
-        // After 2 second timeout, navigate to the login page
-        setTimeout(() => {
-          this.router.navigate(['']); // Redirect to login view
-        }, 2000);
-      }
-    });
+      this.authService.createOrganization(organization).subscribe(data => {
+        if (data.success) {
+          this.messageClass = 'alert alert-success'; // Set a success class
+          this.message = data.message; // Set a success messagers
+          this.isAdmin = true;
+          const orgonIDToCreate = this.form.get('username').value;
+          const user = {
+            firstname: this.form.get('firstname').value, // E-mail input field
+            lastname: this.form.get('lastname').value, // E-mail input field
+            email: this.form.get('email').value, // E-mail input field
+            username: this.form.get('username').value, // Username input field
+            password: this.form.get('password').value, // Password input field
+            role: this.isAdmin, //user/admin?
+            organization : orgonIDToCreate + data.organizationID //new organization
+          };
+          console.log(user);
+
+          // Function from authentication service to register user
+          this.authService.registerUser(user).subscribe(data => {
+            // Resposne from registration attempt
+            if (!data.success) {
+              this.messageClass = 'alert alert-danger'; // Set an error class
+              this.message = data.message; // Set an error message
+              this.processing = false; // Re-enable submit button
+              this.enableForm(); // Re-enable form
+            } else {
+              this.messageClass = 'alert alert-success'; // Set a success class
+              this.message = data.message; // Set a success message
+              // After 2 second timeout, navigate to the login page
+              setTimeout(() => {
+                this.router.navigate(['']); // Redirect to login view
+              }, 2000);
+            }
+          });
+
+        } else {
+          if (!data.success) {
+            this.messageClass = 'alert alert-danger'; // Set an error class
+            this.message = data.message; // Set an error message
+            this.processing = false; // Re-enable submit button
+            this.enableForm(); // Re-enable form
+          }
+        }
+      });
+    } else {
+      this.isAdmin = false;
+      const orgonIDToCreate = this.form.get('username').value;
+      const user = {
+        firstname: this.form.get('firstname').value, // E-mail input field
+        lastname: this.form.get('lastname').value, // E-mail input field
+        email: this.form.get('email').value, // E-mail input field
+        username: this.form.get('username').value, // Username input field
+        password: this.form.get('password').value, // Password input field
+        role: this.isAdmin, //user/admin?
+        organization : orgonIDToCreate + this.form.get('organization').value.toString() //new organization
+      };
+
+      console.log(user);
+
+      // Function from authentication service to register user
+      this.authService.registerUser(user).subscribe(data => {
+        // Resposne from registration attempt
+        if (!data.success) {
+          this.messageClass = 'alert alert-danger'; // Set an error class
+          this.message = data.message; // Set an error message
+          this.processing = false; // Re-enable submit button
+          this.enableForm(); // Re-enable form
+        } else {
+          this.messageClass = 'alert alert-success'; // Set a success class
+          this.message = data.message; // Set a success message
+          // After 2 second timeout, navigate to the login page
+          setTimeout(() => {
+            this.router.navigate(['']); // Redirect to login view
+          }, 2000);
+        }
+      });
+    }
 
   }
 
@@ -202,7 +270,24 @@ export class CreateAccountComponent implements OnInit {
     });
   }
 
+  generateOrgans() {
+    this.authService.getOrganizations().subscribe(data => {
+      // Check if success true or success false was returned from API
+      if (!data.success) {
+        this.messageClass = 'alert alert-danger'; // Set an error class
+        this.message = data.message; // Set an error message
+        // this.processing = false; // Re-enable submit button
+      } else {
+        this.organizations = data.organList;
+      }
+    });
+  }
+
   ngOnInit() {
+    this.authService.createRegisterToken().subscribe(data => {
+      this.authService.storeUserData(data.token, null);
+      this.generateOrgans();
+    });
   }
 
 }

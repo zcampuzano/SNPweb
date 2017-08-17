@@ -1,9 +1,50 @@
 const User = require('../serverSide/models/user'); // Import User Model Schema
+const Organization = require('../serverSide/models/organization'); // Import User Model Schema
 const jwt = require('jsonwebtoken');
 const config = require('../serverSide/config/database');
 const passport = require('passport');
 
 module.exports = (router, session) => {
+  /* ==============
+    Create Organization Route
+ ============== */
+  router.get('/createRegisterToken', (req, res) => {
+    const token = jwt.sign({}, config.secret, { expiresIn: '24h' }); // Create a token for client
+    res.json({ success: true, message: 'Success!', token: token});
+  });
+
+  /* ==============
+    Create Organization Route
+ ============== */
+  router.post('/createOrganization', (req, res) => {
+    if (!req.body.organizationname) {
+      res.json({ success: false, message: 'Please provide organization name'});
+    } else {
+      if (!req.body.location) {
+        res.json({success: false, message: 'Please provide organization location'});
+      }
+    }
+    let organization = new Organization({
+      organizationname : req.body.organizationname,
+      location : req.body.location
+    })
+    Organization.createOrganization(organization, function(err, organ){
+      if (err) {
+        if (err.errors) {
+          // Check if validation error is in the email field
+          if (err.errors.organizationname) {
+            res.json({ success: false, message: err.errors.organizationname.message }); // Return error
+          } else {
+            // Check if validation error is in the username field
+            if (err.errors.location) {
+              res.json({ success: false, message: err.errors.location.message, organizationID: organ._id }); // Return error
+            }
+          }
+        }
+      }
+      res.json({ success: true, message: 'Organization registered!'}); // Return success
+    });
+  });
   /* ==============
      Register Route
   ============== */
@@ -24,12 +65,12 @@ module.exports = (router, session) => {
             res.json({ success: false, message: 'You must provide a username' }); // Return error
           } else {
             if (!req.body.password) {
-              res.json({ success: false, message: 'You must provide a password' }); // Return error
+              res.json({success: false, message: 'You must provide a password'}); // Return error
             } else {
-              if (!req.body.role) {
-                res.json({ success: false, message : 'You must provide a role'});
+                if (!req.body.organization) {
+                  res.json({ success: false, message : 'You must provide an organization'});
+                }
               }
-            }
           }
           // Create new user object and apply user input
           let user = new User({
@@ -38,7 +79,8 @@ module.exports = (router, session) => {
             email: req.body.email.toLowerCase(),
             username: req.body.username,
             password: req.body.password,
-            role : req.body.role
+            role : req.body.role,
+            organization : req.body.organization
           });
           // Save user to database
           user.save((err) => {
@@ -46,7 +88,7 @@ module.exports = (router, session) => {
             if (err) {
               // Check if error is an error indicating duplicate account
               if (err.code === 11000) {
-                res.json({ success: false, message: 'Username or e-mail already exists' }); // Return error
+                res.json({ success: false, message: err.message }); // Return error
               } else {
                 // Check if error is a validation rror
                 if (err.errors) {
@@ -68,7 +110,14 @@ module.exports = (router, session) => {
                           if (err.errors.lastName) {
                             res.json({ success: false, message: err.errors.lastName.message }); // Return error
                           } else {
-                            res.json({ success: false, message: err }); // Return any other error not already covered
+                            if (err.errors.organization) {
+                              res.json({success : false, messsage: err.errors.organization.message});
+                            } else {
+                              if (err.errors.role) {
+                                res.json({ success : false, message : err.errors.role.message});
+                              }
+                              res.json({ success: false, message: err }); // Return any other error not already covered
+                            }
                           }
                         }
                       }
@@ -136,6 +185,31 @@ module.exports = (router, session) => {
     }
   });
 
+
+  /* ============================================================
+    Route to check if user's organization is available for registration
+ ============================================================ */
+  router.get('/checkorganization/:organizationname', (req, res) => {
+    // Check if email was provided in paramaters
+    if (!req.params.organizationname) {
+      res.json({ success: false, message: 'Organization was not provided' }); // Return error
+    } else {
+      // Search for user's e-mail in database;
+        Organization.findOne({ organizationname: req.params.organizationname }, (err, user) => {
+        if (err) {
+          res.json({ success: false, message: err }); // Return connection error
+        } else {
+          // Check if user's e-mail is taken
+          if (user) {
+            res.json({ success: false, message: 'Organization is already taken' }); // Return as taken e-mail
+          } else {
+            res.json({ success: true, message: 'Organization is available' }); // Return as available e-mail
+          }
+        }
+      });
+    }
+  });
+
   // used to serialize the user for the session
   passport.serializeUser(function(user, done) {
     done(null, user.id);
@@ -168,7 +242,7 @@ module.exports = (router, session) => {
                  res.json({ success : false, message : "Password invalid"});
                } else {
                  const token = jwt.sign({ userId: user._id }, config.secret, { expiresIn: '24h' }); // Create a token for client
-                 res.json({ success: true, message: 'Success!', token: token, user: { username: user.username } }); // Return success and token to frontend
+                 res.json({ success: true, message: 'Log in Success!', token: token, user: { role: user.role } }); // Return success and token to frontend
                }
              }
            }
@@ -218,6 +292,23 @@ module.exports = (router, session) => {
         }
       }
     });
+  });
+
+  /* ===============================================================
+     Route to get all organization
+  =============================================================== */
+  router.get('/getOrganizations', (req, res) => {
+    Organization.find({}).select('organizationname').exec((err, allOrgans) => {
+      if (err) {
+        res.json({ success: false, message: err }); // Return error
+      } else {
+        if (!allOrgans) {
+          res.json({ success: false, message: 'We do not have any organizations' }); // Return error, organs was not found in db
+        } else {
+          res.json({ success : true, organList : allOrgans})
+        }
+      }
+    })
   });
 
 

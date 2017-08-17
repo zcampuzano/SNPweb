@@ -22,7 +22,7 @@
             <!-- Validation -->
             <ul class="help-block">
               <li *ngIf="form.controls.firstname.errors?.required && form.controls.firstname.dirty">This field is required</li>
-              <li *ngIf="form.controls.firstname.errors?.validateUsername && form.controls.firstname.dirty">First Name must not have any special characters</li>
+              <li *ngIf="form.controls.firstname.errors?.validateOrganization && form.controls.firstname.dirty">First Name must not have any special characters</li>
             </ul>
           </div>
         </div>
@@ -35,7 +35,7 @@
             <!-- Validation -->
             <ul class="help-block">
               <li *ngIf="form.controls.lastname.errors?.required && form.controls.lastname.dirty">This field is required</li>
-              <li *ngIf="form.controls.lastname.errors?.validateUsername && form.controls.lastname.dirty">First Name must not have any special characters</li>
+              <li *ngIf="form.controls.lastname.errors?.validateOrganization && form.controls.lastname.dirty">First Name must not have any special characters</li>
             </ul>
           </div>
         </div>
@@ -50,7 +50,7 @@
             <ul class="help-block">
               <li *ngIf="form.controls.username.errors?.required && form.controls.username.dirty">This field is required</li>
               <li *ngIf="form.controls.username.errors?.minlength && form.controls.username.dirty || form.controls.username.errors?.maxlength && form.controls.username.dirty ">Minimum characters: 3, Maximum characters: 15</li>
-              <li *ngIf="form.controls.username.errors?.validateUsername && form.controls.username.dirty">Username must not have any special characters</li>
+              <li *ngIf="form.controls.username.errors?.validateOrganization && form.controls.username.dirty">Username must not have any special characters</li>
               <li *ngIf="usernameMessage"> {{ usernameMessage }} </li>
             </ul>
           </div>
@@ -101,16 +101,25 @@
 
         <!-- Confirm Admin Input -->
         <div class="form-group">
-          <label for="role">Role</label>
-          <select name="role" class="form-control" formControlName="role">
-            <option value="Use">User</option>
-            <option value="Admin">Admin</option>
+          <label for="organization">Organization</label>
+          <select name="organization"
+                  class="form-control"
+                  formControlName="organization">
+            <option value="">Select...</option >
+            <option value="New">New Organization</option>
+            <option *ngFor="let organization of organizations" value="{{ organization._id }}">
+              {{ organization.organizationname }}
+            </option>
           </select>
         </div>
 
-        <!-- Submit Input -->
-        <input [disabled]="!form.valid || processing || !emailValid || !usernameValid" type="submit" class="btn btn-primary" value="Submit" />
+        <div *ngIf="this.form.get('organization').value === 'New'">
+          <app-create-organization></app-create-organization>
+        </div>
 
+        <!-- Submit Input -->
+        <input type="submit" class="btn btn-primary" value="Submit" />
+        <!--[disabled]="!form.valid || processing || !emailValid || !usernameValid"-->
       </form>
       <!-- Registration Form /-->
     </div>
