@@ -8,7 +8,7 @@ export class RegisterAuthService {
 
   domain = "http://localhost:8080"; // Development Domain - Not Needed in Production
   loginAuthToken;
-  role = false;
+  user;
   options;
 
 
@@ -78,9 +78,10 @@ export class RegisterAuthService {
   }
 
   // Function to store user's data in client local storage
-  storeUserData(token) {
+  storeUserData(token, role) {
     localStorage.setItem('token', token); // Set token in local storage
     this.loginAuthToken = token; // Assign token to be used elsewhere
+    this.user = role;
   }
 
   // Function to get user's profile data
@@ -91,11 +92,13 @@ export class RegisterAuthService {
 
   // Function to check if user is logged in
   loggedIn() {
-      return tokenNotExpired();
+      if (this.user != null) {
+        return tokenNotExpired();
+      }
   }
 
   isAdmin() {
-     return this.role;
+    return this.user.role;
   }
 
 

@@ -242,7 +242,7 @@ module.exports = (router, session) => {
                  res.json({ success : false, message : "Password invalid"});
                } else {
                  const token = jwt.sign({ userId: user._id }, config.secret, { expiresIn: '24h' }); // Create a token for client
-                 res.json({ success: true, message: 'Log in Success!', token: token, role:  user.role }); // Return success and token to frontend
+                 res.json({ success: true, message: 'Log in Success!', token: token, user: { role: user.role } }); // Return success and token to frontend
                }
              }
            }

@@ -191,7 +191,7 @@ export class CreateAccountComponent implements OnInit{
               // After 2 second timeout, navigate to the login page
               setTimeout(() => {
                 this.router.navigate(['']); // Redirect to login view
-              }, 10000);
+              }, 2000);
             }
           });
 
@@ -285,7 +285,7 @@ export class CreateAccountComponent implements OnInit{
 
   ngOnInit() {
     this.authService.createRegisterToken().subscribe(data => {
-      this.authService.storeUserData(data.token);
+      this.authService.storeUserData(data.token, null);
       this.generateOrgans();
     });
   }
