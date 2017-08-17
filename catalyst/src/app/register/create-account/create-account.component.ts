@@ -173,10 +173,9 @@ export class CreateAccountComponent implements OnInit{
             username: this.form.get('username').value, // Username input field
             password: this.form.get('password').value, // Password input field
             role: this.isAdmin, //user/admin?
-            organization_id : this.form.get('organization').value //new organization
+            organization : data.organizationID //new organization
           };
           console.log(user);
-          console.log(data.organizationID);
 
           // Function from authentication service to register user
           this.authService.registerUser(user).subscribe(data => {

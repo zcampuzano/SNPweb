@@ -42,7 +42,7 @@ module.exports = (router, session) => {
           }
         }
       }
-      res.json({ success: true, message: 'Organization registered!'}); // Return success
+      res.json({ success: true, message: 'Organization registered!', organizationID : organ._id}); // Return success
     });
   });
   /* ==============
@@ -67,7 +67,7 @@ module.exports = (router, session) => {
             if (!req.body.password) {
               res.json({success: false, message: 'You must provide a password'}); // Return error
             } else {
-                if (!req.body.organization_id) {
+                if (!req.body.organization) {
                   res.json({ success: false, message : 'You must provide an organization'});
                 }
               }
@@ -80,7 +80,7 @@ module.exports = (router, session) => {
             username: req.body.username,
             password: req.body.password,
             role : req.body.role,
-            organization_id : req.body.organization_id
+            organization : req.body.organization
           });
           // Save user to database
           user.save((err) => {
@@ -110,8 +110,8 @@ module.exports = (router, session) => {
                           if (err.errors.lastName) {
                             res.json({ success: false, message: err.errors.lastName.message }); // Return error
                           } else {
-                            if (err.errors.organization_id) {
-                              res.json({success : false, messsage: err.errors.organization_id.message});
+                            if (err.errors.organization) {
+                              res.json({success : false, messsage: err.errors.organization.message});
                             } else {
                               if (err.errors.role) {
                                 res.json({ success : false, message : err.errors.role.message});
