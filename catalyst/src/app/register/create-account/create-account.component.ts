@@ -165,7 +165,8 @@ export class CreateAccountComponent implements OnInit{
           this.messageClass = 'alert alert-success'; // Set a success class
           this.message = data.message; // Set a success messagers
           this.isAdmin = true;
-          const orgonIDToCreate = this.form.get('username').value;
+          const organIDpre = this.form.get('username').value;
+          const organID = data.organizationID;
           const user = {
             firstname: this.form.get('firstname').value, // E-mail input field
             lastname: this.form.get('lastname').value, // E-mail input field
@@ -173,7 +174,7 @@ export class CreateAccountComponent implements OnInit{
             username: this.form.get('username').value, // Username input field
             password: this.form.get('password').value, // Password input field
             role: this.isAdmin, //user/admin?
-            organization : orgonIDToCreate + data.organizationID //new organization
+            organization : organIDpre + organID //new organization
           };
           console.log(user);
 

@@ -27,7 +27,7 @@ module.exports = (router, session) => {
     let organization = new Organization({
       organizationname : req.body.organizationname,
       location : req.body.location
-    })
+    });
     Organization.createOrganization(organization, function(err, organ){
       if (err) {
         if (err.errors) {
@@ -37,12 +37,15 @@ module.exports = (router, session) => {
           } else {
             // Check if validation error is in the username field
             if (err.errors.location) {
-              res.json({ success: false, message: err.errors.location.message, organizationID: organ._id }); // Return error
+              res.json({ success: false, message: err.errors.location.message}); // Return error
             }
           }
+        } else {
+          res.json({ success: false, message: 'Could not save organ. Error: ', err }); // Return error if not related to validation
         }
+      } else {
+        res.json({ success: true, message: 'Organization registered!', organizationID: organization._id }); // Return success
       }
-      res.json({ success: true, message: 'Organization registered!'}); // Return success
     });
   });
   /* ==============
