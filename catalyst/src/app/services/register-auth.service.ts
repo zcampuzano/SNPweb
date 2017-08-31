@@ -41,6 +41,10 @@ export class RegisterAuthService {
     return this.http.post(this.domain + '/authentication/createOrganization', organization).map(res => res.json());
   }
 
+  createSport(sport) {
+    return this.http.post(this.domain + '/authentication/createSport', sport).map(res => res.json());
+  }
+
   getOrganizations() {
     this.createAuthenticationHeaders(); // Create headers before sending to API
     return this.http.get(this.domain + '/authentication/getOrganizations', this.options).map(res => res.json());

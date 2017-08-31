@@ -18,6 +18,7 @@ import { ProfileComponent } from './profile/profile.component';
 import { AuthGuard} from './guards/auth.guard';
 import { NotAuthGuard} from './guards/notAuth.guard';
 import { CreateOrganizationComponent } from './register/create-organization/create-organization.component';
+import { CreateSportComponent } from './register/create-sport/create-sport.component';
 
 const appRoutes : Routes = [
   {path : '', component: LoginComponent, canActivate : [NotAuthGuard]},
@@ -37,6 +38,7 @@ const appRoutes : Routes = [
     DashboardComponent,
     ProfileComponent,
     CreateOrganizationComponent,
+    CreateSportComponent,
   ],
   imports: [
     BrowserModule,

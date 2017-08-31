@@ -1,0 +1,36 @@
+
+<!-- Custom Success/Error Message -->
+<div class="row show-hide-message">
+  <div [ngClass]="messageClass">
+    {{ message }}
+  </div>
+</div>
+
+
+<!-- Registration Form -->
+<form [formGroup]="form">
+
+  <!-- Select sports to create -->
+  <div class="form-group">
+    <label for="sport">Sport</label>
+    <div [ngClass]="{'has-error': (form.controls.sport.errors && form.controls.sport.dirty) || (form.controls.sport.dirty),
+           'has-success': !form.controls.sport.errors}">
+      <div class="row">
+        <div class="col-xs-12">
+          <div class="btn-group btn-group-vertical" data-toggle="buttons">
+            <label class="btn active">
+              <input type="checkbox" value='Baseball' checked><i class="fa fa-square-o fa-2x"></i><i class="fa fa-check-square-o fa-2x"></i>
+              <span>Baseball</span>
+            </label>
+            <label class="btn">
+              <input type="checkbox" value='Football'><i class="fa fa-square-o fa-2x"></i><i class="fa fa-check-square-o fa-2x"></i>
+              <span>Football</span>
+            </label>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+</form>
+<!-- Registration Form /-->

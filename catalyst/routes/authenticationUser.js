@@ -28,7 +28,7 @@ module.exports = (router, session) => {
       organizationname : req.body.organizationname,
       location : req.body.location
     });
-    Organization.createOrganization(organization, function(err, organ){
+    Organization.createOrganization(organization, function(err){
       if (err) {
         if (err.errors) {
           // Check if validation error is in the email field
