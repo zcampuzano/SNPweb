@@ -72,6 +72,10 @@ module.exports = (router, session) => {
             } else {
                 if (!req.body.organization) {
                   res.json({ success: false, message : 'You must provide an organization'});
+                } else {
+                  if (!req.body.sport) {
+                    res.json({ success: false, message : 'You must provide sports'});
+                  }
                 }
               }
           }
@@ -83,7 +87,8 @@ module.exports = (router, session) => {
             username: req.body.username,
             password: req.body.password,
             role : req.body.role,
-            organization : req.body.organization
+            organization : req.body.organization,
+            sport : req.body.sport
           });
           // Save user to database
           user.save((err) => {
@@ -118,6 +123,10 @@ module.exports = (router, session) => {
                             } else {
                               if (err.errors.role) {
                                 res.json({ success : false, message : err.errors.role.message});
+                              } else {
+                                if (err.errors.sport) {
+                                  res.json({ success : false, message : err.errors.sport.message});
+                                }
                               }
                               res.json({ success: false, message: err }); // Return any other error not already covered
                             }

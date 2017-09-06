@@ -34,6 +34,8 @@ export class CreateSportComponent implements OnInit {
     this.form = this.formBuilder.group({
       // Sport Input
       sport: [''],
+      baseball: [false],
+      football: [false]
     }, { validator: null}); // Add custom validator to form for matching passwords
 
   }
@@ -48,8 +50,13 @@ export class CreateSportComponent implements OnInit {
     this.form.controls['sport'].enable();
   }
 
-
   ngOnInit() {
+  }
+
+  changeValue(sportName) {
+    const boolVal = this.form.controls[sportName].value;
+    this.form.controls[sportName].setValue(!boolVal);
+    console.log(!boolVal);
   }
 
 }

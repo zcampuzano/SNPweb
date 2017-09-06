@@ -158,18 +158,15 @@ export class CreateAccountComponent implements OnInit{
     if (this.form.get('organization').value === 'New') {
       const organName = (this.createOrganizationComponent.form.controls['organizationname'].value);
       const organLoc = (this.createOrganizationComponent.form.controls['location'].value);
-      const sports = (this.createSportComponent.form.controls['sport'].value);
-      console.log(organName);
-      console.log(organLoc);
-      console.log(sports);
       const organization = {
         organizationname : organName,
         location : organLoc
       };
-      const sport = {
-
+      const sportSchema = {
+        baseball : this.createSportComponent.form.get('baseball').value,
+        football : this.createSportComponent.form.get('football').value
       };
-      this.authService.createSport(sport).subscribe(data => {
+      this.authService.createSport(sportSchema).subscribe(data => {
         if (data.success) {
 
         }
@@ -186,13 +183,13 @@ export class CreateAccountComponent implements OnInit{
               username: this.form.get('username').value, // Username input field
               password: this.form.get('password').value, // Password input field
               role: this.isAdmin, //user/admin?
-              organization: organID //new organization
+              organization: organID, //new organization
+              sport : sportSchema
             };
-            console.log(user);
 
             // Function from authentication service to register user
             this.authService.registerUser(user).subscribe(data => {
-              // Resposne from registration attempt
+              // Response from registration attempt
               if (!data.success) {
                 this.messageClass = 'alert alert-danger'; // Set an error class
                 this.message = data.message; // Set an error message
@@ -220,6 +217,10 @@ export class CreateAccountComponent implements OnInit{
       });
     } else {
       this.isAdmin = false;
+      const sportSchema = {
+        baseball : this.createSportComponent.form.get('baseball').value,
+        football : this.createSportComponent.form.get('football').value
+      };
       const user = {
         firstname: this.form.get('firstname').value, // E-mail input field
         lastname: this.form.get('lastname').value, // E-mail input field
@@ -227,7 +228,8 @@ export class CreateAccountComponent implements OnInit{
         username: this.form.get('username').value, // Username input field
         password: this.form.get('password').value, // Password input field
         role: this.isAdmin, //user/admin?
-        organization : this.form.get('organization').value //new organization
+        organization : this.form.get('organization').value, //new organization
+        sport : sportSchema
       };
 
       // console.log(user);

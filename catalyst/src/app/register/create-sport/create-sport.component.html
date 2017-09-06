@@ -18,12 +18,12 @@
       <div class="row">
         <div class="col-xs-12">
           <div class="btn-group btn-group-vertical" data-toggle="buttons">
-            <label class="btn active">
-              <input type="checkbox" value='Baseball' checked><i class="fa fa-square-o fa-2x"></i><i class="fa fa-check-square-o fa-2x"></i>
+            <label class="btn" (click)="changeValue('baseball')">
+              <input type="checkbox" value="baseball"><i class="fa fa-square-o fa-2x"></i><i class="fa fa-check-square-o fa-2x"></i>
               <span>Baseball</span>
             </label>
-            <label class="btn">
-              <input type="checkbox" value='Football'><i class="fa fa-square-o fa-2x"></i><i class="fa fa-check-square-o fa-2x"></i>
+            <label class="btn" (click)="changeValue('football')">
+              <input type="checkbox" value='football'><i class="fa fa-square-o fa-2x"></i><i class="fa fa-check-square-o fa-2x"></i>
               <span>Football</span>
             </label>
           </div>
