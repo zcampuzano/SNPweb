@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { RegisterAuthService} from '../services/register-auth.service';
+import * as $ from 'jquery';
 
 @Component({
   selector: 'app-profile',
@@ -21,6 +22,15 @@ export class ProfileComponent implements OnInit {
       this.username = profile.user.username; // Set username
       this.email = profile.user.email; // Set e-mail
     });
+  }
+
+  changeUsername() {
+    const newUsername = $( "#inputUserName" ).val();
+    this.authService.changeUsername(newUsername).subscribe(data => {
+      if (data.success) {
+        this.username = data.user.username;
+      }
+    })
   }
 
 }

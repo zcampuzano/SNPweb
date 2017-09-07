@@ -323,6 +323,40 @@ module.exports = (router, session) => {
     })
   });
 
+     /* ===============================================================
+     Route to get all organization
+  =============================================================== */
+  router.post('/changeUsername', (req, res) => {
+    User.findOne({ _id: req.decoded.userId }).select('username').exec((err, user) => {
+      // Check if error connecting
+      if (err) {
+        res.json({ success: false, message: err }); // Return error
+      } else {
+        // Check if user was found in database
+        if (!user) {
+          res.json({ success: false, message: 'User not found' }); // Return error, user was not found in db
+        } else {
+          User.update({ username : req.body.newUsername});
+          res.json({ success: true, user: user }); // Return success, send user object to frontend for profile
+        }
+      }
+    });
+  });
+
+  router.get('/getOrganizations', (req, res) => {
+    Organization.find({}).select('organizationname').exec((err, allOrgans) => {
+      if (err) {
+        res.json({ success: false, message: err }); // Return error
+      } else {
+        if (!allOrgans) {
+          res.json({ success: false, message: 'We do not have any organizations' }); // Return error, organs was not found in db
+        } else {
+          res.json({ success : true, organList : allOrgans})
+        }
+      }
+    })
+  });
+
 
   return router; // Return router object to main index.js
 }
