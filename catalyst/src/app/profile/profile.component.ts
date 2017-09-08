@@ -26,9 +26,14 @@ export class ProfileComponent implements OnInit {
 
   changeUsername() {
     const newUsername = $( "#inputUserName" ).val();
+    console.log(newUsername);
     this.authService.changeUsername(newUsername).subscribe(data => {
+      console.log(data);
       if (data.success) {
-        this.username = data.user.username;
+        this.username = data.username;
+        console.log(this.username);
+      } else {
+        console.log("no work");
       }
     })
   }

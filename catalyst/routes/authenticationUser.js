@@ -327,23 +327,27 @@ module.exports = (router, session) => {
      Route to get all organization
   =============================================================== */
   router.post('/changeUsername', (req, res) => {
-    User.findOne({ _id: req.decoded.userId }).select('username').exec((err, user) => {
-      // Check if error connecting
-      if (err) {
-        res.json({ success: false, message: err }); // Return error
-      } else {
-        // Check if user was found in database
-        if (!user) {
-          res.json({ success: false, message: 'User not found' }); // Return error, user was not found in db
-        } else {
-          User.update({ username : req.body.newUsername});
-          res.json({ success: true, user: user }); // Return success, send user object to frontend for profile
+    User.findOneAndUpdate(
+      {"_id": req.decoded.userId},
+      {
+        "$set": {
+          "username": req.body.newUsername,
         }
+      },
+      {"new": true, "upsert": true},
+      function (err, doc) {
+        if (err) {
+          res.json({ success: false, message: 'Could not change username' }); // Return error, organs was not found in db
+          throw err;
+        }
+        console.log(doc);
+        res.json({ success: true, username: doc.username });
       }
-    });
+    );
   });
 
-  router.get('/getOrganizations', (req, res) => {
+
+    router.get('/getOrganizations', (req, res) => {
     Organization.find({}).select('organizationname').exec((err, allOrgans) => {
       if (err) {
         res.json({ success: false, message: err }); // Return error

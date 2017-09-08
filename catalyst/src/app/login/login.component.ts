@@ -75,7 +75,7 @@ export class LoginComponent implements OnInit {
           } else {
             this.router.navigate(['/dashboard']); // Navigate to dashboard view
           }
-        }, 2000);
+        }, 0);
       }
     });
   }
