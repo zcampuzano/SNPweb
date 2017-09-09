@@ -94,10 +94,10 @@ export class RegisterAuthService {
     return this.http.get(this.domain + '/authentication/profile', this.options).map(res => res.json());
   }
 
-  // change username
-  changeUsername(newUsername) {
-    this.createAuthenticationHeaders(); // Create headers before sending to API
-    return this.http.post(this.domain + '/authentication/changeUsername', newUsername).map(res => res.json());
+  // change userna
+  changeUsername(user) {
+    //this.createAuthenticationHeaders(); // Create headers before sending to API
+    return this.http.post(this.domain + '/authentication/changeUsername', user).map(res => res.json());
   }
 
   // Function to check if user is logged in

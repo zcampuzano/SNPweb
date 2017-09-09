@@ -25,17 +25,22 @@ export class ProfileComponent implements OnInit {
   }
 
   changeUsername() {
-    const newUsername = $( "#inputUserName" ).val();
-    console.log(newUsername);
-    this.authService.changeUsername(newUsername).subscribe(data => {
-      console.log(data);
-      if (data.success) {
-        this.username = data.username;
-        console.log(this.username);
-      } else {
-        console.log("no work");
-      }
-    })
+    this.authService.getProfile().subscribe(profile => {
+      const newUsername = $( "#inputUserName" ).val();
+      const user = {
+        newUsername : newUsername, // Username input field
+        identity: profile.user._id // Password input field
+      };
+      this.authService.changeUsername(user).subscribe(data => {
+        console.log(data);
+        if (data.success) {
+          this.username = data.username;
+          console.log(this.username);
+        } else {
+          console.log("no work");
+        }
+      });
+    });
   }
 
 }
