@@ -1,14 +1,14 @@
 import { Injectable } from '@angular/core';
 import { Http, Headers, RequestOptions } from '@angular/http';
 import 'rxjs/add/operator/map';
-import { tokenNotExpired } from 'angular2-jwt';
+import { tokenNotExpired, JwtHelper } from 'angular2-jwt';
 
 @Injectable()
 export class RegisterAuthService {
 
   domain = "http://localhost:8080"; // Development Domain - Not Needed in Production
   loginAuthToken;
-  user;
+  role;
   options;
 
 
@@ -22,7 +22,7 @@ export class RegisterAuthService {
     // Headers configuration options
     this.options = new RequestOptions({
       headers: new Headers({
-        'Content-Type': 'application/json', // Format set to JSON
+        'Content-Type': 'application/json', // Format set to// JSON
         'authorization': this.loginAuthToken // Attach token
       })
     });
@@ -34,7 +34,7 @@ export class RegisterAuthService {
 
   // Function to get token from client local storage
   loadToken() {
-    this.loginAuthToken = localStorage.getItem('token'); // Get token and asssign to variable to be used elsewhere
+    this.loginAuthToken = localStorage.getItem('ng-jwt'); // Get token and asssign to variable to be used elsewhere
   }
 
   createOrganization(organization) {
@@ -82,10 +82,11 @@ export class RegisterAuthService {
   }
 
   // Function to store user's data in client local storage
-  storeUserData(token, role) {
-    localStorage.setItem('token', token); // Set token in local storage
+  storeUserData(token, presence) {
+    localStorage.setItem('ng-jwt', token); // Set token in local storage
+    localStorage.setItem('presence', presence); // Set token in local storage
     this.loginAuthToken = token; // Assign token to be used elsewhere
-    this.user = role;
+    this.role = presence;
   }
 
   // Function to get user's profile data
@@ -102,13 +103,17 @@ export class RegisterAuthService {
 
   // Function to check if user is logged in
   loggedIn() {
-      if (this.user != null) {
-        return tokenNotExpired();
-      }
+      //const temp = JwtHelper.prototype.getTokenExpirationDate(localStorage.getItem('ng-jwt'));
+      //const temp = JwtHelper.prototype.isTokenExpired(localStorage.getItem('ng-jwt'));
+      //console.log(temp);
+    //if (this.user != null) {
+      return tokenNotExpired('ng-jwt');
+    //}
+      //return !temp;
   }
 
   isAdmin() {
-    return this.user.role;
+    return localStorage.getItem('presence');
   }
 
 

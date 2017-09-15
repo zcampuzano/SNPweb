@@ -28,8 +28,8 @@ export class ProfileComponent implements OnInit {
     this.authService.getProfile().subscribe(profile => {
       const newUsername = $( "#inputUserName" ).val();
       const user = {
-        newUsername : newUsername, // Username input field
-        identity: profile.user._id // Password input field
+        newUsername : newUsername,
+        identity: profile.user._id
       };
       this.authService.changeUsername(user).subscribe(data => {
         console.log(data);

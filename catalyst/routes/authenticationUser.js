@@ -349,20 +349,6 @@ module.exports = (router, session) => {
     })
   });
 
-    router.get('/getOrganizations', (req, res) => {
-    Organization.find({}).select('organizationname').exec((err, allOrgans) => {
-      if (err) {
-        res.json({ success: false, message: err }); // Return error
-      } else {
-        if (!allOrgans) {
-          res.json({ success: false, message: 'We do not have any organizations' }); // Return error, organs was not found in db
-        } else {
-          res.json({ success : true, organList : allOrgans})
-        }
-      }
-    })
-  });
-
 
   return router; // Return router object to main index.js
 }
