@@ -75,13 +75,13 @@ export class LoginComponent implements OnInit {
           } else {
             this.router.navigate(['/dashboard']); // Navigate to dashboard view
           }
-        }, 2000);
+        }, 0);
       }
     });
   }
 
   ngOnInit() {
-    if (this.authGuard.redirectUrl) {
+    if (this.authGuard.redirectUrl && !this.authService.loggedIn()) {
       this.messageClass = 'alert alert-danger';
       this.message = 'You must be logged in to view that page';
       this.previousUrl = this.authGuard.redirectUrl;

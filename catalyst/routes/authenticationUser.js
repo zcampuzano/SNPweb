@@ -263,6 +263,32 @@ module.exports = (router, session) => {
     }
   });
 
+  /* ===============================================================
+  Route to get all organization
+=============================================================== */
+  router.post('/changeUsername', (req, res) => {
+    if (!req.body.identity) {
+      console.log("no ID");
+    }
+    User.findOneAndUpdate(
+      {"_id": req.body.identity},
+      {
+        "$set": {
+          "username": req.body.newUsername,
+        }
+      },
+      {"new": true, "upsert": true},
+      function (err, doc) {
+        if (err) {
+          res.json({ success: false, message: 'Could not change username' }); // Return error, organs was not found in db
+          throw err;
+        }
+        console.log(doc);
+        res.json({ success: true, username: doc.username });
+      }
+    );
+  });
+
 
   /* ================================================
   MIDDLEWARE - Used to grab user's token from headers

@@ -300,7 +300,7 @@ export class CreateAccountComponent implements OnInit{
 
   ngOnInit() {
     this.authService.createRegisterToken().subscribe(data => {
-      this.authService.storeUserData(data.token, null);
+      this.authService.storeUserData(data.token, true);
       this.generateOrgans();
     });
   }
