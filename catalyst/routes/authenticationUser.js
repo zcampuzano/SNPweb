@@ -22,11 +22,16 @@ module.exports = (router, session) => {
     } else {
       if (!req.body.location) {
         res.json({success: false, message: 'Please provide organization location'});
+      } else {
+        if (!req.body.sport) {
+          res.json({ success: false, message : 'You must provide sports'});
+        }
       }
     }
     let organization = new Organization({
       organizationname : req.body.organizationname,
-      location : req.body.location
+      location : req.body.location,
+      sport : req.body.sport
     });
     Organization.createOrganization(organization, function(err){
       if (err) {
@@ -38,6 +43,10 @@ module.exports = (router, session) => {
             // Check if validation error is in the username field
             if (err.errors.location) {
               res.json({ success: false, message: err.errors.location.message}); // Return error
+            } else {
+              if (err.errors.sport) {
+                res.json({ success : false, message : err.errors.sport.message});
+              }
             }
           }
         } else {

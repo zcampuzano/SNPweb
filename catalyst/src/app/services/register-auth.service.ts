@@ -106,10 +106,10 @@ export class RegisterAuthService {
       //const temp = JwtHelper.prototype.getTokenExpirationDate(localStorage.getItem('ng-jwt'));
       //const temp = JwtHelper.prototype.isTokenExpired(localStorage.getItem('ng-jwt'));
       //console.log(temp);
-    //if (this.user != null) {
+    if (localStorage.getItem('presence') != 'null') {
       return tokenNotExpired('ng-jwt');
-    //}
-      //return !temp;
+    }
+      // return !temp;
   }
 
   isAdmin() {

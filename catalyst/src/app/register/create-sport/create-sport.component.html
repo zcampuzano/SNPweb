@@ -17,16 +17,30 @@
            'has-success': !form.controls.sport.errors}">
       <div class="row">
         <div class="col-xs-12">
-          <div class="btn-group btn-group-vertical" data-toggle="buttons">
-            <label class="btn" (click)="changeValue('baseball')">
-              <input type="checkbox" value="baseball"><i class="fa fa-square-o fa-2x"></i><i class="fa fa-check-square-o fa-2x"></i>
-              <span>Baseball</span>
-            </label>
-            <label class="btn" (click)="changeValue('football')">
-              <input type="checkbox" value='football'><i class="fa fa-square-o fa-2x"></i><i class="fa fa-check-square-o fa-2x"></i>
-              <span>Football</span>
-            </label>
+          <div *ngIf="radioORcheck === 'checkbox'; else elseBlock">
+            <div class="btn-group btn-group-vertical" data-toggle="buttons">
+              <p class="btn" (click)="changeValue('baseball')" >
+                <input value="baseball" type="checkbox" id="option1" name="radio-group">
+                <label for="option1">Baseball</label>
+              </p>
+              <p class="btn" (click)="changeValue('football')" >
+                <input value="football" type="checkbox" id="option2" name="radio-group">
+                <label for="option2">Football</label>
+              </p>
+            </div>
           </div>
+          <ng-template #elseBlock>
+            <div class="btn-group btn-group-vertical" data-toggle="buttons">
+              <p class="btn">
+                <input value="baseball" type="radio" id="baseball" name="radio-group">
+                <label for="option1">Baseball</label>
+              </p>
+              <p class="btn">
+                <input value="football" type="radio" id="football" name="radio-group">
+                <label for="option2">Football</label>
+              </p>
+            </div>
+          </ng-template>
         </div>
       </div>
     </div>

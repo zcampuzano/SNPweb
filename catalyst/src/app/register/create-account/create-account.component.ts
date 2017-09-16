@@ -4,6 +4,7 @@ import { RegisterAuthService} from '../../services/register-auth.service';
 import { Router } from '@angular/router';
 import { CreateOrganizationComponent} from '../create-organization/create-organization.component';
 import { CreateSportComponent } from '../create-sport/create-sport.component';
+import * as $ from 'jquery';
 
 @Component({
   selector: 'app-create-account',
@@ -158,18 +159,18 @@ export class CreateAccountComponent implements OnInit{
     if (this.form.get('organization').value === 'New') {
       const organName = (this.createOrganizationComponent.form.controls['organizationname'].value);
       const organLoc = (this.createOrganizationComponent.form.controls['location'].value);
-      const organization = {
-        organizationname : organName,
-        location : organLoc
-      };
       const sportSchema = {
         baseball : this.createSportComponent.form.get('baseball').value,
         football : this.createSportComponent.form.get('football').value
       };
+      const organization = {
+        organizationname : organName,
+        location : organLoc,
+        sport : sportSchema
+      };
+      console.log(sportSchema.baseball);
+      console.log(sportSchema.football);
       this.authService.createSport(sportSchema).subscribe(data => {
-        if (data.success) {
-
-        }
         this.authService.createOrganization(organization).subscribe(data => {
           if (data.success) {
             this.messageClass = 'alert alert-success'; // Set a success class
@@ -218,9 +219,11 @@ export class CreateAccountComponent implements OnInit{
     } else {
       this.isAdmin = false;
       const sportSchema = {
-        baseball : this.createSportComponent.form.get('baseball').value,
-        football : this.createSportComponent.form.get('football').value
+        baseball : $( "#baseball" ).is(':checked'),
+        football :  $( "#football" ).is(':checked')
       };
+      console.log(sportSchema.baseball);
+      console.log(sportSchema.football);
       const user = {
         firstname: this.form.get('firstname').value, // E-mail input field
         lastname: this.form.get('lastname').value, // E-mail input field
@@ -300,7 +303,7 @@ export class CreateAccountComponent implements OnInit{
 
   ngOnInit() {
     this.authService.createRegisterToken().subscribe(data => {
-      this.authService.storeUserData(data.token, true);
+      this.authService.storeUserData(data.token, null);
       this.generateOrgans();
     });
   }

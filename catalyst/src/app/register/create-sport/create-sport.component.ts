@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import {Component, Input, OnInit} from '@angular/core';
 import { FormBuilder, FormGroup } from '@angular/forms';
 import { RegisterAuthService} from '../../services/register-auth.service';
 import { Router } from '@angular/router';
@@ -12,6 +12,8 @@ import { Router } from '@angular/router';
 })
 
 export class CreateSportComponent implements OnInit {
+  @Input() radioORcheck : string;
+
   sportMessage: any;
   sportValid: boolean;
 
@@ -56,7 +58,8 @@ export class CreateSportComponent implements OnInit {
   changeValue(sportName) {
     const boolVal = this.form.controls[sportName].value;
     this.form.controls[sportName].setValue(!boolVal);
-    console.log(!boolVal);
+    // console.log($( "#baseball" ).is(':checked'));
+    // console.log(!boolVal);
   }
 
 }
