@@ -170,7 +170,6 @@ export class CreateAccountComponent implements OnInit{
       };
       console.log(sportSchema.baseball);
       console.log(sportSchema.football);
-      this.authService.createSport(sportSchema).subscribe(data => {
         this.authService.createOrganization(organization).subscribe(data => {
           if (data.success) {
             this.messageClass = 'alert alert-success'; // Set a success class
@@ -215,7 +214,6 @@ export class CreateAccountComponent implements OnInit{
             }
           }
         });
-      });
     } else {
       this.isAdmin = false;
       const sportSchema = {

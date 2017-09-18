@@ -10,3 +10,8 @@ const footballSchema = new Schema({
 });
 
 module.exports = mongoose.model('Football', footballSchema);
+
+module.exports.createFootballSchema = function(newFootballSchema, callback){
+  newFootballSchema.save(callback);
+}
+

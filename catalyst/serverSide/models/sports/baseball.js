@@ -10,3 +10,7 @@ const baseballSchema = new Schema({
 });
 
 module.exports = mongoose.model('Baseball', baseballSchema);
+
+module.exports.createBaseballSchema = function(newBaseballSchema, callback){
+  newBaseballSchema.save(callback);
+}

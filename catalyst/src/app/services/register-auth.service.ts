@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { Http, Headers, RequestOptions } from '@angular/http';
 import 'rxjs/add/operator/map';
-import { tokenNotExpired, JwtHelper } from 'angular2-jwt';
+import { tokenNotExpired } from 'angular2-jwt';
 
 @Injectable()
 export class RegisterAuthService {
@@ -41,15 +41,14 @@ export class RegisterAuthService {
     return this.http.post(this.domain + '/authentication/createOrganization', organization).map(res => res.json());
   }
 
-  createSport(sport) {
-    return this.http.post(this.domain + '/authentication/createSport', sport).map(res => res.json());
-  }
+  // createSport(sport) {
+  //   return this.http.post(this.domain + '/authentication/createSport', sport).map(res => res.json());
+  // }
 
   getOrganizations() {
     this.createAuthenticationHeaders(); // Create headers before sending to API
     return this.http.get(this.domain + '/authentication/getOrganizations', this.options).map(res => res.json());
   }
-
   // Function to register user accounts
   registerUser(user) {
     return this.http.post(this.domain + '/authentication/register', user).map(res => res.json());

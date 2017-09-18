@@ -19,6 +19,9 @@ import { AuthGuard} from './guards/auth.guard';
 import { NotAuthGuard} from './guards/notAuth.guard';
 import { CreateOrganizationComponent } from './register/create-organization/create-organization.component';
 import { CreateSportComponent } from './register/create-sport/create-sport.component';
+import {SportAuthService} from './services/sport-auth.service';
+import { BaseballSchemaComponent } from './dashboard/baseball-schema/baseball-schema.component';
+import { FootballSchemaComponent } from './dashboard/football-schema/football-schema.component';
 
 const appRoutes : Routes = [
   {path : '', component: LoginComponent, canActivate : [NotAuthGuard]},
@@ -39,6 +42,8 @@ const appRoutes : Routes = [
     ProfileComponent,
     CreateOrganizationComponent,
     CreateSportComponent,
+    BaseballSchemaComponent,
+    FootballSchemaComponent,
   ],
   imports: [
     BrowserModule,
@@ -48,7 +53,7 @@ const appRoutes : Routes = [
     HttpModule,
     FlashMessagesModule
   ],
-  providers: [RegisterAuthService, AuthGuard, NotAuthGuard],
+  providers: [RegisterAuthService, SportAuthService, AuthGuard, NotAuthGuard],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

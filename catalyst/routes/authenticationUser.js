@@ -360,4 +360,4 @@ module.exports = (router, session) => {
 
 
   return router; // Return router object to main index.js
-}
+};

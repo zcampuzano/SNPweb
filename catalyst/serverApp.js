@@ -12,6 +12,7 @@ const path = require('path'); // NodeJS Package for file paths
 const bodyParser = require('body-parser'); // Parse incoming request bodies in a middleware before your handlers, available under the req.body property.
 const cors = require('cors');
 const authentication = require('./routes/authenticationUser')(router, session); // Import Authentication Routes
+const sportAuthentication = require('./routes/authenticationSport')(router, session); // Import Authentication Routes
 
 
 // Database Connection
@@ -43,6 +44,7 @@ app.use(bodyParser.urlencoded({ extended: false })); // parse application/x-www-
 app.use(bodyParser.json()); // parse application/json
 app.use(express.static(__dirname + '/dist/')); // Provide static directory for frontend
 app.use('/authentication', authentication);
+app.use('/sportAuthentication', sportAuthentication);
 
 // Connect server to Angular 2 Index.html
 app.get('*', (req, res) => {
