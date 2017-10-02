@@ -1,6 +1,7 @@
 const User = require('../serverSide/models/user'); // Import User Model Schema
 const Organization = require('../serverSide/models/organization'); // Import User Model Schema
 const Athlete = require('../serverSide/models/athlete'); // Import User Model Schema
+const Recruit = require('../serverSide/models/recruit'); // Import User Model Schema
 const BaseballSchema = require('../serverSide/models/sports/baseball');
 const FootballSchema = require('../serverSide/models/sports/football');
 const jwt = require('jsonwebtoken');
@@ -160,7 +161,62 @@ module.exports = (router, session) => {
           res.json({ success: false, message: 'Could not save athlete. Error: ', err }); // Return error if not related to validation
         }
       } else {
-        res.json({ success: true, message: 'Athlete registered!', athleteID: athlete._id }); // Return success
+        res.json({ success: true, message: 'Athlete registered!', athleteFirstName: athlete.firstname }); // Return success
+      }
+    });
+  });
+
+  /* ==============
+      Create Recruit Route
+   ============== */
+  router.post('/createRecruit', (req, res) => {
+    if (!req.body.firstname) {
+      res.json({ success: false, message: 'Please provide a first name'});
+    } else {
+      if (!req.body.lastname) {
+        res.json({success: false, message: 'Please provide a last name'});
+      }  else {
+        if (!req.body.organization) {
+          res.json({success: false, message: 'You must provide a organization'});
+        }
+      }
+    }
+    let recruit = new Recruit({
+      firstname : req.body.firstname,
+      lastname : req.body.lastname,
+      baseballStat : req.body.baseballStat,
+      footballStat : req.body.footballStat,
+      organization : req.body.organization
+    });
+    Recruit.createRecruit(recruit, function(err){
+      if (err) {
+        if (err.errors) {
+          // Check if validation error is in the email field
+          if (err.errors.firstname) {
+            res.json({ success: false, message: err.errors.firstname.message }); // Return error
+          } else {
+            // Check if validation error is in the username field
+            if (err.errors.lastname) {
+              res.json({ success: false, message: err.errors.lastname.message}); // Return error
+            } else {
+              if (err.errors.baseballStat) {
+                res.json({ success : false, message : err.errors.baseballStat.message});
+              } else {
+                if (err.errors.footballStat) {
+                  res.json({ success : false, message : err.errors.footballStat.message});
+                } else {
+                  if (err.errors.organization) {
+                    res.json({ success : false, message : err.errors.organization.message});
+                  }
+                }
+              }
+            }
+          }
+        } else {
+          res.json({ success: false, message: 'Could not save recruit. Error: ', err }); // Return error if not related to validation
+        }
+      } else {
+        res.json({ success: true, message: 'Recruit registered!', recruitFirstName: recruit.firstname }); // Return success
       }
     });
   });
@@ -177,6 +233,23 @@ module.exports = (router, session) => {
           res.json({ success: false, message: 'We do not have any athletes' }); // Return error, organs was not found in db
         } else {
           res.json({ success : true, athleteList : allAthlete})
+        }
+      }
+    })
+  });
+
+  /* ===============================================================
+    Route to get all recruits
+ =============================================================== */
+  router.get('/getRecruits', (req, res) => {
+    Recruit.find({}).select('firstname').exec((err, allRecruit) => {
+      if (err) {
+        res.json({ success: false, message: err }); // Return error
+      } else {
+        if (!allRecruit) {
+          res.json({ success: false, message: 'We do not have any recruits' }); // Return error, organs was not found in db
+        } else {
+          res.json({ success : true, recruitList : allRecruit})
         }
       }
     })

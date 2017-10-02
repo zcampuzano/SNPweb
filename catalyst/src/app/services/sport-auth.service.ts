@@ -43,9 +43,19 @@ export class SportAuthService {
     return this.http.post(this.domain + '/sportAuthentication/createAthlete', athlete, this.options).map(res => res.json());
   }
 
+  createRecruit(recruit) {
+    this.createAuthenticationHeaders(); // Create headers before sending to API
+    return this.http.post(this.domain + '/sportAuthentication/createRecruit', recruit, this.options).map(res => res.json());
+  }
+
   getAthletes() {
     this.createAuthenticationHeaders(); // Create headers before sending to API
     return this.http.get(this.domain + '/sportAuthentication/getAthletes', this.options).map(res => res.json());
+  }
+
+  getRecruits() {
+    this.createAuthenticationHeaders(); // Create headers before sending to API
+    return this.http.get(this.domain + '/sportAuthentication/getRecruits', this.options).map(res => res.json());
   }
 
   getSports() {

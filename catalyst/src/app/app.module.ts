@@ -1,4 +1,5 @@
 import { BrowserModule } from '@angular/platform-browser';
+import { ClarityModule } from 'clarity-angular';
 import { NgModule } from '@angular/core';
 import {FormsModule, ReactiveFormsModule} from '@angular/forms';
 import { FlashMessagesModule} from 'angular2-flash-messages';
@@ -8,7 +9,6 @@ import { LoginComponent } from './login/login.component';
 import { HeaderComponent } from './header/header.component';
 import { CreateAccountComponent } from './register/create-account/create-account.component';
 import { DropdownDirective } from './shared/dropdown.directive';
-import { AccountComponent } from './account/account.component';
 import {RouterModule, Routes} from '@angular/router';
 
 import { HttpModule } from '@angular/http';
@@ -22,12 +22,16 @@ import { CreateSportComponent } from './register/create-sport/create-sport.compo
 import {SportAuthService} from './services/sport-auth.service';
 import { BaseballSchemaComponent } from './dashboard/baseball-schema/baseball-schema.component';
 import { FootballSchemaComponent } from './dashboard/football-schema/football-schema.component';
+import { SideBarComponent } from './dashboard/side-bar/side-bar.component';
+import { AddAthleteComponent } from './dashboard/add-athlete/add-athlete.component';
+import { AddRecruitComponent } from './dashboard/add-recruit/add-recruit.component';
 
 const appRoutes : Routes = [
   {path : '', component: LoginComponent, canActivate : [NotAuthGuard]},
   {path : 'register', component: CreateAccountComponent, canActivate : [NotAuthGuard]},
   {path : 'dashboard', component: DashboardComponent, canActivate : [AuthGuard]},
-  {path : 'profile', component: ProfileComponent, canActivate : [AuthGuard]}
+  {path : 'profile', component: ProfileComponent, canActivate : [AuthGuard]},
+
 ];
 
 @NgModule({
@@ -37,13 +41,15 @@ const appRoutes : Routes = [
     HeaderComponent,
     CreateAccountComponent,
     DropdownDirective,
-    AccountComponent,
     DashboardComponent,
     ProfileComponent,
     CreateOrganizationComponent,
     CreateSportComponent,
     BaseballSchemaComponent,
     FootballSchemaComponent,
+    SideBarComponent,
+    AddAthleteComponent,
+    AddRecruitComponent,
   ],
   imports: [
     BrowserModule,
@@ -51,7 +57,8 @@ const appRoutes : Routes = [
     ReactiveFormsModule,
     RouterModule.forRoot(appRoutes),
     HttpModule,
-    FlashMessagesModule
+    FlashMessagesModule,
+    ClarityModule.forRoot(),
   ],
   providers: [RegisterAuthService, SportAuthService, AuthGuard, NotAuthGuard],
   bootstrap: [AppComponent]
