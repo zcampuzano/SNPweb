@@ -5,7 +5,7 @@
   <div class="header-nav">
     <span *ngIf="authService.loggedIn()" [routerLinkActive]="['active']" [routerLinkActiveOptions]="{exact:true}"><a class="nav-link nav-text" routerLink="/dashboard">Dashboard</a></span>
     <span *ngIf="authService.loggedIn()" [routerLinkActive]="['active']" [routerLinkActiveOptions]="{exact:true}"><a class="nav-link nav-text" routerLink="/profile">Profile</a></span>
-    <span><a class="nav-link nav-text" *ngIf="authService.loggedIn() && authService.isAdmin()">AdminOnly</a></span>
+    <span *ngIf="authService.loggedIn() && authService.isAdmin()" [routerLinkActive]="['active']" [routerLinkActiveOptions]="{exact:true}"><a class="nav-link nav-text" routerLink="/admin">AdminOnly</a></span>
     <span><a class="nav-link nav-text" *ngIf="!authService.loggedIn()" routerLink="">Login</a></span>
     <span><a class="nav-link nav-text" *ngIf="authService.loggedIn()" href="#" (click)="onLogoutClick()">Logout</a></span>
     <span *ngIf="!authService.loggedIn()" [routerLinkActive]="['active']" [routerLinkActiveOptions]="{exact:true}"><a class="nav-link nav-text" routerLink="/register">Register</a></span>

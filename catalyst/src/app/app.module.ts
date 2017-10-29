@@ -25,12 +25,14 @@ import { FootballSchemaComponent } from './dashboard/football-schema/football-sc
 import { SideBarComponent } from './dashboard/side-bar/side-bar.component';
 import { AddAthleteComponent } from './dashboard/add-athlete/add-athlete.component';
 import { AddRecruitComponent } from './dashboard/add-recruit/add-recruit.component';
+import { AdminComponent } from './admin/admin.component';
 
-const appRoutes : Routes = [
+const appRoutes: Routes = [
   {path : '', component: LoginComponent, canActivate : [NotAuthGuard]},
   {path : 'register', component: CreateAccountComponent, canActivate : [NotAuthGuard]},
   {path : 'dashboard', component: DashboardComponent, canActivate : [AuthGuard]},
   {path : 'profile', component: ProfileComponent, canActivate : [AuthGuard]},
+  {path : 'admin', component: AdminComponent, canActivate : [AuthGuard]},
 
 ];
 
@@ -50,6 +52,7 @@ const appRoutes : Routes = [
     SideBarComponent,
     AddAthleteComponent,
     AddRecruitComponent,
+    AdminComponent,
   ],
   imports: [
     BrowserModule,

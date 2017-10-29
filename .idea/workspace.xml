@@ -2,8 +2,6 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="acde4e33-5af4-45bb-9f5a-357edd6807cd" name="Default" comment="">
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/catalyst/serverSide/models/organization.js" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/catalyst/serverSide/models/sport.js" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
     </list>
     <ignored path="$PROJECT_DIR$/.tmp/" />
@@ -21,8 +19,8 @@
       <file leaf-file-name="user.js" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/catalyst/serverSide/models/user.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="650">
-              <caret line="161" column="0" lean-forward="true" selection-start-line="0" selection-start-column="0" selection-end-line="161" selection-end-column="0" />
+            <state relative-caret-position="2415">
+              <caret line="161" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="161" selection-end-column="0" />
               <folding>
                 <element signature="n#!!doc" expanded="true" />
               </folding>
@@ -40,26 +38,13 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="sport.js" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/catalyst/serverSide/models/sport.js">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="0">
-              <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
       <file leaf-file-name="profile.component.ts" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/catalyst/src/app/profile/profile.component.ts">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="165">
+            <state relative-caret-position="180">
               <caret line="12" column="0" lean-forward="false" selection-start-line="12" selection-start-column="0" selection-end-line="12" selection-end-column="0" />
               <folding>
                 <element signature="e#0#50#0" expanded="true" />
-                <marker date="1502574208000" expanded="true" signature="299:670" ph="{...}" />
-                <marker date="1502574208000" expanded="true" signature="655:661" ph="{...}" />
-                <marker date="1502574208000" expanded="true" signature="655:667" ph="{...}" />
               </folding>
             </state>
           </provider>
@@ -133,9 +118,6 @@
     <detection-done>true</detection-done>
     <sorting>DEFINITION_ORDER</sorting>
   </component>
-  <component name="NodeModulesDirectoryManager">
-    <handled-path value="$PROJECT_DIR$/catalyst/node_modules" />
-  </component>
   <component name="ProjectFrameBounds" fullScreen="true">
     <option name="width" value="1280" />
     <option name="height" value="800" />
@@ -158,7 +140,6 @@
       <foldersAlwaysOnTop value="true" />
     </navigator>
     <panes>
-      <pane id="Scope" />
       <pane id="ProjectPane">
         <subPane>
           <expand>
@@ -223,6 +204,7 @@
         </subPane>
       </pane>
       <pane id="Scratches" />
+      <pane id="Scope" />
     </panes>
   </component>
   <component name="PropertiesComponent">
@@ -257,29 +239,31 @@
       <workItem from="1502234340948" duration="489000" />
       <workItem from="1502399334668" duration="7811000" />
       <workItem from="1502574005363" duration="1489000" />
+      <workItem from="1509243332443" duration="5000" />
+      <workItem from="1509243341144" duration="3000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="9789000" />
+    <option name="totallyTimeSpent" value="9797000" />
   </component>
   <component name="ToolWindowManager">
-    <frame x="0" y="0" width="1280" height="800" extended-state="0" />
+    <frame x="0" y="0" width="1440" height="900" extended-state="0" />
     <layout>
-      <window_info id="TypeScript" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
-      <window_info id="Project" active="true" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.2494043" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
+      <window_info id="Project" active="true" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.24876674" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
       <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
       <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="7" side_tool="true" content_ui="tabs" />
-      <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
+      <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Structure" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.3287483" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
-      <window_info id="Favorites" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="2" side_tool="true" content_ui="tabs" />
       <window_info id="Debug" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.4" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
+      <window_info id="Favorites" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="2" side_tool="true" content_ui="tabs" />
       <window_info id="Cvs" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
       <window_info id="Message" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
       <window_info id="Commander" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.4" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
       <window_info id="Inspection" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.4" sideWeight="0.5" order="5" side_tool="false" content_ui="tabs" />
+      <window_info id="TypeScript" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Hierarchy" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="2" side_tool="false" content_ui="combo" />
       <window_info id="Find" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Ant Build" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
@@ -287,64 +271,6 @@
   </component>
   <component name="TypeScriptGeneratedFilesManager">
     <option name="version" value="1" />
-    <option name="exactExcludedFiles">
-      <list>
-        <option value="$PROJECT_DIR$/catalyst/node_modules/karma/config.tpl.js" />
-        <option value="$PROJECT_DIR$/catalyst/node_modules/@angular/cli/blueprints/ng/index.js" />
-        <option value="$PROJECT_DIR$/catalyst/node_modules/@angular/cli/blueprints/ng/index.d.ts" />
-        <option value="$PROJECT_DIR$/catalyst/node_modules/@angular/cli/blueprints/ng/index.js.map" />
-        <option value="$PROJECT_DIR$/catalyst/node_modules/@angular/cli/blueprints/enum/index.js" />
-        <option value="$PROJECT_DIR$/catalyst/node_modules/@angular/cli/blueprints/enum/index.d.ts" />
-        <option value="$PROJECT_DIR$/catalyst/node_modules/@angular/cli/blueprints/enum/index.js.map" />
-        <option value="$PROJECT_DIR$/catalyst/node_modules/@angular/cli/blueprints/pipe/index.js" />
-        <option value="$PROJECT_DIR$/catalyst/node_modules/@angular/cli/blueprints/pipe/index.d.ts" />
-        <option value="$PROJECT_DIR$/catalyst/node_modules/@angular/cli/blueprints/pipe/index.js.map" />
-        <option value="$PROJECT_DIR$/catalyst/node_modules/@angular/cli/blueprints/class/index.js" />
-        <option value="$PROJECT_DIR$/catalyst/node_modules/@angular/cli/blueprints/class/index.d.ts" />
-        <option value="$PROJECT_DIR$/catalyst/node_modules/@angular/cli/blueprints/class/index.js.map" />
-        <option value="$PROJECT_DIR$/catalyst/node_modules/@angular/cli/blueprints/guard/index.js" />
-        <option value="$PROJECT_DIR$/catalyst/node_modules/@angular/cli/blueprints/guard/index.d.ts" />
-        <option value="$PROJECT_DIR$/catalyst/node_modules/@angular/cli/blueprints/guard/index.js.map" />
-        <option value="$PROJECT_DIR$/catalyst/node_modules/@angular/cli/blueprints/module/index.js" />
-        <option value="$PROJECT_DIR$/catalyst/node_modules/@angular/cli/blueprints/module/index.d.ts" />
-        <option value="$PROJECT_DIR$/catalyst/node_modules/@angular/cli/blueprints/module/index.js.map" />
-        <option value="$PROJECT_DIR$/catalyst/node_modules/@angular/cli/blueprints/service/index.js" />
-        <option value="$PROJECT_DIR$/catalyst/node_modules/@angular/cli/blueprints/service/index.d.ts" />
-        <option value="$PROJECT_DIR$/catalyst/node_modules/@angular/cli/blueprints/service/index.js.map" />
-        <option value="$PROJECT_DIR$/catalyst/node_modules/@angular/cli/blueprints/component/index.js" />
-        <option value="$PROJECT_DIR$/catalyst/node_modules/@angular/cli/blueprints/component/index.d.ts" />
-        <option value="$PROJECT_DIR$/catalyst/node_modules/@angular/cli/blueprints/component/index.js.map" />
-        <option value="$PROJECT_DIR$/catalyst/node_modules/@angular/cli/blueprints/directive/index.js" />
-        <option value="$PROJECT_DIR$/catalyst/node_modules/@angular/cli/blueprints/directive/index.d.ts" />
-        <option value="$PROJECT_DIR$/catalyst/node_modules/@angular/cli/blueprints/directive/index.js.map" />
-        <option value="$PROJECT_DIR$/catalyst/node_modules/@angular/cli/blueprints/interface/index.js" />
-        <option value="$PROJECT_DIR$/catalyst/node_modules/@angular/cli/blueprints/interface/index.d.ts" />
-        <option value="$PROJECT_DIR$/catalyst/node_modules/@angular/cli/blueprints/interface/index.js.map" />
-        <option value="$PROJECT_DIR$/catalyst/node_modules/reflect-metadata/Reflect.js" />
-        <option value="$PROJECT_DIR$/catalyst/node_modules/reflect-metadata/Reflect.d.ts" />
-        <option value="$PROJECT_DIR$/catalyst/node_modules/reflect-metadata/Reflect.js.map" />
-        <option value="$PROJECT_DIR$/catalyst/node_modules/reflect-metadata/test/reflect-definemetadata.js" />
-        <option value="$PROJECT_DIR$/catalyst/node_modules/reflect-metadata/test/reflect-definemetadata.js.map" />
-        <option value="$PROJECT_DIR$/catalyst/node_modules/reflect-metadata/test/reflect-getmetadatakeys.js" />
-        <option value="$PROJECT_DIR$/catalyst/node_modules/reflect-metadata/test/reflect-getmetadatakeys.js.map" />
-        <option value="$PROJECT_DIR$/catalyst/node_modules/reflect-metadata/test/reflect-metadata.js" />
-        <option value="$PROJECT_DIR$/catalyst/node_modules/reflect-metadata/test/reflect-metadata.js.map" />
-        <option value="$PROJECT_DIR$/catalyst/node_modules/reflect-metadata/test/reflect-getmetadata.js" />
-        <option value="$PROJECT_DIR$/catalyst/node_modules/reflect-metadata/test/reflect-getmetadata.js.map" />
-        <option value="$PROJECT_DIR$/catalyst/node_modules/reflect-metadata/test/reflect-getownmetadata.js" />
-        <option value="$PROJECT_DIR$/catalyst/node_modules/reflect-metadata/test/reflect-getownmetadata.js.map" />
-        <option value="$PROJECT_DIR$/catalyst/node_modules/reflect-metadata/test/reflect-getownmetadatakeys.js" />
-        <option value="$PROJECT_DIR$/catalyst/node_modules/reflect-metadata/test/reflect-getownmetadatakeys.js.map" />
-        <option value="$PROJECT_DIR$/catalyst/node_modules/reflect-metadata/test/reflect-hasownmetadata.js" />
-        <option value="$PROJECT_DIR$/catalyst/node_modules/reflect-metadata/test/reflect-hasownmetadata.js.map" />
-        <option value="$PROJECT_DIR$/catalyst/node_modules/reflect-metadata/test/reflect-decorate.js" />
-        <option value="$PROJECT_DIR$/catalyst/node_modules/reflect-metadata/test/reflect-decorate.js.map" />
-        <option value="$PROJECT_DIR$/catalyst/node_modules/reflect-metadata/test/reflect-deletemetadata.js" />
-        <option value="$PROJECT_DIR$/catalyst/node_modules/reflect-metadata/test/reflect-deletemetadata.js.map" />
-        <option value="$PROJECT_DIR$/catalyst/node_modules/reflect-metadata/test/reflect-hasmetadata.js" />
-        <option value="$PROJECT_DIR$/catalyst/node_modules/reflect-metadata/test/reflect-hasmetadata.js.map" />
-      </list>
-    </option>
   </component>
   <component name="VcsContentAnnotationSettings">
     <option name="myLimit" value="2678400000" />
@@ -356,6 +282,118 @@
   <component name="editorHistoryManager">
     <entry file="file://$PROJECT_DIR$/catalyst/serverSide/models/user.js">
       <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="2415">
+          <caret line="161" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="161" selection-end-column="0" />
+          <folding>
+            <element signature="n#!!doc" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/catalyst/src/app/profile/profile.component.ts">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="180">
+          <caret line="12" column="0" lean-forward="false" selection-start-line="12" selection-start-column="0" selection-end-line="12" selection-end-column="0" />
+          <folding>
+            <element signature="e#0#50#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/catalyst/src/app/services/register-auth.service.ts">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="855">
+          <caret line="57" column="9" lean-forward="false" selection-start-line="57" selection-start-column="9" selection-end-line="57" selection-end-column="9" />
+          <folding>
+            <element signature="e#0#43#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/catalyst/src/app/services/register-auth.service.spec.ts">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="0">
+          <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="15" selection-end-column="0" />
+          <folding>
+            <element signature="e#0#56#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/catalyst/serverSide/config/database.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="0">
+          <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/catalyst/serverSide/models/organization.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="0">
+          <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/catalyst/serverSide/models/user.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="2385">
+          <caret line="161" column="0" lean-forward="true" selection-start-line="0" selection-start-column="0" selection-end-line="161" selection-end-column="0" />
+          <folding>
+            <element signature="n#!!doc" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/catalyst/src/app/services/register-auth.service.spec.ts">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="0">
+          <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="15" selection-end-column="0" />
+          <folding>
+            <element signature="e#0#56#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/catalyst/src/app/profile/profile.component.ts">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="150">
+          <caret line="12" column="0" lean-forward="false" selection-start-line="12" selection-start-column="0" selection-end-line="12" selection-end-column="0" />
+          <folding>
+            <element signature="e#0#50#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/catalyst/src/app/services/register-auth.service.ts">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="810">
+          <caret line="57" column="9" lean-forward="false" selection-start-line="57" selection-start-column="9" selection-end-line="57" selection-end-column="9" />
+          <folding>
+            <element signature="e#0#43#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/catalyst/serverSide/config/database.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="0">
+          <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/catalyst/serverSide/models/organization.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="0">
+          <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/catalyst/serverSide/models/user.js">
+      <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="990">
           <caret line="68" column="15" lean-forward="false" selection-start-line="68" selection-start-column="15" selection-end-line="68" selection-end-column="15" />
           <folding>
@@ -364,31 +402,14 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/catalyst/serverSide/models/team.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="645">
-          <caret line="45" column="41" lean-forward="false" selection-start-line="45" selection-start-column="41" selection-end-line="45" selection-end-column="41" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/catalyst/src/app/services/register-team.service.spec.ts">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="195">
-          <caret line="15" column="0" lean-forward="true" selection-start-line="15" selection-start-column="0" selection-end-line="15" selection-end-column="0" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
+    <entry file="file://$PROJECT_DIR$/catalyst/serverSide/models/team.js" />
+    <entry file="file://$PROJECT_DIR$/catalyst/src/app/services/register-team.service.spec.ts" />
     <entry file="file://$PROJECT_DIR$/catalyst/src/app/profile/profile.component.ts">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="195">
           <caret line="14" column="0" lean-forward="false" selection-start-line="14" selection-start-column="0" selection-end-line="14" selection-end-column="0" />
           <folding>
             <element signature="e#0#50#0" expanded="true" />
-            <marker date="1502574208000" expanded="true" signature="299:670" ph="{...}" />
-            <marker date="1502574208000" expanded="true" signature="655:661" ph="{...}" />
-            <marker date="1502574208000" expanded="true" signature="655:667" ph="{...}" />
           </folding>
         </state>
       </provider>
@@ -397,36 +418,12 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="0">
           <caret line="0" column="22" lean-forward="true" selection-start-line="0" selection-start-column="22" selection-end-line="0" selection-end-column="22" />
-          <folding>
-            <element signature="n#!!doc" expanded="false" />
-          </folding>
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/catalyst/routes/authenticationTeam.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="1185">
-          <caret line="79" column="23" lean-forward="true" selection-start-line="79" selection-start-column="23" selection-end-line="79" selection-end-column="23" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/catalyst/routes/authentication.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="1305">
-          <caret line="87" column="39" lean-forward="false" selection-start-line="87" selection-start-column="13" selection-end-line="87" selection-end-column="39" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/catalyst/src/app/services/register-team.service.ts">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="555">
-          <caret line="40" column="27" lean-forward="true" selection-start-line="40" selection-start-column="27" selection-end-line="40" selection-end-column="27" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
+    <entry file="file://$PROJECT_DIR$/catalyst/routes/authenticationTeam.js" />
+    <entry file="file://$PROJECT_DIR$/catalyst/routes/authentication.js" />
+    <entry file="file://$PROJECT_DIR$/catalyst/src/app/services/register-team.service.ts" />
     <entry file="file://$PROJECT_DIR$/catalyst/src/favicon.ico">
       <provider selected="true" editor-type-id="images">
         <state />
@@ -436,9 +433,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="210">
           <caret line="25" column="22" lean-forward="false" selection-start-line="25" selection-start-column="22" selection-end-line="25" selection-end-column="22" />
-          <folding>
-            <element signature="e#0#58#0" expanded="false" />
-          </folding>
         </state>
       </provider>
     </entry>
@@ -451,9 +445,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="495">
           <caret line="33" column="22" lean-forward="false" selection-start-line="33" selection-start-column="22" selection-end-line="33" selection-end-column="22" />
-          <folding>
-            <element signature="e#0#58#0" expanded="false" />
-          </folding>
         </state>
       </provider>
     </entry>
@@ -475,7 +466,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="240">
           <caret line="16" column="15" lean-forward="false" selection-start-line="16" selection-start-column="15" selection-end-line="16" selection-end-column="15" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -495,59 +485,25 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/catalyst/src/app/profile/profile.component.ts">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="165">
+        <state relative-caret-position="180">
           <caret line="12" column="0" lean-forward="false" selection-start-line="12" selection-start-column="0" selection-end-line="12" selection-end-column="0" />
           <folding>
             <element signature="e#0#50#0" expanded="true" />
-            <marker date="1502574208000" expanded="true" signature="299:670" ph="{...}" />
-            <marker date="1502574208000" expanded="true" signature="655:661" ph="{...}" />
-            <marker date="1502574208000" expanded="true" signature="655:667" ph="{...}" />
           </folding>
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/catalyst/serverSide/models/team.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="645">
-          <caret line="45" column="41" lean-forward="false" selection-start-line="45" selection-start-column="41" selection-end-line="45" selection-end-column="41" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/catalyst/src/app/services/register-team.service.spec.ts">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-30">
-          <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/catalyst/routes/authenticationTeam.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="650">
-          <caret line="79" column="23" lean-forward="false" selection-start-line="79" selection-start-column="23" selection-end-line="79" selection-end-column="23" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
+    <entry file="file://$PROJECT_DIR$/catalyst/serverSide/models/team.js" />
+    <entry file="file://$PROJECT_DIR$/catalyst/src/app/services/register-team.service.spec.ts" />
+    <entry file="file://$PROJECT_DIR$/catalyst/routes/authenticationTeam.js" />
     <entry file="file://$PROJECT_DIR$/catalyst/serverApp.js">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="545">
           <caret line="40" column="25" lean-forward="true" selection-start-line="40" selection-start-column="25" selection-end-line="40" selection-end-column="25" />
-          <folding>
-            <element signature="n#!!doc" expanded="false" />
-          </folding>
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/catalyst/src/app/services/register-team.service.ts">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="0">
-          <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
+    <entry file="file://$PROJECT_DIR$/catalyst/src/app/services/register-team.service.ts" />
     <entry file="file://$PROJECT_DIR$/catalyst/src/app/services/register-auth.service.spec.ts">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="0">
@@ -558,14 +514,7 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/catalyst/routes/authentication.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="150">
-          <caret line="10" column="0" lean-forward="true" selection-start-line="10" selection-start-column="0" selection-end-line="10" selection-end-column="0" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
+    <entry file="file://$PROJECT_DIR$/catalyst/routes/authentication.js" />
     <entry file="file://$PROJECT_DIR$/catalyst/src/app/services/register-auth.service.ts">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="855">
@@ -586,22 +535,15 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/catalyst/serverSide/models/user.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="650">
-          <caret line="161" column="0" lean-forward="true" selection-start-line="0" selection-start-column="0" selection-end-line="161" selection-end-column="0" />
+        <state relative-caret-position="2415">
+          <caret line="161" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="161" selection-end-column="0" />
           <folding>
             <element signature="n#!!doc" expanded="true" />
           </folding>
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/catalyst/serverSide/models/sport.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="0">
-          <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
+    <entry file="file://$PROJECT_DIR$/catalyst/serverSide/models/sport.js" />
     <entry file="file://$PROJECT_DIR$/catalyst/serverSide/models/organization.js">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="0">
