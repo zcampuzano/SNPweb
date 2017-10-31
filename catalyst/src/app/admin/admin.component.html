@@ -1,29 +1,29 @@
 <div class="container">
-
-  <h1 class="page-header">Admin Page</h1>
-  <h2>Your Sports</h2>
-  <ul *ngFor="let sport of sportsList">
-    <li class="list-group-item">{{ sport }}</li>
-  </ul>
-
-  <button class="btn btn-primary" (click)="makeVisible()">
-    Edit
-  </button>
-
-  <div *ngIf="formVisible">
-    <div *ngFor="let sport of sportsList">
-      <label for="{{sport.name}}">
-        <input id="{{sport.name}}" [value]='sport' type="checkbox" name="sports">
-        {{sport}}
-      </label>
+  <!-- Custom Success/Error Message -->
+  <div class="row show-hide-message">
+    <div [ngClass]="messageClass">
+      {{ message }}
     </div>
-    <button class="btn btn-primary" (click)="deleteSport()">
-      Delete
-    </button>
-    <button class="btn btn-primary" (click)="addSport()">
-      Add
-    </button>
   </div>
+  <h2 class="page-header">Admin Page</h2>
+
+  <ul *ngIf="listVisible; else userView">
+    <li *ngFor="let names of users" class="list-group-item menu_links" (click)="getUser(names._id)">
+      {{names.firstname}} {{names.lastname}}
+    </li>
+  </ul>
+  <ng-template #userView>
+    <ul>
+      <li class="list-group-item">
+        First Name : {{user.firstname}}
+      </li>
+      <li class="list-group-item">
+        Last Name : {{user.lastname}}
+      </li>
+    </ul>
+    <button class="btn btn-primary" (click)="goBack()">
+      Back
+    </button>
+  </ng-template>
 
 </div>
-

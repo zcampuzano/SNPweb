@@ -262,7 +262,7 @@ module.exports = (router, session) => {
                if(!validPass) {
                  res.json({ success : false, message : "Password invalid"});
                } else {
-                 const token = jwt.sign({ userId: user._id }, config.secret, { expiresIn: '24h' }); // Create a token for client
+                 const token = jwt.sign({ userId: user._id, organId: user.organization }, config.secret, { expiresIn: '24h' }); // Create a token for client
                  res.json({ success: true, message: 'Log in Success!', token: token, user: { role: user.role } }); // Return success and token to frontend
                }
              }
@@ -306,7 +306,7 @@ module.exports = (router, session) => {
     const token = req.headers['authorization']; // Create token found in headers
     // Check if token was found in headers
     if (!token) {
-      res.json({ success: false, message: 'No token provided' }); // Return error
+      res.json({ success: false, message: 'No token provided middle' }); // Return error
     } else {
       // Verify the token is valid
       jwt.verify(token, config.secret, (err, decoded) => {
@@ -356,6 +356,26 @@ module.exports = (router, session) => {
         }
       }
     })
+  });
+
+  /* ===============================================================
+     Route to get all organization users
+  =============================================================== */
+  router.get('/getAllOrganizationUsers', (req, res) => {
+    // Search for user in database
+    User.find({ organization: req.decoded.organId }).select('firstname lastname').exec((err, userList) => {
+      // Check if error connecting
+      if (err) {
+        res.json({ success: false, message: err }); // Return error
+      } else {
+        // Check if user was found in database
+        if (!userList) {
+          res.json({ success: false, message: 'User not found' }); // Return error, user was not found in db
+        } else {
+          res.json({ success: true, userList: userList }); // Return success, send user object to frontend for profile
+        }
+      }
+    });
   });
 
 

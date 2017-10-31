@@ -1,6 +1,5 @@
 import { Component, OnInit } from '@angular/core';
 import {RegisterAuthService} from '../services/register-auth.service';
-import * as $ from 'jquery';
 import {SportAuthService} from '../services/sport-auth.service';
 
 @Component({
@@ -9,42 +8,45 @@ import {SportAuthService} from '../services/sport-auth.service';
   styleUrls: ['./admin.component.css']
 })
 export class AdminComponent implements OnInit {
-
-  sportsList;
-  message;
-  messageClass;
-  formVisible: boolean;
+  user: any;
+  message: any;
+  messageClass: string;
+  users: any;
+  listVisible : boolean;
 
   constructor(
     private authService: RegisterAuthService,
-    private sportService: SportAuthService,
-  ) { }
+    private sportService: SportAuthService
+  ) { this.listVisible = true;}
 
   ngOnInit() {
-    // Once component loads, get user's data to display on profile
-    this.getSports();
+    this.getAllOrganizationUsers();
   }
 
-  getSports() {
-    this.sportService.getSports().subscribe(data => {
+  getAllOrganizationUsers() {
+    this.authService.getAllOrganizationUsers().subscribe(data => {
       // Check if success true or success false was returned from API
       if (!data.success) {
         this.messageClass = 'alert alert-danger'; // Set an error class
         this.message = data.message; // Set an error message
-        // this.processing = false; // Re-enable submit button
       } else {
-        this.sportsList = Object.keys(data.sportList.sport);
+        this.users = data.userList;
+        console.log(this.users)
       }
     });
   }
 
-  deleteSport() {
-    console.log('dasf')
-    console.log($('input[name="sports"]')) //todo this
+  getUser(id) {
+    this.listVisible = false;
+    this.sportService.getUser(id).subscribe(data => {
+      // Check if success true or success false was returned from API
+      this.user = data.user;
+      console.log(this.user)
+    });
   }
 
-  makeVisible() {
-    this.formVisible = !this.formVisible;
+  goBack() {
+    this.listVisible = true;
   }
 
 }

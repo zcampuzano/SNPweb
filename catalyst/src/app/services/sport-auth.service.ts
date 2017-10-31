@@ -63,10 +63,8 @@ export class SportAuthService {
     return this.http.get(this.domain + '/sportAuthentication/getSports', this.options).map(res => res.json());
   }
 
-  // Function to store user's data in client local storage
-  storeUserData(token) {
-    localStorage.setItem('ng-jwt', token); // Set token in local storage
-    this.loginAuthToken = token; // Assign token to be used elsewhere
+  getUser(id) {
+    this.createAuthenticationHeaders(); // Create headers before sending to API
+    return this.http.get(this.domain + '/sportAuthentication/getUser/' + id, this.options).map(res => res.json());
   }
-
 }

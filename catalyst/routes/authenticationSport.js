@@ -272,5 +272,23 @@ module.exports = (router, session) => {
     })
   });
 
+  /* ===============================================================
+     Route to get user
+  =============================================================== */
+  router.get('/getUser/:id', (req, res) => {
+    console.log(req.params.id)
+    User.findOne({ _id: req.params.id }).select('firstname lastname').exec((err, user) => {
+      if (err) {
+        res.json({ success: false, message: err }); // Return error
+      } else {
+        if (!user) {
+          res.json({ success: false, message: 'We do not have any organizations' }); // Return error, organs was not found in db
+        } else {
+          res.json({ success : true, user : user})
+        }
+      }
+    })
+  });
+
   return router; // Return router object to main index.js
 };
