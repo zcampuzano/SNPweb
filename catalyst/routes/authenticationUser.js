@@ -22,16 +22,16 @@ module.exports = (router, session) => {
     } else {
       if (!req.body.location) {
         res.json({success: false, message: 'Please provide organization location'});
-      } else {
-        if (!req.body.sport) {
-          res.json({ success: false, message : 'You must provide sports'});
-        }
-      }
+      } //else {
+      //   if (!req.body.sport) {
+      //     res.json({ success: false, message : 'You must provide sports'});
+      //   }
+      // }
     }
     let organization = new Organization({
       organizationname : req.body.organizationname,
-      location : req.body.location,
-      sport : req.body.sport
+      location : req.body.location
+      // sport : req.body.sport
     });
     Organization.createOrganization(organization, function(err){
       if (err) {
@@ -42,12 +42,12 @@ module.exports = (router, session) => {
           } else {
             // Check if validation error is in the username field
             if (err.errors.location) {
-              res.json({ success: false, message: err.errors.location.message}); // Return error
-            } else {
-              if (err.errors.sport) {
-                res.json({ success : false, message : err.errors.sport.message});
-              }
-            }
+              res.json({success: false, message: err.errors.location.message}); // Return error
+            } // else {
+            //   if (err.errors.sport) {
+            //     res.json({ success : false, message : err.errors.sport.message});
+            //   }
+            // }
           }
         } else {
           res.json({ success: false, message: 'Could not save organ. Error: ', err }); // Return error if not related to validation
@@ -81,11 +81,11 @@ module.exports = (router, session) => {
             } else {
                 if (!req.body.organization) {
                   res.json({ success: false, message : 'You must provide an organization'});
-                } else {
-                  if (!req.body.sport) {
-                    res.json({ success: false, message : 'You must provide sports'});
-                  }
-                }
+                }// else {
+                //   if (!req.body.sport) {
+                //     res.json({ success: false, message : 'You must provide sports'});
+                //   }
+                // }
               }
           }
           // Create new user object and apply user input
@@ -96,8 +96,8 @@ module.exports = (router, session) => {
             username: req.body.username,
             password: req.body.password,
             role : req.body.role,
-            organization : req.body.organization,
-            sport : req.body.sport
+            organization : req.body.organization
+            // sport : req.body.sport
           });
           // Save user to database
           user.save((err) => {
@@ -132,11 +132,11 @@ module.exports = (router, session) => {
                             } else {
                               if (err.errors.role) {
                                 res.json({ success : false, message : err.errors.role.message});
-                              } else {
-                                if (err.errors.sport) {
-                                  res.json({ success : false, message : err.errors.sport.message});
-                                }
-                              }
+                              } //else {
+                              //   if (err.errors.sport) {
+                              //     res.json({ success : false, message : err.errors.sport.message});
+                              //   }
+                              // }
                               res.json({ success: false, message: err }); // Return any other error not already covered
                             }
                           }

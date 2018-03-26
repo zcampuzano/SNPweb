@@ -159,17 +159,17 @@ export class CreateAccountComponent implements OnInit{
     if (this.form.get('organization').value === 'New') {
       const organName = (this.createOrganizationComponent.form.controls['organizationname'].value);
       const organLoc = (this.createOrganizationComponent.form.controls['location'].value);
-      const sportSchema = {
-        baseball : this.createSportComponent.form.get('baseball').value,
-        football : this.createSportComponent.form.get('football').value
-      };
+      // const sportSchema = {
+      //   baseball : this.createSportComponent.form.get('baseball').value,
+      //   football : this.createSportComponent.form.get('football').value
+      // };
       const organization = {
         organizationname : organName,
-        location : organLoc,
-        sport : sportSchema
+        location : organLoc
+        // sport : sportSchema
       };
-      console.log(sportSchema.baseball);
-      console.log(sportSchema.football);
+      // console.log(sportSchema.baseball);
+      // console.log(sportSchema.football);
         this.authService.createOrganization(organization).subscribe(data => {
           if (data.success) {
             this.messageClass = 'alert alert-success'; // Set a success class
@@ -184,7 +184,7 @@ export class CreateAccountComponent implements OnInit{
               password: this.form.get('password').value, // Password input field
               role: this.isAdmin, //user/admin?
               organization: organID, //new organization
-              sport : sportSchema
+              // sport : sportSchema
             };
 
             // Function from authentication service to register user
@@ -216,12 +216,12 @@ export class CreateAccountComponent implements OnInit{
         });
     } else {
       this.isAdmin = false;
-      const sportSchema = {
-        baseball : $( "#baseball" ).is(':checked'),
-        football :  $( "#football" ).is(':checked')
-      };
-      console.log(sportSchema.baseball);
-      console.log(sportSchema.football);
+      // const sportSchema = {
+      //   baseball : $( "#baseball" ).is(':checked'),
+      //   football :  $( "#football" ).is(':checked')
+      // };
+      // console.log(sportSchema.baseball);
+      // console.log(sportSchema.football);
       const user = {
         firstname: this.form.get('firstname').value, // E-mail input field
         lastname: this.form.get('lastname').value, // E-mail input field
@@ -230,7 +230,7 @@ export class CreateAccountComponent implements OnInit{
         password: this.form.get('password').value, // Password input field
         role: this.isAdmin, //user/admin?
         organization : this.form.get('organization').value, //new organization
-        sport : sportSchema
+        // sport : sportSchema
       };
 
       // console.log(user);

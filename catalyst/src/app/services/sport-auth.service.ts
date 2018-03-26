@@ -38,6 +38,12 @@ export class SportAuthService {
     return this.http.post(this.domain + '/sportAuthentication/createFootballSchema', footballSchema, this.options).map(res => res.json());
   }
 
+  // Function to register user accounts
+  createBasketballSchema(basketballSchema) {
+    this.createAuthenticationHeaders(); // Create headers before sending to API
+    return this.http.post(this.domain + '/sportAuthentication/createBasketballSchema', basketballSchema, this.options).map(res => res.json());
+  }
+
   createAthlete(athlete) {
     this.createAuthenticationHeaders(); // Create headers before sending to API
     return this.http.post(this.domain + '/sportAuthentication/createAthlete', athlete, this.options).map(res => res.json());

@@ -137,11 +137,11 @@ const userSchema = new Schema({
   username: { type: String, required: true, unique: true, lowercase : true, validate: usernameValidators },
   password: { type: String, required: true, validate: passwordValidators },
   role: { type: Boolean, required: true},
-  organization : { type: mongoose.Schema.Types.ObjectId, ref: 'Organization' },
-  sport: {
-    baseball : { type: Boolean, required: true },
-    football : { type: Boolean, required: true }
-  }
+  organization : { type: mongoose.Schema.Types.ObjectId, ref: 'Organization' }
+  // sport: {
+  //   baseball : { type: Boolean, required: true },
+  //   football : { type: Boolean, required: true }
+  // }
 });
 
 // Schema Middleware to Encrypt Password

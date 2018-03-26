@@ -20,6 +20,7 @@ import { NotAuthGuard} from './guards/notAuth.guard';
 import { CreateOrganizationComponent } from './register/create-organization/create-organization.component';
 import { CreateSportComponent } from './register/create-sport/create-sport.component';
 import {SportAuthService} from './services/sport-auth.service';
+import { BasketballSchemaComponent} from './dashboard/basketball-schema/basketball-schema.component';
 import { BaseballSchemaComponent } from './dashboard/baseball-schema/baseball-schema.component';
 import { FootballSchemaComponent } from './dashboard/football-schema/football-schema.component';
 import { SideBarComponent } from './dashboard/side-bar/side-bar.component';
@@ -46,6 +47,7 @@ const appRoutes: Routes = [
     ProfileComponent,
     CreateOrganizationComponent,
     CreateSportComponent,
+    BasketballSchemaComponent,
     BaseballSchemaComponent,
     FootballSchemaComponent,
     SideBarComponent,

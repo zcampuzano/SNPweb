@@ -2,6 +2,7 @@ const User = require('../serverSide/models/user'); // Import User Model Schema
 const Organization = require('../serverSide/models/organization'); // Import User Model Schema
 const Athlete = require('../serverSide/models/athlete'); // Import User Model Schema
 const Recruit = require('../serverSide/models/recruit'); // Import User Model Schema
+const BasketballSchema = require('../serverSide/models/sports/basketball');
 const BaseballSchema = require('../serverSide/models/sports/baseball');
 const FootballSchema = require('../serverSide/models/sports/football');
 const jwt = require('jsonwebtoken');
@@ -31,6 +32,45 @@ module.exports = (router, session) => {
       });
     }
   });
+
+  /* ==============
+        Create BasketballSchema Route
+     ============== */
+  router.post('/createBasketballSchema', (req, res) => {
+    if (!req.body.number) {
+      res.json({ success: false, message: 'Please provide a Pitch Speed'});
+    }
+    let basketballSchema = new BasketballSchema({
+      number : req.body.number,
+    });
+
+    User.findOne({ _id: req.decoded.userId }).select('organization').exec((err, organID) => {
+      if (err) {
+        res.json({ success: false, message: err }); // Return error
+      } else {
+        if (!organID) {
+          res.json({ success: false, message: 'We do not have any organizations' }); // Return error, organs was not found in db
+        } else {
+          BasketballSchema.createBasketballSchema(basketballSchema, function(err){
+            if (err) {
+              if (err.errors) {
+                // Check if validation error is in the email field
+                if (err.errors.number) {
+                  res.json({ success: false, message: err.errors.number.message }); // Return error
+                }
+              } else {
+                res.json({ success: false, message: 'Could not save BasketballSchema. Error: ', err }); // Return error if not related to validation
+              }
+            } else {
+              res.json({ success: true, message: 'BasketballSchema registered!', organID : organID.organization,
+                basketballSchemaID: basketballSchema._id }); // Return success
+            }
+          });
+        }
+      }
+    })
+  });
+
 
   /* ==============
         Create BaseballSchema Route
@@ -129,8 +169,9 @@ module.exports = (router, session) => {
     let athlete = new Athlete({
       firstname : req.body.firstname,
       lastname : req.body.lastname,
-      baseballStat : req.body.baseballStat,
-      footballStat : req.body.footballStat,
+      basketballStat : req.body.baseballStat,
+      // baseballStat : req.body.baseballStat,
+      // footballStat : req.body.footballStat,
       organization : req.body.organization
     });
     Athlete.createAthlete(athlete, function(err){
@@ -144,12 +185,10 @@ module.exports = (router, session) => {
             if (err.errors.lastname) {
               res.json({ success: false, message: err.errors.lastname.message}); // Return error
             } else {
-              if (err.errors.baseballStat) {
-                res.json({ success : false, message : err.errors.baseballStat.message});
+              if (err.errors.basketballStat) {
+                res.json({ success : false, message : err.errors.basketballStat.message});
               } else {
-                if (err.errors.footballStat) {
-                  res.json({ success : false, message : err.errors.footballStat.message});
-                } else {
+                 {
                   if (err.errors.organization) {
                     res.json({ success : false, message : err.errors.organization.message});
                   }
