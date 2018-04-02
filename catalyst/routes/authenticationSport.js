@@ -169,6 +169,7 @@ module.exports = (router, session) => {
     let athlete = new Athlete({
       firstname : req.body.firstname,
       lastname : req.body.lastname,
+      number: req.body.number,
       basketballStat : req.body.basketballStat,
       // baseballStat : req.body.baseballStat,
       // footballStat : req.body.footballStat,

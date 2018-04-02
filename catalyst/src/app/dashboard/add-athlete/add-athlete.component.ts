@@ -52,6 +52,11 @@ export class AddAthleteComponent implements OnInit {
       lastname: ['', Validators.compose([
         Validators.required, // Field is required
         this.validateUsername // Custom validation
+      ])],
+      number: ['', ([//Validators.compose([
+        //Validators.required, // Field is required
+        //this.validateUsername // Custom validation
+        //todo add custom number validation
       ])]
     }, { validator: null});
   }
@@ -176,8 +181,9 @@ export class AddAthleteComponent implements OnInit {
         this.messageClass = 'alert alert-success'; // Set a success class
         this.message = data.message; // Set a success messagers
         const athlete = {
-          firstname: this.form.get('firstname').value, // E-mail input field
-          lastname: this.form.get('lastname').value, // E-mail input field
+          firstname: this.form.get('firstname').value,
+          lastname: this.form.get('lastname').value,
+          number: this.form.get('number').value,
           basketballStat :  data.basketballSchemaID,
           organization : data.organID
         };
