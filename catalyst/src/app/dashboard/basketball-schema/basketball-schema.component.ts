@@ -19,7 +19,7 @@ export class BasketballSchemaComponent implements OnInit {
   createForm() {
     this.form = this.formBuilder.group({
       // First Name Input
-      number: ['', ([//Validators.compose([
+      PTA2: ['', ([//Validators.compose([
         //Validators.required, // Field is required
         //this.validateUsername // Custom validation
         //todo add custom number validation

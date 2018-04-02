@@ -2,12 +2,12 @@
 
   <!-- First Name Input -->
   <div class="form-group">
-    <label for="number">Points</label>
-    <div [ngClass]="{'has-error': (form.controls.number.errors && form.controls.number.dirty), 'has-success': (!form.controls.number.errors && form.controls.number.dirty) }">
-      <input type="text" (keypress)="validate($event)" name="number" class="form-control" autocomplete="off" placeholder="NumbersOnly" formControlName="number" />
+    <label for="PTA2">Points</label>
+    <div [ngClass]="{'has-error': (form.controls.PTA2.errors && form.controls.PTA2.dirty), 'has-success': (!form.controls.PTA2.errors && form.controls.PTA2.dirty) }">
+      <input type="text" (keypress)="validate($event)" name="PTA2" class="form-control" autocomplete="off" placeholder="NumbersOnly" formControlName="PTA2" />
       <!-- Validation -->
       <ul class="help-block">
-        <li *ngIf="form.controls.number.errors?.required && form.controls.number.dirty">This field is required</li>
+        <li *ngIf="form.controls.PTA2.errors?.required && form.controls.PTA2.dirty">This field is required</li>
       </ul>
     </div>
   </div>

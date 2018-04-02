@@ -169,7 +169,7 @@ export class AddAthleteComponent implements OnInit {
     //   }
     // }
     let basketballSchema = {
-      number : this.createBasketballSchemaComponent.form.get('number').value
+      PTA2 : this.createBasketballSchemaComponent.form.get('PTA2').value
     };
     this.sportService.createBasketballSchema(basketballSchema).subscribe(data => {
       if (data.success) {

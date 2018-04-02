@@ -37,11 +37,11 @@ module.exports = (router, session) => {
         Create BasketballSchema Route
      ============== */
   router.post('/createBasketballSchema', (req, res) => {
-    if (!req.body.number) {
-      res.json({ success: false, message: 'Please provide a Pitch Speed'});
+    if (!req.body.PTA2) {
+      res.json({ success: false, message: 'Please provide a PTA2'});
     }
     let basketballSchema = new BasketballSchema({
-      number : req.body.number,
+      PTA2 : req.body.PTA2,
     });
 
     User.findOne({ _id: req.decoded.userId }).select('organization').exec((err, organID) => {
@@ -55,8 +55,8 @@ module.exports = (router, session) => {
             if (err) {
               if (err.errors) {
                 // Check if validation error is in the email field
-                if (err.errors.number) {
-                  res.json({ success: false, message: err.errors.number.message }); // Return error
+                if (err.errors.PTA2) {
+                  res.json({ success: false, message: err.errors.PTA2.message }); // Return error
                 }
               } else {
                 res.json({ success: false, message: 'Could not save BasketballSchema. Error: ', err }); // Return error if not related to validation
