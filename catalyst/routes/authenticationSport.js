@@ -169,7 +169,7 @@ module.exports = (router, session) => {
     let athlete = new Athlete({
       firstname : req.body.firstname,
       lastname : req.body.lastname,
-      basketballStat : req.body.baseballStat,
+      basketballStat : req.body.basketballStat,
       // baseballStat : req.body.baseballStat,
       // footballStat : req.body.footballStat,
       organization : req.body.organization
