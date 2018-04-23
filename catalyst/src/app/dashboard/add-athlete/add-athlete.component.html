@@ -64,8 +64,8 @@
 <!-- Registration Form /-->
 
 <ul class="list-group">
-  <li class="list-group-item" *ngFor="let athlete of athletes">
-    {{athlete.firstname}}
+  <li class="list-group-item" *ngFor="let athlete of athletes" (click)="onAthleteClick(athlete._id, athlete.firstname, athlete.lastname)">
+    {{athlete.firstname}} {{athlete.lastname}}
   </li>
 </ul>
 

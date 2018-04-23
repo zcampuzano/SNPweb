@@ -210,6 +210,10 @@ export class AddAthleteComponent implements OnInit {
     }, 1000);
   }
 
+  onAthleteClick(_id, firstname, lastname) {
+    this.router.navigate(['/dashboard' + '/' + firstname + lastname + '/' + _id]);
+  }
+
   // Function to disable the registration form
   disableForm() {
     this.form.controls['firstname'].disable();

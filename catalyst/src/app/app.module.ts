@@ -27,11 +27,13 @@ import { SideBarComponent } from './dashboard/side-bar/side-bar.component';
 import { AddAthleteComponent } from './dashboard/add-athlete/add-athlete.component';
 import { AddRecruitComponent } from './dashboard/add-recruit/add-recruit.component';
 import { AdminComponent } from './admin/admin.component';
+import { SingleAthleteComponent } from './dashboard/single-athlete/single-athlete.component';
 
 const appRoutes: Routes = [
   {path : '', component: LoginComponent, canActivate : [NotAuthGuard]},
   {path : 'register', component: CreateAccountComponent, canActivate : [NotAuthGuard]},
   {path : 'dashboard', component: DashboardComponent, canActivate : [AuthGuard]},
+  {path : 'dashboard/:name/:id', component: SingleAthleteComponent, canActivate : [AuthGuard]},
   {path : 'profile', component: ProfileComponent, canActivate : [AuthGuard]},
   {path : 'admin', component: AdminComponent, canActivate : [AuthGuard]},
 ];
@@ -54,6 +56,7 @@ const appRoutes: Routes = [
     AddAthleteComponent,
     AddRecruitComponent,
     AdminComponent,
+    SingleAthleteComponent,
   ],
   imports: [
     BrowserModule,

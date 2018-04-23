@@ -265,7 +265,7 @@ module.exports = (router, session) => {
      Route to get all athletes
   =============================================================== */
   router.get('/getAthletes', (req, res) => {
-    Athlete.find({}).select('firstname').exec((err, allAthlete) => {
+    Athlete.find({}).select('firstname lastname _id').exec((err, allAthlete) => {
       if (err) {
         res.json({ success: false, message: err }); // Return error
       } else {
