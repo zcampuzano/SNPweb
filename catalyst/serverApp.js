@@ -49,6 +49,7 @@ app.use('/sportAuthentication', sportAuthentication);
 // Connect server to Angular 2 Index.html
 app.get('*', (req, res) => {
   res.sendFile(path.join(__dirname + '/dist/index.html'));
+  // res.sendFile(path.join(__dirname + '/src/index.html'));
 });
 
 // Start Server: Listen on port 8080

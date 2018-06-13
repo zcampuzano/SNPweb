@@ -86,6 +86,7 @@ export class AddAthleteComponent implements OnInit {
         // this.processing = false; // Re-enable submit button
       } else {
         this.athletes = data.athleteList;
+        // console.log(this.athletes)
       }
     });
   }
@@ -174,7 +175,8 @@ export class AddAthleteComponent implements OnInit {
     //   }
     // }
     let basketballSchema = {
-      PTA2 : this.createBasketballSchemaComponent.form.get('PTA2').value
+      // PTA2 : this.createBasketballSchemaComponent.form.get('PTA2').value
+      PTA2 : 0
     };
     this.sportService.createBasketballSchema(basketballSchema).subscribe(data => {
       if (data.success) {

@@ -37,11 +37,11 @@ module.exports = (router, session) => {
         Create BasketballSchema Route
      ============== */
   router.post('/createBasketballSchema', (req, res) => {
-    if (!req.body.PTA2) {
-      res.json({ success: false, message: 'Please provide a PTA2'});
-    }
     let basketballSchema = new BasketballSchema({
-      PTA2 : req.body.PTA2,
+      PTA2 : 0, PTM2: 0, PTA3 : 0, AST : 0, BLK : 0, DRB : 0, FTA : 0, FTM : 0, ORB : 0, PF : 0,
+      STL : 0, TO : 0, ASTPG : 0, STLPG : 0, PTP2 : 0, PTP3 : 0, AST_TO_RATIO : 0, BLKPG : 0, FGP : 0,
+      FGA : 0, FGM : 0, FTP : 0, GP : 0, MINPG : 0, OPP : 0, OPPG : 0, PFPG : 0, PPG : 0, RPG : 0,
+      TOPG : 0, MIN : 0, PTS : 0, TRB : 0, FF : 0, TECHF : 0, DQ : 0, GS : 0, TF : 0, W : 0, L : 0, T : 0
     });
 
     User.findOne({ _id: req.decoded.userId }).select('organization').exec((err, organID) => {
@@ -322,13 +322,145 @@ module.exports = (router, session) => {
         res.json({ success: false, message: err }); // Return error
       } else {
         if (!user) {
-          res.json({ success: false, message: 'We do not have any organizations' }); // Return error, organs was not found in db
+          res.json({ success: false, message: 'We do not have any users' }); // Return error, organs was not found in db
         } else {
           res.json({ success : true, user : user})
         }
       }
     })
   });
+
+  /* ===============================================================
+    Route to get one athlete
+ =============================================================== */
+  router.get('/getAthlete/:id', (req, res) => {
+    // console.log(req.params.id)
+    Athlete.findOne({ _id: req.params.id }).select('firstname lastname basketballStat').exec((err, athlete) => {
+      if (err) {
+        res.json({ success: false, message: err }); // Return error
+      } else {
+        if (!athlete) {
+          res.json({ success: false, message: 'We do not have any athletes' }); // Return error, organs was not found in db
+        } else {
+          res.json({ success : true, athlete : athlete})
+        }
+      }
+    })
+  });
+
+  /* ===============================================================
+    Route to get one BasketballStat
+ =============================================================== */
+  router.get('/getBasketballStat/:id', (req, res) => {
+    console.log("bball id : ", req.params.id)
+    BasketballSchema.findOne({ _id: req.params.id }).exec((err, basketballSchema) => {
+      if (err) {
+        res.json({ success: false, message: err }); // Return error
+      } else {
+        if (!basketballSchema) {
+          res.json({ success: false, message: 'We do not have any basketballSchemas' }); // Return error, organs was not found in db
+        } else {
+          res.json({ success : true, basketballSchema : basketballSchema})
+        }
+      }
+    })
+  });
+
+
+  /* ===============================================================
+  Route to change Athlete Info
+=============================================================== */
+  router.post('/changeAthlete', (req, res) => {
+    if (!req.body.identity) {
+      console.log("no ID");
+    }
+    Athlete.findOneAndUpdate(
+      {"_id": req.body.identity},
+      {
+        "$set": {
+          firstname: req.body.newFirstname,
+        }
+      },
+      {"new": true, "upsert": true},
+      function (err, doc) {
+        if (err) {
+          res.json({ success: false, message: 'Could not change athlete field' }); // Return error, organs was not found in db
+          throw err;
+        }
+        console.log(doc);
+        res.json({ success: true, firstname: doc.firstname });
+      }
+    );
+  });
+
+  /* ===============================================================
+ Route to change BasketballSchema Info
+=============================================================== */
+  router.post('/changeBasketballSchema', (req, res) => {
+    if (!req.body.identity) {
+      console.log("no ID");
+    }
+    BasketballSchema.findOneAndUpdate(
+      {"_id": req.body.identity},
+      {
+        "$set": {
+          // number : req.body.number,
+          PTA2 : req.body.PTA2,
+          PTM2 : req.body.PTM2,
+          PTA3 : req.body.PTA3,
+          AST : req.body.AST,
+          BLK : req.body.BLK,
+          DRB : req.body.DRB,
+          FTA : req.body.FTA,
+          FTM : req.body.FTM,
+          ORB : req.body.ORB,
+          PF : req.body.PF,
+          STL : req.body.STL,
+          TO : req.body.TO,
+          ASTPG : req.body.ASTPG,
+          STLPG : req.body.STLPG,
+          PTP2 : req.body.PTP2,
+          PTP3 : req.body.PTP3,
+          AST_TO_RATIO : req.body.AST_TO_RATIO,
+          BLKPG : req.body.BLKPG,
+          FGP : req.body.FGP,
+          FGA : req.body.FGA,
+          FGM : req.body.FGM,
+          FTP : req.body.FTP,
+          GP : req.body.GP,
+          MINPG : req.body.MINPG,
+          OPP : req.body.OPP,
+          OPPG : req.body.OPPG,
+          PFPG : req.body.PFPG,
+          PPG : req.body.PPG,
+          RPG : req.body.RPG,
+          TOPG : req.body.TOPG,
+          MIN : req.body.MIN,
+          PTS : req.body.PTS,
+          TRB : req.body.TRB,
+          FF : req.body.FF,
+          TECHF : req.body.TECHF,
+          DQ : req.body.DQ,
+          GS : req.body.GS,
+          TF : req.body.TF,
+          W : req.body.W,
+          L : req.body.L,
+          T : req.body.T
+        }
+      },
+      {"new": false, "upsert": false},
+      function (err, doc) {
+        if (err) {
+          res.json({ success: false, message: 'Could not change athlete field' }); // Return error, organs was not found in db
+          throw err;
+        }
+        console.log(doc);
+        res.json({ success: true, newSchema: doc});
+      }
+    );
+  });
+
+
 
   return router; // Return router object to main index.js
 };

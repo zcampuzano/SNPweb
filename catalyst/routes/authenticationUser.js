@@ -6,7 +6,7 @@ const passport = require('passport');
 
 module.exports = (router, session) => {
   /* ==============
-    Create Organization Route
+    Create Token
  ============== */
   router.get('/createRegisterToken', (req, res) => {
     const token = jwt.sign({}, config.secret, { expiresIn: '24h' }); // Create a token for client
@@ -298,12 +298,12 @@ module.exports = (router, session) => {
     );
   });
 
-
   /* ================================================
   MIDDLEWARE - Used to grab user's token from headers
   ================================================ */
   router.use((req, res, next) => {
     const token = req.headers['authorization']; // Create token found in headers
+    // console.log('my token is HERE : ', token)
     // Check if token was found in headers
     if (!token) {
       res.json({ success: false, message: 'No token provided middle' }); // Return error
