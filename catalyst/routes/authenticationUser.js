@@ -6,7 +6,7 @@ const passport = require('passport');
 
 module.exports = (router, session) => {
   /* ==============
-    Create Organization Route
+    Create Token
  ============== */
   router.get('/createRegisterToken', (req, res) => {
     const token = jwt.sign({}, config.secret, { expiresIn: '24h' }); // Create a token for client
@@ -22,16 +22,16 @@ module.exports = (router, session) => {
     } else {
       if (!req.body.location) {
         res.json({success: false, message: 'Please provide organization location'});
-      } else {
-        if (!req.body.sport) {
-          res.json({ success: false, message : 'You must provide sports'});
-        }
-      }
+      } //else {
+      //   if (!req.body.sport) {
+      //     res.json({ success: false, message : 'You must provide sports'});
+      //   }
+      // }
     }
     let organization = new Organization({
       organizationname : req.body.organizationname,
-      location : req.body.location,
-      sport : req.body.sport
+      location : req.body.location
+      // sport : req.body.sport
     });
     Organization.createOrganization(organization, function(err){
       if (err) {
@@ -42,12 +42,12 @@ module.exports = (router, session) => {
           } else {
             // Check if validation error is in the username field
             if (err.errors.location) {
-              res.json({ success: false, message: err.errors.location.message}); // Return error
-            } else {
-              if (err.errors.sport) {
-                res.json({ success : false, message : err.errors.sport.message});
-              }
-            }
+              res.json({success: false, message: err.errors.location.message}); // Return error
+            } // else {
+            //   if (err.errors.sport) {
+            //     res.json({ success : false, message : err.errors.sport.message});
+            //   }
+            // }
           }
         } else {
           res.json({ success: false, message: 'Could not save organ. Error: ', err }); // Return error if not related to validation
@@ -81,11 +81,11 @@ module.exports = (router, session) => {
             } else {
                 if (!req.body.organization) {
                   res.json({ success: false, message : 'You must provide an organization'});
-                } else {
-                  if (!req.body.sport) {
-                    res.json({ success: false, message : 'You must provide sports'});
-                  }
-                }
+                }// else {
+                //   if (!req.body.sport) {
+                //     res.json({ success: false, message : 'You must provide sports'});
+                //   }
+                // }
               }
           }
           // Create new user object and apply user input
@@ -96,8 +96,8 @@ module.exports = (router, session) => {
             username: req.body.username,
             password: req.body.password,
             role : req.body.role,
-            organization : req.body.organization,
-            sport : req.body.sport
+            organization : req.body.organization
+            // sport : req.body.sport
           });
           // Save user to database
           user.save((err) => {
@@ -132,11 +132,11 @@ module.exports = (router, session) => {
                             } else {
                               if (err.errors.role) {
                                 res.json({ success : false, message : err.errors.role.message});
-                              } else {
-                                if (err.errors.sport) {
-                                  res.json({ success : false, message : err.errors.sport.message});
-                                }
-                              }
+                              } //else {
+                              //   if (err.errors.sport) {
+                              //     res.json({ success : false, message : err.errors.sport.message});
+                              //   }
+                              // }
                               res.json({ success: false, message: err }); // Return any other error not already covered
                             }
                           }
@@ -262,7 +262,7 @@ module.exports = (router, session) => {
                if(!validPass) {
                  res.json({ success : false, message : "Password invalid"});
                } else {
-                 const token = jwt.sign({ userId: user._id }, config.secret, { expiresIn: '24h' }); // Create a token for client
+                 const token = jwt.sign({ userId: user._id, organId: user.organization }, config.secret, { expiresIn: '24h' }); // Create a token for client
                  res.json({ success: true, message: 'Log in Success!', token: token, user: { role: user.role } }); // Return success and token to frontend
                }
              }
@@ -298,15 +298,15 @@ module.exports = (router, session) => {
     );
   });
 
-
   /* ================================================
   MIDDLEWARE - Used to grab user's token from headers
   ================================================ */
   router.use((req, res, next) => {
     const token = req.headers['authorization']; // Create token found in headers
+    // console.log('my token is HERE : ', token)
     // Check if token was found in headers
     if (!token) {
-      res.json({ success: false, message: 'No token provided' }); // Return error
+      res.json({ success: false, message: 'No token provided middle' }); // Return error
     } else {
       // Verify the token is valid
       jwt.verify(token, config.secret, (err, decoded) => {
@@ -356,6 +356,26 @@ module.exports = (router, session) => {
         }
       }
     })
+  });
+
+  /* ===============================================================
+     Route to get all organization users
+  =============================================================== */
+  router.get('/getAllOrganizationUsers', (req, res) => {
+    // Search for user in database
+    User.find({ organization: req.decoded.organId }).select('firstname lastname').exec((err, userList) => {
+      // Check if error connecting
+      if (err) {
+        res.json({ success: false, message: err }); // Return error
+      } else {
+        // Check if user was found in database
+        if (!userList) {
+          res.json({ success: false, message: 'User not found' }); // Return error, user was not found in db
+        } else {
+          res.json({ success: true, userList: userList }); // Return success, send user object to frontend for profile
+        }
+      }
+    });
   });
 
 

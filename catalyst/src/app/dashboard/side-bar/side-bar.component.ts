@@ -23,7 +23,7 @@ export class SideBarComponent implements OnInit {
   }
 
   changeActive() {
-    console.log(($('span').hasClass('active')));
+    // console.log(($('span').hasClass('active')));
     if ( ($('span').hasClass('active')) ) {
       $('#first').addClass('active');
     }

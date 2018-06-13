@@ -50,8 +50,10 @@ const usernameValidators = [
 const athleteSchema = new Schema({
   firstname: { type: String, required: true, validate: usernameValidators },
   lastname: { type: String, required: true, validate: usernameValidators },
-  baseballStat : { type : mongoose.Schema.Types.ObjectId, ref: 'Baseball' , sparse : true},
-  footballStat : { type : mongoose.Schema.Types.ObjectId, ref: 'Football', sparse : true},
+  number: { type: Number, required: true},
+  basketballStat : { type : mongoose.Schema.Types.ObjectId, ref: 'Basketball' , sparse : true},
+  // baseballStat : { type : mongoose.Schema.Types.ObjectId, ref: 'Baseball' , sparse : true},
+  // footballStat : { type : mongoose.Schema.Types.ObjectId, ref: 'Football', sparse : true},
   organization : { type: mongoose.Schema.Types.ObjectId, ref: 'Organization'}
 });
 

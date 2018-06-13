@@ -67,7 +67,7 @@ export class LoginComponent implements OnInit {
         this.messageClass = 'alert alert-success'; // Set bootstrap success class
         this.message = data.message; // Set success message
         // Function to store user's token in client local storage
-        this.authService.storeUserData(data.token, data.user);
+        this.authService.storeUserData(data.token, data.user.role);
         // After 2 seconds, redirect to dashboard page
         setTimeout(() => {
           if (this.previousUrl) {

@@ -20,18 +20,22 @@ import { NotAuthGuard} from './guards/notAuth.guard';
 import { CreateOrganizationComponent } from './register/create-organization/create-organization.component';
 import { CreateSportComponent } from './register/create-sport/create-sport.component';
 import {SportAuthService} from './services/sport-auth.service';
+import { BasketballSchemaComponent} from './dashboard/basketball-schema/basketball-schema.component';
 import { BaseballSchemaComponent } from './dashboard/baseball-schema/baseball-schema.component';
 import { FootballSchemaComponent } from './dashboard/football-schema/football-schema.component';
 import { SideBarComponent } from './dashboard/side-bar/side-bar.component';
 import { AddAthleteComponent } from './dashboard/add-athlete/add-athlete.component';
 import { AddRecruitComponent } from './dashboard/add-recruit/add-recruit.component';
+import { AdminComponent } from './admin/admin.component';
+import { SingleAthleteComponent } from './dashboard/single-athlete/single-athlete.component';
 
-const appRoutes : Routes = [
+const appRoutes: Routes = [
   {path : '', component: LoginComponent, canActivate : [NotAuthGuard]},
   {path : 'register', component: CreateAccountComponent, canActivate : [NotAuthGuard]},
   {path : 'dashboard', component: DashboardComponent, canActivate : [AuthGuard]},
+  {path : 'dashboard/:name/:id', component: SingleAthleteComponent, canActivate : [AuthGuard]},
   {path : 'profile', component: ProfileComponent, canActivate : [AuthGuard]},
-
+  {path : 'admin', component: AdminComponent, canActivate : [AuthGuard]},
 ];
 
 @NgModule({
@@ -45,11 +49,14 @@ const appRoutes : Routes = [
     ProfileComponent,
     CreateOrganizationComponent,
     CreateSportComponent,
+    BasketballSchemaComponent,
     BaseballSchemaComponent,
     FootballSchemaComponent,
     SideBarComponent,
     AddAthleteComponent,
     AddRecruitComponent,
+    AdminComponent,
+    SingleAthleteComponent,
   ],
   imports: [
     BrowserModule,

@@ -3,7 +3,8 @@ import {Http, Headers, RequestOptions} from '@angular/http';
 
 @Injectable()
 export class SportAuthService {
-  domain = "http://localhost:8080"; // Development Domain - Not Needed in Production
+
+  domain = "https://git.heroku.com/hidden-dawn-41067.git"; // Development Domain - Not Needed in Production
   loginAuthToken;
   options;
 
@@ -25,6 +26,7 @@ export class SportAuthService {
   // Function to get token from client local storage
   loadToken() {
     this.loginAuthToken = localStorage.getItem('ng-jwt'); // Get token and asssign to variable to be used elsewhere
+    // console.log('token boiys : ', this.loginAuthToken)
   }
 
   // Function to register user accounts
@@ -36,6 +38,12 @@ export class SportAuthService {
   createFootballSchema(footballSchema) {
     this.createAuthenticationHeaders(); // Create headers before sending to API
     return this.http.post(this.domain + '/sportAuthentication/createFootballSchema', footballSchema, this.options).map(res => res.json());
+  }
+
+  // Function to register user accounts
+  createBasketballSchema(basketballSchema) {
+    this.createAuthenticationHeaders(); // Create headers before sending to API
+    return this.http.post(this.domain + '/sportAuthentication/createBasketballSchema', basketballSchema, this.options).map(res => res.json());
   }
 
   createAthlete(athlete) {
@@ -63,10 +71,27 @@ export class SportAuthService {
     return this.http.get(this.domain + '/sportAuthentication/getSports', this.options).map(res => res.json());
   }
 
-  // Function to store user's data in client local storage
-  storeUserData(token) {
-    localStorage.setItem('ng-jwt', token); // Set token in local storage
-    this.loginAuthToken = token; // Assign token to be used elsewhere
+  getUser(id) {
+    this.createAuthenticationHeaders(); // Create headers before sending to API
+    return this.http.get(this.domain + '/sportAuthentication/getUser/' + id, this.options).map(res => res.json());
   }
 
+  getAthlete(id) {
+    this.createAuthenticationHeaders(); // Create headers before sending to API
+    return this.http.get(this.domain + '/sportAuthentication/getAthlete/' + id, this.options).map(res => res.json());
+  }
+
+  getBasketballStat(id) {
+    this.createAuthenticationHeaders(); // Create headers before sending to API
+    return this.http.get(this.domain + '/sportAuthentication/getBasketballStat/' + id, this.options).map(res => res.json());
+  }
+
+  changeAthlete(athlete) {
+    this.createAuthenticationHeaders(); // Create headers before sending to API
+    return this.http.post(this.domain + '/sportAuthentication/changeAthlete', athlete, this.options).map(res => res.json());
+  }
+  changeBasketballSchema(basketBall) {
+    this.createAuthenticationHeaders(); // Create headers before sending to API
+    return this.http.post(this.domain + '/sportAuthentication/changeBasketballSchema', basketBall, this.options).map(res => res.json());
+  }
 }

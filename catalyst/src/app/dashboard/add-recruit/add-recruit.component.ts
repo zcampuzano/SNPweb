@@ -14,7 +14,6 @@ export class AddRecruitComponent implements OnInit {
   message;
   messageClass;
   recruits;
-
   form : FormGroup;
   sportsList;
   formVisible = false;

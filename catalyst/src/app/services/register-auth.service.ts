@@ -6,7 +6,8 @@ import { tokenNotExpired } from 'angular2-jwt';
 @Injectable()
 export class RegisterAuthService {
 
-  domain = "http://localhost:8080"; // Development Domain - Not Needed in Production
+  // domain = "http://localhost:8080"; // Development Domain - Not Needed in Production
+  domain = "https://git.heroku.com/hidden-dawn-41067.git"; // Development Domain - Not Needed in Production
   loginAuthToken;
   role;
   options;
@@ -41,9 +42,10 @@ export class RegisterAuthService {
     return this.http.post(this.domain + '/authentication/createOrganization', organization).map(res => res.json());
   }
 
-  // createSport(sport) {
-  //   return this.http.post(this.domain + '/authentication/createSport', sport).map(res => res.json());
-  // }
+  getAllOrganizationUsers() {
+    this.createAuthenticationHeaders(); // Create headers before sending to API
+    return this.http.get(this.domain + '/authentication/getAllOrganizationUsers', this.options).map(res => res.json());
+  }
 
   getOrganizations() {
     this.createAuthenticationHeaders(); // Create headers before sending to API
