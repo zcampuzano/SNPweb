@@ -3,7 +3,7 @@ import {Http, Headers, RequestOptions} from '@angular/http';
 
 @Injectable()
 export class SportAuthService {
-
+  // domain = "http://localhost:8080"; // Development Domain - Not Needed in Production
   domain = "https://git.heroku.com/hidden-dawn-41067.git"; // Development Domain - Not Needed in Production
   loginAuthToken;
   options;
